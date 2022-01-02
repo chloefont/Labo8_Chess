@@ -8,11 +8,11 @@ import game.GameBoard;
 import game.Vector;
 
 public class King extends Piece implements LinearMovement {
-    int maxMove = getGameBoard().getWidth();
+    int maxMove = 1;
     public King(GameBoard gameBoard, PlayerColor color, Vector position) {
         super(gameBoard, color, position);
 
-        Movement[] movementRules = {new MoveLinear()};
+        Movement[] movementRules = {new Movement()};
         setMovementRules(movementRules);
     }
 

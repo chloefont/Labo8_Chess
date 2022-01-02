@@ -47,7 +47,7 @@ public class Piece {
         boolean moveOk = true;
 
         for (Movement movement : movementRules)
-            if (movement.check(gameBoard, this, to))
+            if (!movement.check(gameBoard, this, to))
                 moveOk = false;
 
         if (moveOk)

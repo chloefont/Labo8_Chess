@@ -2,7 +2,7 @@ package engine.pieces;
 
 import chess.PieceType;
 import chess.PlayerColor;
-import engine.rules.Movements.MoveCol;
+import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.Movement;
 import game.GameBoard;
 import game.Vector;
@@ -12,7 +12,7 @@ public class King extends Piece implements LinearMovement {
     public King(GameBoard gameBoard, PlayerColor color, Vector position) {
         super(gameBoard, color, position);
 
-        Movement[] movementRules = {new MoveCol()};
+        Movement[] movementRules = {new MoveLinear()};
         setMovementRules(movementRules);
     }
 

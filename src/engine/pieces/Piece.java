@@ -41,12 +41,18 @@ public class Piece {
     }
 
     public boolean move(Vector to) {
-        for (Movement movement : movementRules) {
-            if (movement.check(gameBoard, this, to)) {
-                position = to;
-                return true;
-            }
-        }
-        return false;
+        if (movementRules == null)
+            return false;
+
+        boolean moveOk = true;
+
+        for (Movement movement : movementRules)
+            if (movement.check(gameBoard, this, to))
+                moveOk = false;
+
+        if (moveOk)
+            position = to;
+
+        return moveOk;
     }
 }

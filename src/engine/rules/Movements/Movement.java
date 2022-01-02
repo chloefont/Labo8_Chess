@@ -26,6 +26,7 @@ public class Movement implements Rule {
             return false;
 
         Vector diff = piece.getPosition().sub(to);
-        return (diff.getY() == diff.getX() || -diff.getY() == diff.getX()) && diff.getX() <= ((LinearMovement) piece).getMaxMove();
+        return (diff.getY() == diff.getX() || -diff.getY() == diff.getX())
+                && (diff.getX() <= ((LinearMovement) piece).getMaxMove() && diff.getX() >= -((LinearMovement) piece).getMaxMove());
     }
 }

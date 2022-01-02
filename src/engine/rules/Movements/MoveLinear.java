@@ -8,6 +8,6 @@ import game.Vector;
 public class MoveLinear extends Movement {
     @Override
     public boolean check(GameBoard board, Piece piece, Vector to) {
-        return super.checkLines(piece, to);
+        return super.checkLines(board, piece, to) && super.checkNoPieceBetween(board, piece, to);
     }
 }

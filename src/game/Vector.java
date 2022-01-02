@@ -24,4 +24,17 @@ public class Vector {
     public Vector sub(Vector other) {
         return new Vector(x - other.getX(), y - other.getY());
     }
+
+    public boolean colinear(Vector other) {
+        return x * other.getY() == y * other.getX();
+    }
+
+    public boolean sameDirection(Vector other) {
+        return ((x <= 0 && other.getX() <= 0) || (x > 0 && other.getX() > 0))
+                && ((y <= 0 && other.getY() <= 0) || (y > 0 && other.getY() > 0));
+    }
+
+    public double norm() {
+        return Math.sqrt(x*x + y*y);
+    }
 }

@@ -2,9 +2,7 @@ package engine.pieces;
 
 import chess.PieceType;
 import chess.PlayerColor;
-import engine.rules.Movements.MoveForward;
 import engine.rules.Movements.MoveL;
-import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.Movement;
 import game.GameBoard;
 import game.Vector;

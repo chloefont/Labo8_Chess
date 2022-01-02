@@ -1,4 +1,12 @@
 package engine.rules.Movements.specials;
 
-public class PetitRoque {
+import engine.pieces.Piece;
+import game.GameBoard;
+import game.Vector;
+
+public class PetitRoque extends SpecialMovement {
+    @Override
+    public boolean check(GameBoard board, Piece piece, Vector to) {
+        return false;
+    }
 }

@@ -1,4 +1,7 @@
 package engine.rules.Movements;
 
-public class Movement {
+import engine.rules.Rule;
+
+abstract public class Movement implements Rule {
+
 }

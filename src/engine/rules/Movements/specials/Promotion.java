@@ -1,4 +1,12 @@
 package engine.rules.Movements.specials;
 
-public class Promotion {
+import engine.pieces.Piece;
+import game.GameBoard;
+import game.Vector;
+
+public class Promotion extends SpecialMovement {
+    @Override
+    public boolean check(GameBoard board, Piece piece, Vector to) {
+        return false;
+    }
 }

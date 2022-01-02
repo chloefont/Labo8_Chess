@@ -69,4 +69,8 @@ public class GameBoard {
     public Piece[] getPieces() {
         return pieces;
     }
+
+    public int getWidth() {
+        return width;
+    }
 }

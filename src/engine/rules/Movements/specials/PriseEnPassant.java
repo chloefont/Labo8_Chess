@@ -1,4 +1,12 @@
 package engine.rules.Movements.specials;
 
-public class PriseEnPassant {
+import engine.pieces.Piece;
+import game.GameBoard;
+import game.Vector;
+
+public class PriseEnPassant extends SpecialMovement {
+    @Override
+    public boolean check(GameBoard board, Piece piece, Vector to) {
+        return false;
+    }
 }

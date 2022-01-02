@@ -1,4 +1,6 @@
 package engine.rules.Movements.specials;
 
-public class SpecialMovement {
+import engine.rules.Rule;
+
+abstract public class SpecialMovement implements Rule {
 }

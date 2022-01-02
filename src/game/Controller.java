@@ -31,11 +31,14 @@ public class Controller implements ChessController {
             return false;
 
         Vector oldPosition = piece.getPosition();
-        piece.setPosition(new Vector(toX, toY));
-        view.removePiece(oldPosition.getX(), oldPosition.getY());
-        view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
-
-        return true;
+        if (piece.move(new Vector(toX, toY))) {
+            view.removePiece(oldPosition.getX(), oldPosition.getY());
+            view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
+            return true;
+        } else {
+            view.displayMessage("Vous ne pouvez pas déplacer votre pièce ici");
+            return false;
+        }
     }
 
     @Override

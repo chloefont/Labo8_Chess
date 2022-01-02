@@ -1,5 +1,6 @@
 package engine.pieces;
 import chess.*;
+import engine.rules.Movements.Movement;
 import engine.rules.Rule;
 import game.*;
 
@@ -7,8 +8,9 @@ public class Piece {
     private PlayerColor color;
     private GameBoard gameBoard;
     private Vector position;
+    private Movement[] movementRules;
 
-    public Piece(GameBoard gameBoard, PlayerColor color, Vector position) {
+    protected Piece(GameBoard gameBoard, PlayerColor color, Vector position) {
         this.gameBoard = gameBoard;
         this.color = color;
         this.position = position;
@@ -32,5 +34,19 @@ public class Piece {
 
     public void setPosition(Vector position) {
         this.position = position;
+    }
+
+    protected void setMovementRules(Movement[] movementRules) {
+        this.movementRules = movementRules;
+    }
+
+    public boolean move(Vector to) {
+        for (Movement movement : movementRules) {
+            if (movement.check(gameBoard, this, to)) {
+                position = to;
+                return true;
+            }
+        }
+        return false;
     }
 }

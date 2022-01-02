@@ -9,11 +9,11 @@ public class MoveLinear extends Movement {
     private final Vector direction;
 
     // pour ne pas tout casser;
-    MoveLinear(){
+    public MoveLinear(){
         direction = new Vector(0,0);
     }
 
-    MoveLinear(Vector direction){
+    public MoveLinear(Vector direction){
         this.direction = direction;
     }
 
@@ -21,6 +21,6 @@ public class MoveLinear extends Movement {
     @Override
     public boolean check(GameBoard board, Piece piece, Vector to) {
         // On check que le destination se trouve bien dans la bonne direction et qu'aucun pion ne se trouve entre la piece et la destination.
-        return direction.colinear(to.sub(piece.getPosition())) && super.checkNoPieceBetween(board, piece, to);
+        return direction.colinear(to.sub(piece.getPosition())) && checkNoPieceBetween(board, piece, to);
     }
 }

@@ -13,7 +13,14 @@ public class Queen extends Piece implements LinearMovement {
     public Queen(GameBoard gameBoard, PlayerColor color, Vector position) {
         super(gameBoard, color, position);
 
-        Movement[] movementRules = {new Movement()};
+        // TODO il faut faire ça avec toutes les pièces
+        // ici je fais comme dans l'exemple que je t'avais donné. La reine peut bouger comme ça: / \ | --
+        final Movement[] movementRules = {
+                new MoveLinear(new Vector(1,0)),
+                new MoveLinear(new Vector(0,1)),
+                new MoveLinear(new Vector(1,1)),
+                new MoveLinear(new Vector(1,-1)),
+        };
         setMovementRules(movementRules);
     }
 

@@ -2,7 +2,6 @@ package engine.pieces;
 
 import chess.PieceType;
 import chess.PlayerColor;
-import engine.rules.Movements.MoveForward;
 import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.Movement;
 import game.GameBoard;
@@ -14,7 +13,15 @@ public class Pawn extends Piece implements LinearMovement {
     public Pawn(GameBoard gameBoard, PlayerColor color, Vector position) {
         super(gameBoard, color, position);
 
-        Movement[] movementRules = {new MoveLinear(), new MoveForward()};
+        Vector dir;
+        if (getColor() == PlayerColor.WHITE)
+            dir = new Vector(0, 1);
+        else
+            dir = new Vector(0, -1);
+
+        Movement[] movementRules = {
+                new MoveLinear(dir, true)
+        };
         setMovementRules(movementRules);
     }
 

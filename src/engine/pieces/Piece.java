@@ -46,13 +46,13 @@ public class Piece {
 
         boolean moveOk = true;
 
-        for (Movement movement : movementRules)
-            if (!movement.check(gameBoard, this, to))
-                moveOk = false;
+        for (Movement movement : movementRules) {
+            if (movement.check(gameBoard, this, to)) {
+                position = to;
+                return true;
+            }
+        }
 
-        if (moveOk)
-            position = to;
-
-        return moveOk;
+        return false;
     }
 }

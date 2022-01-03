@@ -13,7 +13,10 @@ public class Rook extends Piece implements LinearMovement {
     public Rook(GameBoard gameBoard, PlayerColor color, Vector position) {
         super(gameBoard, color, position);
 
-        Movement[] movementRules = {new MoveLinear()};
+        Movement[] movementRules = {
+                new MoveLinear(new Vector(1, 0)),
+                new MoveLinear(new Vector(0, 1)),
+        };
         setMovementRules(movementRules);
     }
 

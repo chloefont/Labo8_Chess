@@ -45,6 +45,10 @@ public class Controller implements ChessController {
             return false;
         }
 
+        Piece other = gameBoard.getPiece(new Vector(toX, toY));
+        if (other != null) {
+            gameBoard.onDeath(other);
+        }
         // déplace la pièce si tout est validé
         piece.move(new Vector(toX, toY));
 

@@ -37,7 +37,9 @@ public class MoveLinear extends Movement {
         }
         // On check que le destination se trouve bien dans la bonne direction et
         // qu'aucun pion ne se trouve entre la piece et la destination.
-        return direction.colinear(to.sub(piece.getPosition())) && checkNoPieceBetween(board, piece, to);
+        return direction.colinear(to.sub(piece.getPosition())) &&
+                checkPieceAtSamePlace(board, piece, board.getPiece(to), to) &&
+                checkNoPieceBetween(board, piece, to);
     }
 
     @Override

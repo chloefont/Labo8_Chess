@@ -89,6 +89,10 @@ public class GameBoard {
             gameFinished = true;
 
         controller.deathPiece(piece.getPosition());
-        piece = null;
+        for (int i = 0; i < pieces.length; ++i) {
+            //TODO comment on peut supprimer la pièce autrement
+            if (piece == pieces[i])
+                pieces[i] = null;
+        }
     }
 }

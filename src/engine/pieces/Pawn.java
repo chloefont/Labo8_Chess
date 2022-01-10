@@ -5,6 +5,7 @@ import chess.PlayerColor;
 import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.specials.DoubleForward;
 import engine.rules.Movements.specials.PriseEnPassant;
+import engine.rules.Movements.specials.eatDiag;
 import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
@@ -24,8 +25,7 @@ public class Pawn extends Piece implements LinearMovement {
 
         Rule[] rules = {
                 new MoveLinear(new Vector(0, dir), true, false),
-                new MoveLinear(new Vector(1, dir), true, true),
-                new MoveLinear(new Vector(-1, dir), true, true),
+                new eatDiag(),
                 new DoubleForward(),
                 new PriseEnPassant()
         };

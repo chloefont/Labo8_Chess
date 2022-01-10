@@ -53,13 +53,9 @@ public class Piece {
         this.rules = rules;
     }
 
-    public boolean move(Vector to) {
-        if(checkMove(to)){
-            lastPosition = position;
-            position = to;
-            return true;
-        }
-        return false;
+    public void move(Vector to) {
+        lastPosition = position;
+        position = to;
     }
 
     public Piece copy(){

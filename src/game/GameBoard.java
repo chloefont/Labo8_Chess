@@ -4,6 +4,10 @@ import chess.PieceType;
 import chess.PlayerColor;
 import engine.pieces.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class GameBoard {
     private final int width = 8;
     private boolean gameFinished = false;
@@ -15,10 +19,42 @@ public class GameBoard {
         this.controller = controller;
     }
 
+    public GameBoard(GameBoard gameBoard){
+        gameFinished = gameBoard.gameFinished;
+        pieces = (Piece[]) Arrays.stream(pieces).map(piece -> piece.copy()).toArray();
+        controller = gameBoard.controller;
+    }
+
     public Piece getPiece (Vector vector) {
         for (Piece piece : pieces) {
             if (piece != null && piece.getPosition().equals(vector))
                 return piece;
+        }
+        return null;
+    }
+
+    public Piece[] getPiecesWithColor(PlayerColor color){
+        List<Piece> piecesSameColor = new ArrayList<Piece>();
+
+        for (Piece piece : pieces) {
+            if(piece.getColor() == color){
+                piecesSameColor.add(piece);
+            }
+        }
+
+        return piecesSameColor.toArray(new Piece[0]);
+    }
+
+    /**
+     * Récupère le roi d'une couleur.
+     * @param color La couleur souhaité.
+     * @return  Référence sur le roi.
+     */
+    public Piece getKing(PlayerColor color){
+        for (Piece piece : pieces) {
+            if(piece.getColor() == color && piece instanceof King){
+                return piece;
+            }
         }
         return null;
     }

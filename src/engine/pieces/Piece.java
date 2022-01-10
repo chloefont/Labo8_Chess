@@ -16,6 +16,13 @@ public class Piece {
         this.position = position;
     }
 
+    protected Piece(Piece copyFrom){
+        color = copyFrom.color;
+        gameBoard = copyFrom.gameBoard;
+        position = new Vector(copyFrom.position.getX(), copyFrom.position.getY());
+        movementRules = copyFrom.movementRules;
+    }
+
     protected GameBoard getGameBoard() {
         return gameBoard;
     }
@@ -41,12 +48,23 @@ public class Piece {
     }
 
     public boolean move(Vector to) {
+        if(checkMove(to)){
+            position = to;
+            return true;
+        }
+        return false;
+    }
+
+    public Piece copy(){
+        return new Piece(this);
+    }
+
+    public boolean checkMove(Vector to){
         if (movementRules == null)
             return false;
 
         for (Movement movement : movementRules) {
             if (movement.check(gameBoard, this, to)) {
-                position = to;
                 return true;
             }
         }

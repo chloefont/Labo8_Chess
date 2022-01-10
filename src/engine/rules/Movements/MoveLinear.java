@@ -8,6 +8,7 @@ import game.Vector;
 public class MoveLinear extends Movement {
     private final Vector direction;
     private boolean shouldBeInDirection;
+    private boolean canEat = true;
 
     // pour ne pas tout casser;
     public MoveLinear() {
@@ -18,9 +19,10 @@ public class MoveLinear extends Movement {
         this.direction = direction;
     }
 
-    public MoveLinear(Vector direction, boolean shouldBeInDirection) {
+    public MoveLinear(Vector direction, boolean shouldBeInDirection, boolean canEat) {
         this(direction);
         this.shouldBeInDirection = shouldBeInDirection;
+        this.canEat = canEat;
     }
 
     public Vector getDirection() {
@@ -38,7 +40,7 @@ public class MoveLinear extends Movement {
         // On check que le destination se trouve bien dans la bonne direction et
         // qu'aucun pion ne se trouve entre la piece et la destination.
         return direction.colinear(to.sub(piece.getPosition())) &&
-                checkPieceAtSamePlace(board, piece, board.getPiece(to), to) &&
+                checkPieceAtSamePlace(board, piece, board.getPiece(to), to, canEat) &&
                 checkNoPieceBetween(board, piece, to);
     }
 

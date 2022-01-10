@@ -13,14 +13,18 @@ public class Pawn extends Piece implements LinearMovement {
     public Pawn(GameBoard gameBoard, PlayerColor color, Vector position) {
         super(gameBoard, color, position);
 
-        Vector dir;
-        if (getColor() == PlayerColor.WHITE)
-            dir = new Vector(0, 1);
-        else
-            dir = new Vector(0, -1);
+        int dir;
+        if (getColor() == PlayerColor.WHITE) {
+            dir = 1;
+        } else {
+            dir = -1;
+        }
+
 
         Movement[] movementRules = {
-                new MoveLinear(dir, true)
+                new MoveLinear(new Vector(0, dir), true, false),
+                new MoveLinear(new Vector(1, dir), true, true),
+                new MoveLinear(new Vector(-1, dir), true, true)
         };
         setMovementRules(movementRules);
     }

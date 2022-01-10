@@ -1,5 +1,6 @@
 package engine.rules.Movements;
 
+import chess.PieceType;
 import engine.pieces.LinearMovement;
 import engine.pieces.Piece;
 import engine.rules.Rule;
@@ -21,14 +22,15 @@ abstract public class Movement implements Rule {
         return true;
     }
 
-    public boolean checkPieceAtSamePlace (GameBoard board, Piece piece, Piece other, Vector disiredPosition) {
+    public boolean checkPieceAtSamePlace (GameBoard board, Piece piece, Piece other, Vector desiredPosition, boolean canEat) {
         assert board == null || piece == null;
         if (other == null) {
             return true;
         }
 
-        if (other.getPosition().equals(disiredPosition)) {
-            if (other.getColor() == piece.getColor()) {
+        if (other.getPosition().equals(desiredPosition)) {
+            // Les pions ne peuvent pas manger en utilisant leurs mouvements classiques
+            if (other.getColor() == piece.getColor() || !canEat) {
                 return false;
             } else {
                 board.onDeath(other);

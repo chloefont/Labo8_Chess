@@ -19,11 +19,11 @@ public class GameBoard {
         this.controller = controller;
     }
 
-    public GameBoard(GameBoard gameBoard){
-        gameFinished = gameBoard.gameFinished;
-        pieces = (Piece[]) Arrays.stream(gameBoard.pieces).map(piece -> piece.copy()).toArray();
-        controller = gameBoard.controller;
-    }
+//    public GameBoard(GameBoard gameBoard){
+//        gameFinished = gameBoard.gameFinished;
+//        pieces = (Piece[]) Arrays.stream(gameBoard.pieces).map(piece -> piece.copy()).toArray();
+//        controller = gameBoard.controller;
+//    }
 
     public Piece getPiece (Vector vector) {
         for (Piece piece : pieces) {

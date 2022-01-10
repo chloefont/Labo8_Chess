@@ -3,6 +3,8 @@ package game;
 import chess.*;
 import engine.pieces.Piece;
 
+import java.beans.PropertyEditorManager;
+
 public class Controller implements ChessController {
     private final GameBoard gameBoard;
     private PlayerColor tourJoueur = PlayerColor.WHITE;
@@ -10,7 +12,7 @@ public class Controller implements ChessController {
     private int width = 8;
 
     public Controller() {
-        gameBoard = new GameBoard();
+        gameBoard = new GameBoard(this);
     }
 
     @Override
@@ -57,5 +59,10 @@ public class Controller implements ChessController {
             if (piece != null)
                 view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
         }
+    }
+
+    protected void deathPiece(Vector at) {
+        if (at != null)
+            view.removePiece(at.getX(), at.getY());
     }
 }

@@ -45,9 +45,7 @@ public class Controller implements ChessController {
         }
 
         Piece other = gameBoard.getPiece(new Vector(toX, toY));
-        if (other != null) {
-            gameBoard.onDeath(other);
-        }
+
         // déplace la pièce si tout est validé
         piece.move(new Vector(toX, toY));
 
@@ -63,11 +61,13 @@ public class Controller implements ChessController {
             if(oppositePiece.checkMove(king.getPosition())){
                 view.displayMessage("Vous mettez votre roi en danger !");
                 piece.move(piece.getLastPosition());
-                view.removePiece(oldPosition.getX(), oldPosition.getY());
-                view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
                 return false;
             }
 
+        }
+
+        if (other != null) {
+            gameBoard.onDeath(other);
         }
 
         view.removePiece(oldPosition.getX(), oldPosition.getY());

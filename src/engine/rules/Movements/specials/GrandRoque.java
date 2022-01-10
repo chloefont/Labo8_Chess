@@ -1,5 +1,6 @@
 package engine.rules.Movements.specials;
 
+import chess.PieceType;
 import engine.pieces.Piece;
 import game.GameBoard;
 import game.Vector;

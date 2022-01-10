@@ -18,4 +18,21 @@ abstract public class Movement implements Rule {
 
         return true;
     }
+
+    public boolean checkPieceAtSamePlace (GameBoard board, Piece piece, Piece other) {
+        assert board == null || piece == null;
+        if (other == null) {
+            return true;
+        }
+
+        if (other.getPosition().equals(piece.getPosition())) {
+            if (other.getColor() == piece.getColor()) {
+                return false;
+            } else {
+                
+                board.onDeath(other);
+            }
+        }
+        return true;
+    }
 }

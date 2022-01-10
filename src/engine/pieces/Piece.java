@@ -44,8 +44,6 @@ public class Piece {
         if (movementRules == null)
             return false;
 
-        boolean moveOk = true;
-
         for (Movement movement : movementRules) {
             if (movement.check(gameBoard, this, to)) {
                 position = to;
@@ -54,5 +52,9 @@ public class Piece {
         }
 
         return false;
+    }
+
+    public void onDeath() {
+
     }
 }

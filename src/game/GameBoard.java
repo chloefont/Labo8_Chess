@@ -8,10 +8,16 @@ public class GameBoard {
     private final int width = 8;
     private boolean gameFinished = false;
     private Piece[] pieces = new Piece[width * 4];
+    Controller controller;
 
-    Piece getPiece (Vector vector) {
+    //TODO peut-être faire ton truc de callback à la place pour la fonction onDeath
+    public GameBoard(Controller controller) {
+        this.controller = controller;
+    }
+
+    public Piece getPiece (Vector vector) {
         for (Piece piece : pieces) {
-            if  (piece.getPosition().equals(vector))
+            if (piece != null && piece.getPosition().equals(vector))
                 return piece;
         }
         return null;
@@ -72,5 +78,17 @@ public class GameBoard {
 
     public int getWidth() {
         return width;
+    }
+
+    public void setGameFinished(boolean gameFinished) {
+        this.gameFinished = gameFinished;
+    }
+
+    public void onDeath(Piece piece) {
+        if (piece.getType() == PieceType.KING)
+            gameFinished = true;
+
+        controller.deathPiece(piece.getPosition());
+        piece = null;
     }
 }

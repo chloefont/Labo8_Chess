@@ -25,48 +25,45 @@ public class Controller implements ChessController {
 
     @Override
     public boolean move(int fromX, int fromY, int toX, int toY) {
-        GameBoard fakeGame = new GameBoard(gameBoard);
 
-        Piece fakeGamePiece = fakeGame.getPiece(new Vector(fromX, fromY));
+        Piece piece = gameBoard.getPiece(new Vector(fromX, fromY));
 
 
-        if (fakeGamePiece == null){
+        if (piece == null){
             view.displayMessage("Aucune pièce choisi !");
             return false;
         }
 
-        if(fakeGamePiece.getColor() != tourJoueur){
+        if(piece.getColor() != tourJoueur){
             view.displayMessage("Ce n'est pas votre tour !");
             return false;
         }
 
-        Vector oldPosition = fakeGamePiece.getPosition();
-        if (!fakeGamePiece.checkMove(new Vector(toX, toY))) {
+        Vector oldPosition = piece.getPosition();
+        if (!piece.move(new Vector(toX, toY))) {
             view.displayMessage("Vous ne pouvez pas déplacer votre pièce ici");
+            piece.move(piece.getLastPosition());
             return false;
         }
-
-        fakeGamePiece.move(new Vector(toX, toY));
 
         // Check si echec
         PlayerColor oppositeColor = GameBoard.getOppositeColor(tourJoueur);
 
-        Piece[] oppositePieces = fakeGame.getPiecesWithColor(oppositeColor);
+        Piece[] oppositePieces = gameBoard.getPiecesWithColor(oppositeColor);
 
         for (int i = 0; i < oppositePieces.length; i++ ) {
-            Piece king = fakeGame.getKing(tourJoueur);
+            Piece king = gameBoard.getKing(tourJoueur);
             Piece oppositePiece = oppositePieces[i];
 
             if(oppositePiece.checkMove(king.getPosition())){
                 view.displayMessage("Vous mettez votre roi en danger !");
+                piece.move(piece.getLastPosition());
                 return false;
             }
 
         }
-        Piece realGamePiece = gameBoard.getPiece(new Vector(fromX, fromY));
         view.removePiece(oldPosition.getX(), oldPosition.getY());
-        realGamePiece.move(new Vector(toX, toY));
-        view.putPiece(realGamePiece.getType(), realGamePiece.getColor(), realGamePiece.getPosition().getX(), realGamePiece.getPosition().getY());
+        view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
         tourJoueur = GameBoard.getOppositeColor(tourJoueur);
 
         return true;

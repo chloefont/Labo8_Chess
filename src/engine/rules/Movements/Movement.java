@@ -14,7 +14,8 @@ abstract public class Movement implements Rule {
         for (Piece other : board.getPieces()) {
             if (other != null) {
                 Vector diffOther = piece.getPosition().sub(other.getPosition());
-                if (other != piece && (diff.colinear(diffOther) && diff.sameDirection(diffOther) && diff.norm() > diffOther.norm()))
+                if (other != piece && !other.getPosition().equals(piece.getPosition()) && (diff.colinear(diffOther) && diff.sameDirection(diffOther)
+                        && diff.norm() > diffOther.norm()))
                     return false;
             }
         }
@@ -28,13 +29,9 @@ abstract public class Movement implements Rule {
             return true;
         }
 
-        if (other.getPosition().equals(desiredPosition)) {
-            // Les pions ne peuvent pas manger en utilisant leurs mouvements classiques
-            if (other.getColor() == piece.getColor() || !canEat) {
-                return false;
-            } else {
-                board.onDeath(other);
-            }
+        // Les pions ne peuvent pas manger en utilisant leurs mouvements classiques
+        if (other.getPosition().equals(desiredPosition) && (other.getColor() == piece.getColor() || !canEat)) {
+            return false;
         }
         return true;
     }

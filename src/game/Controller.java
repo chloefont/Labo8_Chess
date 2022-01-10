@@ -25,22 +25,49 @@ public class Controller implements ChessController {
 
     @Override
     public boolean move(int fromX, int fromY, int toX, int toY) {
-        tourJoueur = GameBoard.getOppositeColor(tourJoueur);
+        GameBoard fakeGame = new GameBoard(gameBoard);
 
         Piece piece = gameBoard.getPiece(new Vector(fromX, fromY));
 
-        if (piece == null)
+
+        if (piece == null){
+            view.displayMessage("Aucune pièce choisi !");
             return false;
+        }
+
+        if(piece.getColor() != tourJoueur){
+            view.displayMessage("Ce n'est pas votre tour !");
+            return false;
+        }
 
         Vector oldPosition = piece.getPosition();
-        if (piece.move(new Vector(toX, toY))) {
-            view.removePiece(oldPosition.getX(), oldPosition.getY());
-            view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
-            return true;
-        } else {
+        if (!piece.checkMove(new Vector(toX, toY))) {
             view.displayMessage("Vous ne pouvez pas déplacer votre pièce ici");
             return false;
         }
+
+        // Check si echec
+        PlayerColor oppositeColor = GameBoard.getOppositeColor(tourJoueur);
+
+        Piece[] oppositePieces = gameBoard.getPiecesWithColor(oppositeColor);
+
+        for (int i = 0; i < oppositePieces.length; i++ ) {
+            Piece king = gameBoard.getKing(tourJoueur);
+            Piece oppositePiece = oppositePieces[i];
+
+            if(oppositePiece.checkMove(king.getPosition())){
+                view.displayMessage("Vous mettez votre roi en danger !");
+                return false;
+            }
+
+        }
+
+        view.removePiece(oldPosition.getX(), oldPosition.getY());
+        piece.move(new Vector(toX, toY));
+        view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
+        tourJoueur = GameBoard.getOppositeColor(tourJoueur);
+
+        return true;
     }
 
     @Override

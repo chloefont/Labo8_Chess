@@ -30,6 +30,10 @@ public class Vector {
         return new Vector(x - other.getX(), y - other.getY());
     }
 
+    public Vector add(Vector other) {
+        return new Vector(x + other.getX(), y + other.getY());
+    }
+
     public boolean colinear(Vector other) {
         return x * other.getY() == y * other.getX();
     }

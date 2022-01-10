@@ -7,7 +7,7 @@ import engine.rules.Movements.Movement;
 import game.GameBoard;
 import game.Vector;
 
-public class PriseEnPassant extends SpecialMovement {
+public class eatDiag extends SpecialMovement {
     @Override
     public boolean check(GameBoard board, Piece piece, Vector to) {
         int deltaY;
@@ -19,16 +19,11 @@ public class PriseEnPassant extends SpecialMovement {
 
         int[] sides = {-1, 1};
         for (int side : sides) {
-            Movement movement = new MoveLinear(new Vector(side, deltaY), true, false);
-            Piece other = board.getPiece(to.add(new Vector(0, deltaY)));
-
-            //TODO + vérifier dernier movement = doubleforwards
-            if (movement.check(board, piece, to) && other != null && other.getColor() != piece.getColor()) {
-                board.onDeath(other);
+            Movement movement = new MoveLinear(new Vector(side, deltaY), true, true);
+            if (movement.check(board, piece, to) && board.getPiece(to) != null) {
                 return true;
             }
         }
-
         return false;
     }
 }

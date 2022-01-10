@@ -1,6 +1,6 @@
 package engine.pieces;
 import chess.*;
-import engine.rules.Movements.Movement;
+import engine.rules.Movements.specials.SpecialMovement;
 import engine.rules.Rule;
 import game.*;
 
@@ -9,7 +9,8 @@ public class Piece {
     private GameBoard gameBoard;
     private Vector position;
     private Vector lastPosition;
-    private Movement[] movementRules;
+    private Rule[] rules;
+    private SpecialMovement[] specialMovementsRules;
 
     protected Piece(GameBoard gameBoard, PlayerColor color, Vector position) {
         this.gameBoard = gameBoard;
@@ -21,7 +22,7 @@ public class Piece {
         color = copyFrom.color;
         gameBoard = copyFrom.gameBoard;
         position = new Vector(copyFrom.position.getX(), copyFrom.position.getY());
-        movementRules = copyFrom.movementRules;
+        rules = copyFrom.rules;
     }
 
     protected GameBoard getGameBoard() {
@@ -48,8 +49,8 @@ public class Piece {
         this.position = position;
     }
 
-    protected void setMovementRules(Movement[] movementRules) {
-        this.movementRules = movementRules;
+    protected void setRules(Rule[] rules) {
+        this.rules = rules;
     }
 
     public boolean move(Vector to) {
@@ -66,15 +67,14 @@ public class Piece {
     }
 
     public boolean checkMove(Vector to){
-        if (movementRules == null)
+        if (rules == null)
             return false;
 
-        for (Movement movement : movementRules) {
-            if (movement.check(gameBoard, this, to)) {
+        for (Rule rule : rules) {
+            if (rule.check(gameBoard, this, to)) {
                 return true;
             }
         }
-
         return false;
     }
 

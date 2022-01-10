@@ -12,7 +12,7 @@ public class Knight extends Piece {
         super(gameBoard, color, position);
 
         Movement[] movementRules = {new MoveL()};
-        setMovementRules(movementRules);
+        setRules(movementRules);
     }
 
     @Override

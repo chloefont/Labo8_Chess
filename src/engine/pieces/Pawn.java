@@ -3,7 +3,8 @@ package engine.pieces;
 import chess.PieceType;
 import chess.PlayerColor;
 import engine.rules.Movements.MoveLinear;
-import engine.rules.Movements.Movement;
+import engine.rules.Movements.specials.DoubleForward;
+import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
 
@@ -20,13 +21,14 @@ public class Pawn extends Piece implements LinearMovement {
             dir = -1;
         }
 
-
-        Movement[] movementRules = {
+        Rule[] rules = {
                 new MoveLinear(new Vector(0, dir), true, false),
                 new MoveLinear(new Vector(1, dir), true, true),
-                new MoveLinear(new Vector(-1, dir), true, true)
+                new MoveLinear(new Vector(-1, dir), true, true),
+                new DoubleForward()
         };
-        setMovementRules(movementRules);
+
+        setRules(rules);
     }
 
     @Override

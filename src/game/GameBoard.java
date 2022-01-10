@@ -21,7 +21,7 @@ public class GameBoard {
 
     public GameBoard(GameBoard gameBoard){
         gameFinished = gameBoard.gameFinished;
-        pieces = (Piece[]) Arrays.stream(pieces).map(piece -> piece.copy()).toArray();
+        pieces = (Piece[]) Arrays.stream(gameBoard.pieces).map(piece -> piece.copy()).toArray();
         controller = gameBoard.controller;
     }
 

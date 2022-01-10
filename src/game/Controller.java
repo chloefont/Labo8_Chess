@@ -25,7 +25,6 @@ public class Controller implements ChessController {
 
     @Override
     public boolean move(int fromX, int fromY, int toX, int toY) {
-        GameBoard fakeGame = new GameBoard(gameBoard);
 
         Piece piece = gameBoard.getPiece(new Vector(fromX, fromY));
 
@@ -41,8 +40,9 @@ public class Controller implements ChessController {
         }
 
         Vector oldPosition = piece.getPosition();
-        if (!piece.checkMove(new Vector(toX, toY))) {
+        if (!piece.move(new Vector(toX, toY))) {
             view.displayMessage("Vous ne pouvez pas déplacer votre pièce ici");
+            piece.move(piece.getLastPosition());
             return false;
         }
 
@@ -57,13 +57,12 @@ public class Controller implements ChessController {
 
             if(oppositePiece.checkMove(king.getPosition())){
                 view.displayMessage("Vous mettez votre roi en danger !");
+                piece.move(piece.getLastPosition());
                 return false;
             }
 
         }
-
         view.removePiece(oldPosition.getX(), oldPosition.getY());
-        piece.move(new Vector(toX, toY));
         view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
         tourJoueur = GameBoard.getOppositeColor(tourJoueur);
 

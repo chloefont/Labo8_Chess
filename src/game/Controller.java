@@ -41,7 +41,6 @@ public class Controller implements ChessController {
         Vector oldPosition = piece.getPosition();
         if (!piece.checkMove(new Vector(toX, toY))) {
             view.displayMessage("Vous ne pouvez pas déplacer votre pièce ici");
-            piece.move(piece.getLastPosition());
             return false;
         }
 
@@ -49,21 +48,23 @@ public class Controller implements ChessController {
         piece.move(new Vector(toX, toY));
 
         // Check si echec
-//        PlayerColor oppositeColor = GameBoard.getOppositeColor(tourJoueur);
-//
-//        Piece[] oppositePieces = gameBoard.getPiecesWithColor(oppositeColor);
-//
-//        for (int i = 0; i < oppositePieces.length; i++ ) {
-//            Piece king = gameBoard.getKing(tourJoueur);
-//            Piece oppositePiece = oppositePieces[i];
-//
-//            if(oppositePiece.checkMove(king.getPosition())){
-//                view.displayMessage("Vous mettez votre roi en danger !");
-//                piece.move(piece.getLastPosition());
-//                return false;
-//            }
-//
-//        }
+        PlayerColor oppositeColor = GameBoard.getOppositeColor(tourJoueur);
+
+        Piece[] oppositePieces = gameBoard.getPiecesWithColor(oppositeColor);
+
+        Piece king = gameBoard.getKing(tourJoueur);
+        for (int i = 0; i < oppositePieces.length; i++ ) {
+            Piece oppositePiece = oppositePieces[i];
+
+            if(oppositePiece.checkMove(king.getPosition())){
+                view.displayMessage("Vous mettez votre roi en danger !");
+                //piece.move(piece.getLastPosition());
+                view.removePiece(oldPosition.getX(), oldPosition.getY());
+                view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
+                return false;
+            }
+
+        }
 
         view.removePiece(oldPosition.getX(), oldPosition.getY());
         view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());

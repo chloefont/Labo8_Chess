@@ -8,6 +8,7 @@ public class Piece {
     private PlayerColor color;
     private GameBoard gameBoard;
     private Vector position;
+    private Vector lastPosition;
     private Movement[] movementRules;
 
     protected Piece(GameBoard gameBoard, PlayerColor color, Vector position) {
@@ -39,6 +40,10 @@ public class Piece {
         return position;
     }
 
+    public Vector getLastPosition() {
+        return lastPosition;
+    }
+
     public void setPosition(Vector position) {
         this.position = position;
     }
@@ -49,6 +54,7 @@ public class Piece {
 
     public boolean move(Vector to) {
         if(checkMove(to)){
+            lastPosition = position;
             position = new Vector(to);
             return true;
         }

@@ -2,7 +2,6 @@ package engine.pieces;
 
 import chess.PieceType;
 import chess.PlayerColor;
-import engine.rules.Movements.MoveDiag;
 import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.Movement;
 import game.GameBoard;
@@ -14,7 +13,10 @@ public class Bishop extends Piece implements LinearMovement {
     public Bishop(GameBoard gameBoard, PlayerColor color, Vector position) {
         super(gameBoard, color, position);
 
-        Movement[] movementRules = {new MoveDiag()};
+        Movement[] movementRules = {
+                new MoveLinear(new Vector(1, 1)),
+                new MoveLinear(new Vector(-1, 1)),
+        };
         setMovementRules(movementRules);
     }
 

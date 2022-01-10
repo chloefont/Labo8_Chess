@@ -12,7 +12,12 @@ public class King extends Piece implements LinearMovement {
     public King(GameBoard gameBoard, PlayerColor color, Vector position) {
         super(gameBoard, color, position);
 
-        Movement[] movementRules = {new Movement()};
+        Movement[] movementRules = {
+                new MoveLinear(new Vector(1,0)),
+                new MoveLinear(new Vector(0,1)),
+                new MoveLinear(new Vector(1,1)),
+                new MoveLinear(new Vector(1,-1)),
+        };
         setMovementRules(movementRules);
     }
 

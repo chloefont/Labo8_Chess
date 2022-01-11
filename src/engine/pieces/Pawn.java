@@ -2,7 +2,6 @@ package engine.pieces;
 
 import chess.PieceType;
 import chess.PlayerColor;
-import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.specials.DoubleForward;
 import engine.rules.Movements.specials.MoveLinearWithPromotion;
 import engine.rules.Movements.specials.PriseEnPassant;
@@ -31,7 +30,7 @@ public class Pawn extends Piece implements LinearMovement {
                 new PriseEnPassant()
         };
 
-        setObligatoryRules(obligRules);
+        setRules(obligRules);
     }
 
     @Override

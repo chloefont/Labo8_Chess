@@ -17,7 +17,7 @@ public class Bishop extends Piece implements LinearMovement {
                 new MoveLinear(new Vector(1, 1)),
                 new MoveLinear(new Vector(-1, 1)),
         };
-        setObligatoryRules(movementRules);
+        setRules(movementRules);
     }
 
     @Override

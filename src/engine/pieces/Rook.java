@@ -18,7 +18,7 @@ public class Rook extends Piece implements LinearMovement, HasMoved {
                 new MoveLinear(new Vector(1, 0)),
                 new MoveLinear(new Vector(0, 1)),
         };
-        setObligatoryRules(movementRules);
+        setRules(movementRules);
     }
 
     @Override

@@ -87,7 +87,7 @@ public class GameBoard {
 
 
             for (int n = 0; n < width; n++) {
-                //pieces[i++] = new Pawn(this, color, new Vector(n, height));
+                pieces[i++] = new Pawn(this, color, new Vector(n, height));
             }
 
             if (color == PlayerColor.WHITE)
@@ -96,21 +96,21 @@ public class GameBoard {
                 height++;
             // Rooks
             pieces[i++] = new Rook(this, color, new Vector(0, height));
-            //pieces[i++] = new Rook(this, color, new Vector(width - 1, height));
+            pieces[i++] = new Rook(this, color, new Vector(width - 1, height));
 
             // Knights
-            //pieces[i++] = new Knight(this, color, new Vector(1, height));
-            //pieces[i++] = new Knight(this, color, new Vector(width - 2, height));
+            pieces[i++] = new Knight(this, color, new Vector(1, height));
+            pieces[i++] = new Knight(this, color, new Vector(width - 2, height));
 
             // Bishops
-            //pieces[i++] = new Bishop(this, color, new Vector(2, height));
-            //pieces[i++] = new Bishop(this, color, new Vector(width - 3, height));
-
-            // King
-            pieces[i++] = new King(this, color, new Vector(3, height));
+            pieces[i++] = new Bishop(this, color, new Vector(2, height));
+            pieces[i++] = new Bishop(this, color, new Vector(width - 3, height));
 
             //Queen
-            //pieces[i++] = new Queen(this, color, new Vector(4, height));
+            pieces[i++] = new Queen(this, color, new Vector(3, height));
+
+            // King
+            pieces[i++] = new King(this, color, new Vector(4, height));
 
             color = getOppositeColor(color);
         }
@@ -143,10 +143,10 @@ public class GameBoard {
 
     public void promotion(Piece pawn, Vector newPos) {
         Piece[] promotionPieces = {
-                new Queen(this, pawn.getColor(), pawn.getPosition()),
-                new Bishop(this, pawn.getColor(), pawn.getPosition()),
-                new Knight(this, pawn.getColor(), pawn.getPosition()),
-                new Rook(this, pawn.getColor(), pawn.getPosition())
+                new Queen(this, pawn.getColor(), newPos),
+                new Bishop(this, pawn.getColor(), newPos),
+                new Knight(this, pawn.getColor(), newPos),
+                new Rook(this, pawn.getColor(), newPos)
         };
 
         Piece newPiece;
@@ -155,7 +155,6 @@ public class GameBoard {
         } while (newPiece == null);
 
         for (int i = 0; i < pieces.length; ++i) {
-            //TODO comment on peut supprimer la pièce autrement
             if (pawn == pieces[i]) {
                 pieces[i] = newPiece;
             }

@@ -8,7 +8,7 @@ public class Piece implements ChessView.UserChoice {
     private GameBoard gameBoard;
     private Vector position;
     private Vector lastPosition;
-    private Rule[] obligatoryRules;
+    private Rule[] rules;
 
     protected Piece(GameBoard gameBoard, PlayerColor color, Vector position) {
         this.gameBoard = gameBoard;
@@ -21,7 +21,7 @@ public class Piece implements ChessView.UserChoice {
         color = copyFrom.color;
         gameBoard = copyFrom.gameBoard;
         position = new Vector(copyFrom.position.getX(), copyFrom.position.getY());
-        obligatoryRules = copyFrom.obligatoryRules;
+        rules = copyFrom.rules;
     }
 
     protected GameBoard getGameBoard() {
@@ -48,8 +48,8 @@ public class Piece implements ChessView.UserChoice {
         this.position = position;
     }
 
-    protected void setObligatoryRules(Rule[] obligatoryRules) {
-        this.obligatoryRules = obligatoryRules;
+    protected void setRules(Rule[] rules) {
+        this.rules = rules;
     }
 
     public void move(Vector to) {
@@ -68,10 +68,10 @@ public class Piece implements ChessView.UserChoice {
     }
 
     public boolean checkMove(Vector to){
-        if (obligatoryRules == null)
+        if (rules == null)
             return false;
 
-        for (Rule rule : obligatoryRules) {
+        for (Rule rule : rules) {
             if (rule.check(gameBoard, this, to)) {
                 return true;
             }

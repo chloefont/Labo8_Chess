@@ -21,7 +21,7 @@ public abstract class Roque extends Movement {
     private final Vector NEW_POSITION_ROCK_WHITE;
     private final Vector NEW_POSITION_ROCK_BLACK;
 
-    Roque(Vector positionBlack, Vector positionWhite, Vector positionRockWhite, Vector positionRockBlack, Vector newPositionRockWhite, Vector newPositionRockBlack){
+    Roque(Vector positionWhite, Vector positionBlack, Vector positionRockWhite, Vector positionRockBlack, Vector newPositionRockWhite, Vector newPositionRockBlack){
 //        POSITION_BLACK = new Vector(1,7);
 //        POSITION_WHITE = new Vector(1,0);
 //        POSITION_ROCK_WHITE = new Vector(0,0);
@@ -68,7 +68,7 @@ public abstract class Roque extends Movement {
     public void apply() {
         if(!canBeApplyed) return;
 
-        Vector newRookPosition = king.getColor() == PlayerColor.WHITE ? new Vector(2, 0) : new Vector(2, 7);
+        Vector newRookPosition = king.getColor() == PlayerColor.WHITE ? NEW_POSITION_ROCK_WHITE : NEW_POSITION_ROCK_BLACK;
         this.rook.move(newRookPosition);
 
         done = true;

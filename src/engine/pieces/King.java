@@ -4,6 +4,7 @@ import chess.PieceType;
 import chess.PlayerColor;
 import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.Movement;
+import engine.rules.Movements.specials.GrandRoque;
 import engine.rules.Movements.specials.PetitRoque;
 import game.GameBoard;
 import game.Vector;
@@ -20,8 +21,9 @@ public class King extends Piece implements LinearMovement, HasMoved {
                 new MoveLinear(new Vector(1,1)),
                 new MoveLinear(new Vector(1,-1)),
                 new PetitRoque(),
+                new GrandRoque()
         };
-        setObligatoryRules(movementRules);
+        setRules(movementRules);
     }
 
     @Override

@@ -136,8 +136,10 @@ public class GameBoard {
         controller.deathPiece(piece.getPosition());
         for (int i = 0; i < pieces.length; ++i) {
             //TODO comment on peut supprimer la pièce autrement
-            if (piece == pieces[i])
+            if (piece == pieces[i]) {
                 pieces[i] = null;
+                piece.setOnBoard(false);
+            }
         }
     }
 
@@ -154,9 +156,12 @@ public class GameBoard {
             newPiece = controller.promotionQuestion(promotionPieces);
         } while (newPiece == null);
 
+        onDeath(pawn);
+
         for (int i = 0; i < pieces.length; ++i) {
-            if (pawn == pieces[i]) {
+            if (pieces[i] == null) {
                 pieces[i] = newPiece;
+                return;
             }
         }
     }

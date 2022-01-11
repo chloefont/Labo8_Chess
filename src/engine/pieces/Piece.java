@@ -9,6 +9,7 @@ public class Piece implements ChessView.UserChoice {
     private Vector position;
     private Vector lastPosition;
     private Rule[] rules;
+    private boolean onBoard = true;
 
     protected Piece(GameBoard gameBoard, PlayerColor color, Vector position) {
         this.gameBoard = gameBoard;
@@ -52,6 +53,10 @@ public class Piece implements ChessView.UserChoice {
         this.rules = rules;
     }
 
+    public void setOnBoard(boolean onBoard) {
+        this.onBoard = onBoard;
+    }
+
     public void move(Vector to) {
 
         for (Rule rule : rules) {
@@ -87,5 +92,9 @@ public class Piece implements ChessView.UserChoice {
     @Override
     public String toString() {
         return "Piece";
+    }
+
+    public boolean isOnBoard() {
+        return onBoard;
     }
 }

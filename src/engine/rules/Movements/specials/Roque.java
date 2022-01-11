@@ -5,6 +5,7 @@ import engine.pieces.King;
 import engine.pieces.Piece;
 import engine.pieces.Rook;
 import engine.rules.Movements.Movement;
+import game.Chess;
 import game.GameBoard;
 import game.Vector;
 
@@ -22,13 +23,6 @@ public abstract class Roque extends Movement {
     private final Vector NEW_POSITION_ROCK_BLACK;
 
     Roque(Vector positionWhite, Vector positionBlack, Vector positionRockWhite, Vector positionRockBlack, Vector newPositionRockWhite, Vector newPositionRockBlack){
-//        POSITION_BLACK = new Vector(1,7);
-//        POSITION_WHITE = new Vector(1,0);
-//        POSITION_ROCK_WHITE = new Vector(0,0);
-//        POSITION_ROCK_BLACK = new Vector(0,7);
-//        NEW_POSITION_ROCK_WHITE = new Vector(2,0);
-//        NEW_POSITION_ROCK_BLACK = new Vector(2,7);
-
         POSITION_BLACK = positionBlack;
         POSITION_WHITE = positionWhite;
         POSITION_ROCK_WHITE = positionRockWhite;
@@ -55,6 +49,20 @@ public abstract class Roque extends Movement {
 
         // Si aucune pièce se trouve entre le roi et la tour
         if(!checkNoPieceBetween(board, king, positionRook)) return false;
+
+        //si le roi ne peut pas être mis en echec sur le chemin
+        Chess chess = new Chess(board);
+        Vector initPos = piece.getPosition();
+        piece.move(piece.getPosition().add(new Vector(1,0)));
+        if(chess.isEchec(piece.getColor())){
+            piece.move(initPos);
+            return false;
+        }
+        piece.move(piece.getPosition().add(new Vector(1,0)));
+        if(chess.isEchec(piece.getColor())){
+            piece.move(initPos);
+            return false;
+        }
 
         // modifier la place de la tour
         canBeApplyed = true;

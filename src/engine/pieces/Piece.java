@@ -41,6 +41,10 @@ public class Piece implements ChessView.UserChoice {
         return position;
     }
 
+    public void setLastPosition(Vector lastPosition) {
+        this.lastPosition = lastPosition;
+    }
+
     public Vector getLastPosition() {
         return lastPosition;
     }

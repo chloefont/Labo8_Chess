@@ -10,7 +10,9 @@ public class PetitRoque extends Roque {
                 new Vector(7,0),
                 new Vector(7,7),
                 new Vector(5,0),
-                new Vector(5,7));
+                new Vector(5,7),
+                new Vector(1,0)
+                );
     }
 
 }

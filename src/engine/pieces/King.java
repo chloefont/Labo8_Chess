@@ -48,6 +48,6 @@ public class King extends Piece implements LinearMovement, HasMoved {
 
     @Override
     public boolean hasMoved() {
-        return false;
+        return hasMoved;
     }
 }

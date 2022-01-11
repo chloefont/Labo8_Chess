@@ -73,9 +73,15 @@ public class Controller implements ChessController {
         }
 
         // Update view
-        for (Piece p: gameBoard.getPieces()) {
-            if(p == null) continue;
-            view.removePiece(p.getLastPosition().getX(), p.getLastPosition().getY());
+//        for (Piece p: gameBoard.getPieces()) {
+//            if(p == null) continue;
+//            view.removePiece(p.getLastPosition().getX(), p.getLastPosition().getY());
+//
+//        }
+        for(int i = 0; i < gameBoard.getWidth(); i++){
+            for(int j = 0; j < gameBoard.getWidth(); j++){
+                view.removePiece(i,j);
+            }
         }
         for (Piece p: gameBoard.getPieces()) {
             if(p == null) continue;

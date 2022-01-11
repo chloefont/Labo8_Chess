@@ -46,7 +46,7 @@ public class GameBoard {
         List<Piece> piecesSameColor = new ArrayList<Piece>();
 
         for (Piece piece : pieces) {
-            if(piece.getColor() == color){
+            if(piece != null && piece.getColor() == color){
                 piecesSameColor.add(piece);
             }
         }
@@ -61,7 +61,7 @@ public class GameBoard {
      */
     public Piece getKing(PlayerColor color){
         for (Piece piece : pieces) {
-            if(piece.getColor() == color && piece instanceof King){
+            if(piece != null && piece.getColor() == color && piece instanceof King){
                 return piece;
             }
         }

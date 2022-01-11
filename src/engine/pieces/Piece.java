@@ -15,6 +15,7 @@ public class Piece {
         this.gameBoard = gameBoard;
         this.color = color;
         this.position = position;
+        this.lastPosition = position;
     }
 
     protected Piece(Piece copyFrom){
@@ -40,7 +41,7 @@ public class Piece {
         return position;
     }
 
-    public Vector getLastPosition(){
+    public Vector getLastPosition() {
         return lastPosition;
     }
 

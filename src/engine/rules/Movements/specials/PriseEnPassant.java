@@ -32,4 +32,9 @@ public class PriseEnPassant extends SpecialMovement {
 
         return false;
     }
+
+    @Override
+    public void apply() {
+
+    }
 }

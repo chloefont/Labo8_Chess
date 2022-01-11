@@ -54,6 +54,11 @@ public class Piece {
     }
 
     public void move(Vector to) {
+
+        for (Rule rule : rules) {
+            rule.apply();
+        }
+
         lastPosition = position;
         position = to;
         gameBoard.setLastPieceToMove(this);

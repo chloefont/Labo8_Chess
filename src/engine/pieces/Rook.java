@@ -7,8 +7,9 @@ import engine.rules.Movements.Movement;
 import game.GameBoard;
 import game.Vector;
 
-public class Rook extends Piece implements LinearMovement {
+public class Rook extends Piece implements LinearMovement, HasMoved {
     int maxMove = getGameBoard().getWidth();
+    private boolean hasMoved = false;
 
     public Rook(GameBoard gameBoard, PlayerColor color, Vector position) {
         super(gameBoard, color, position);
@@ -21,6 +22,12 @@ public class Rook extends Piece implements LinearMovement {
     }
 
     @Override
+    public void move(Vector to){
+        super.move(to);
+        hasMoved = true;
+    }
+
+    @Override
     public PieceType getType() {
         return PieceType.ROOK;
     }
@@ -28,5 +35,10 @@ public class Rook extends Piece implements LinearMovement {
     @Override
     public int getMaxMove() {
         return maxMove;
+    }
+
+    @Override
+    public boolean hasMoved() {
+        return hasMoved;
     }
 }

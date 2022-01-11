@@ -23,4 +23,9 @@ public class DoubleForward extends SpecialMovement {
 
         return movement.check(board, piece, to) && piece.getPosition().getY() == posY;
     }
+
+    @Override
+    public void apply() {
+
+    }
 }

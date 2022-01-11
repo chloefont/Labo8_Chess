@@ -9,4 +9,9 @@ public class Promotion extends SpecialMovement {
     public boolean check(GameBoard board, Piece piece, Vector to) {
         return false;
     }
+
+    @Override
+    public void apply() {
+
+    }
 }

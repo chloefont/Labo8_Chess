@@ -38,7 +38,6 @@ public class Controller implements ChessController {
             return false;
         }
 
-        Vector oldPosition = piece.getPosition();
         if (!piece.checkMove(new Vector(toX, toY))) {
             view.displayMessage("Vous ne pouvez pas déplacer votre pièce ici");
             piece.move(piece.getLastPosition());
@@ -71,8 +70,18 @@ public class Controller implements ChessController {
             gameBoard.onDeath(other);
         }
 
-        view.removePiece(oldPosition.getX(), oldPosition.getY());
-        view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
+        // Update view
+        for (Piece p: gameBoard.getPieces()) {
+            if(p == null) continue;
+            view.removePiece(p.getLastPosition().getX(), p.getLastPosition().getY());
+        }
+        for (Piece p: gameBoard.getPieces()) {
+            if(p == null) continue;
+            view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(), p.getPosition().getY());
+        }
+
+        //view.removePiece(oldPosition.getX(), oldPosition.getY());
+        //view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
         tourJoueur = GameBoard.getOppositeColor(tourJoueur);
 
         return true;

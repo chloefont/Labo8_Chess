@@ -4,11 +4,13 @@ import chess.PieceType;
 import chess.PlayerColor;
 import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.Movement;
+import engine.rules.Movements.specials.PetitRoque;
 import game.GameBoard;
 import game.Vector;
 
-public class King extends Piece implements LinearMovement {
+public class King extends Piece implements LinearMovement, HasMoved {
     int maxMove = 1;
+    private boolean hasMoved = false;
     public King(GameBoard gameBoard, PlayerColor color, Vector position) {
         super(gameBoard, color, position);
 
@@ -17,8 +19,15 @@ public class King extends Piece implements LinearMovement {
                 new MoveLinear(new Vector(0,1)),
                 new MoveLinear(new Vector(1,1)),
                 new MoveLinear(new Vector(1,-1)),
+                new PetitRoque(),
         };
         setRules(movementRules);
+    }
+
+    @Override
+    public void move(Vector to){
+        super.move(to);
+        hasMoved = true;
     }
 
     @Override
@@ -29,5 +38,10 @@ public class King extends Piece implements LinearMovement {
     @Override
     public int getMaxMove() {
         return maxMove;
+    }
+
+    @Override
+    public boolean hasMoved() {
+        return false;
     }
 }

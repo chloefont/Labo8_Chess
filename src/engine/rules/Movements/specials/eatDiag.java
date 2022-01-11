@@ -26,4 +26,9 @@ public class eatDiag extends SpecialMovement {
         }
         return false;
     }
+
+    @Override
+    public void apply() {
+
+    }
 }

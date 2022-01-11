@@ -17,7 +17,7 @@ public class Bishop extends Piece implements LinearMovement {
                 new MoveLinear(new Vector(1, 1)),
                 new MoveLinear(new Vector(-1, 1)),
         };
-        setRules(movementRules);
+        setObligatoryRules(movementRules);
     }
 
     @Override
@@ -28,5 +28,9 @@ public class Bishop extends Piece implements LinearMovement {
     @Override
     public int getMaxMove() {
         return maxMove;
+    }
+
+    public String toString() {
+        return "Bishop";
     }
 }

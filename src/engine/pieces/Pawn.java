@@ -4,6 +4,7 @@ import chess.PieceType;
 import chess.PlayerColor;
 import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.specials.DoubleForward;
+import engine.rules.Movements.specials.MoveLinearWithPromotion;
 import engine.rules.Movements.specials.PriseEnPassant;
 import engine.rules.Movements.specials.eatDiag;
 import engine.rules.Rule;
@@ -23,14 +24,14 @@ public class Pawn extends Piece implements LinearMovement {
             dir = -1;
         }
 
-        Rule[] rules = {
-                new MoveLinear(new Vector(0, dir), true, false),
+        Rule[] obligRules = {
+                new MoveLinearWithPromotion(new Vector(0, dir), true, false),
                 new eatDiag(),
                 new DoubleForward(),
                 new PriseEnPassant()
         };
 
-        setRules(rules);
+        setObligatoryRules(obligRules);
     }
 
     @Override
@@ -41,5 +42,9 @@ public class Pawn extends Piece implements LinearMovement {
     @Override
     public int getMaxMove() {
         return maxMove;
+    }
+
+    public String toString() {
+        return "Pawn";
     }
 }

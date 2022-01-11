@@ -12,11 +12,15 @@ public class Knight extends Piece {
         super(gameBoard, color, position);
 
         Movement[] movementRules = {new MoveL()};
-        setRules(movementRules);
+        setObligatoryRules(movementRules);
     }
 
     @Override
     public PieceType getType() {
         return PieceType.KNIGHT;
+    }
+
+    public String toString() {
+        return "Knight";
     }
 }

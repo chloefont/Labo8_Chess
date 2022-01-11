@@ -41,9 +41,6 @@ public class Controller implements ChessController {
         Vector oldPosition = piece.getPosition();
         if (!piece.checkMove(new Vector(toX, toY))) {
             view.displayMessage("Vous ne pouvez pas déplacer votre pièce ici");
-            //TODO faut enlever ça ou mettre une condition psk ça pose problème dans le cas ou le
-            // mouvement est juste pas accepté
-            //piece.move(piece.getLastPosition());
             return false;
         }
 
@@ -99,5 +96,10 @@ public class Controller implements ChessController {
     protected void deathPiece(Vector at) {
         if (at != null)
             view.removePiece(at.getX(), at.getY());
+    }
+
+    protected Piece promotionQuestion(Piece[] promotionPieces) {
+
+        return view.askUser("Promotion", "Your pawn is promoted. Please choose a new piece.", promotionPieces);
     }
 }

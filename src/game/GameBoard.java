@@ -140,4 +140,25 @@ public class GameBoard {
                 pieces[i] = null;
         }
     }
+
+    public void promotion(Piece pawn, Vector newPos) {
+        Piece[] promotionPieces = {
+                new Queen(this, pawn.getColor(), pawn.getPosition()),
+                new Bishop(this, pawn.getColor(), pawn.getPosition()),
+                new Knight(this, pawn.getColor(), pawn.getPosition()),
+                new Rook(this, pawn.getColor(), pawn.getPosition())
+        };
+
+        Piece newPiece;
+        do {
+            newPiece = controller.promotionQuestion(promotionPieces);
+        } while (newPiece == null);
+
+        for (int i = 0; i < pieces.length; ++i) {
+            //TODO comment on peut supprimer la pièce autrement
+            if (pawn == pieces[i]) {
+                pieces[i] = newPiece;
+            }
+        }
+    }
 }

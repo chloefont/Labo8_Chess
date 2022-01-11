@@ -1,15 +1,14 @@
 package engine.pieces;
 import chess.*;
-import engine.rules.Movements.specials.SpecialMovement;
 import engine.rules.Rule;
 import game.*;
 
-public class Piece {
+public class Piece implements ChessView.UserChoice {
     private PlayerColor color;
     private GameBoard gameBoard;
     private Vector position;
     private Vector lastPosition;
-    private Rule[] rules;
+    private Rule[] obligatoryRules;
 
     protected Piece(GameBoard gameBoard, PlayerColor color, Vector position) {
         this.gameBoard = gameBoard;
@@ -21,7 +20,7 @@ public class Piece {
         color = copyFrom.color;
         gameBoard = copyFrom.gameBoard;
         position = new Vector(copyFrom.position.getX(), copyFrom.position.getY());
-        rules = copyFrom.rules;
+        obligatoryRules = copyFrom.obligatoryRules;
     }
 
     protected GameBoard getGameBoard() {
@@ -48,8 +47,8 @@ public class Piece {
         this.position = position;
     }
 
-    protected void setRules(Rule[] rules) {
-        this.rules = rules;
+    protected void setObligatoryRules(Rule[] obligatoryRules) {
+        this.obligatoryRules = obligatoryRules;
     }
 
     public void move(Vector to) {
@@ -63,10 +62,10 @@ public class Piece {
     }
 
     public boolean checkMove(Vector to){
-        if (rules == null)
+        if (obligatoryRules == null)
             return false;
 
-        for (Rule rule : rules) {
+        for (Rule rule : obligatoryRules) {
             if (rule.check(gameBoard, this, to)) {
                 return true;
             }
@@ -74,7 +73,13 @@ public class Piece {
         return false;
     }
 
-    public void onDeath() {
+    @Override
+    public String textValue() {
+        return toString();
+    }
 
+    @Override
+    public String toString() {
+        return "Piece";
     }
 }

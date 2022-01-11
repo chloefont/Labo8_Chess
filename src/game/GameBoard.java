@@ -46,7 +46,7 @@ public class GameBoard {
         List<Piece> piecesSameColor = new ArrayList<Piece>();
 
         for (Piece piece : pieces) {
-            if(piece.getColor() == color){
+            if(piece != null && piece.getColor() == color){
                 piecesSameColor.add(piece);
             }
         }
@@ -61,7 +61,7 @@ public class GameBoard {
      */
     public Piece getKing(PlayerColor color){
         for (Piece piece : pieces) {
-            if(piece.getColor() == color && piece instanceof King){
+            if(piece != null && piece.getColor() == color && piece instanceof King){
                 return piece;
             }
         }
@@ -87,7 +87,7 @@ public class GameBoard {
 
 
             for (int n = 0; n < width; n++) {
-                pieces[i++] = new Pawn(this, color, new Vector(n, height));
+                //pieces[i++] = new Pawn(this, color, new Vector(n, height));
             }
 
             if (color == PlayerColor.WHITE)
@@ -96,21 +96,21 @@ public class GameBoard {
                 height++;
             // Rooks
             pieces[i++] = new Rook(this, color, new Vector(0, height));
-            pieces[i++] = new Rook(this, color, new Vector(width - 1, height));
+            //pieces[i++] = new Rook(this, color, new Vector(width - 1, height));
 
             // Knights
-            pieces[i++] = new Knight(this, color, new Vector(1, height));
-            pieces[i++] = new Knight(this, color, new Vector(width - 2, height));
+            //pieces[i++] = new Knight(this, color, new Vector(1, height));
+            //pieces[i++] = new Knight(this, color, new Vector(width - 2, height));
 
             // Bishops
-            pieces[i++] = new Bishop(this, color, new Vector(2, height));
-            pieces[i++] = new Bishop(this, color, new Vector(width - 3, height));
+            //pieces[i++] = new Bishop(this, color, new Vector(2, height));
+            //pieces[i++] = new Bishop(this, color, new Vector(width - 3, height));
 
             // King
             pieces[i++] = new King(this, color, new Vector(3, height));
 
             //Queen
-            pieces[i++] = new Queen(this, color, new Vector(4, height));
+            //pieces[i++] = new Queen(this, color, new Vector(4, height));
 
             color = getOppositeColor(color);
         }

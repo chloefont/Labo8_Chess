@@ -14,6 +14,7 @@ public class Piece implements ChessView.UserChoice {
         this.gameBoard = gameBoard;
         this.color = color;
         this.position = position;
+        this.lastPosition = position;
     }
 
     protected Piece(Piece copyFrom){
@@ -39,7 +40,7 @@ public class Piece implements ChessView.UserChoice {
         return position;
     }
 
-    public Vector getLastPosition(){
+    public Vector getLastPosition() {
         return lastPosition;
     }
 
@@ -52,6 +53,11 @@ public class Piece implements ChessView.UserChoice {
     }
 
     public void move(Vector to) {
+
+        for (Rule rule : rules) {
+            rule.apply();
+        }
+
         lastPosition = position;
         position = to;
         gameBoard.setLastPieceToMove(this);

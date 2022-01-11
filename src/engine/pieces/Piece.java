@@ -15,6 +15,7 @@ public class Piece {
         this.gameBoard = gameBoard;
         this.color = color;
         this.position = position;
+        this.lastPosition = position;
     }
 
     protected Piece(Piece copyFrom){

@@ -143,6 +143,23 @@ public class GameBoard {
         }
     }
 
+    public boolean isEchec(PlayerColor color){
+
+        PlayerColor oppositeColor = GameBoard.getOppositeColor(color);
+
+        Piece[] oppositePieces = getPiecesWithColor(oppositeColor);
+
+        Piece king = getKing(color);
+        for (int i = 0; i < oppositePieces.length; i++ ) {
+            Piece oppositePiece = oppositePieces[i];
+
+            if(oppositePiece.checkMove(king.getPosition())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void promotion(Piece pawn, Vector newPos) {
         Piece[] promotionPieces = {
                 new Queen(this, pawn.getColor(), newPos),

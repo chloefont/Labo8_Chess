@@ -52,20 +52,10 @@ public class Controller implements ChessController {
         piece.move(new Vector(toX, toY));
 
         // Check si echec
-        PlayerColor oppositeColor = GameBoard.getOppositeColor(tourJoueur);
-
-        Piece[] oppositePieces = gameBoard.getPiecesWithColor(oppositeColor);
-
-        Piece king = gameBoard.getKing(tourJoueur);
-        for (int i = 0; i < oppositePieces.length; i++ ) {
-            Piece oppositePiece = oppositePieces[i];
-
-            if(oppositePiece.checkMove(king.getPosition())){
-                view.displayMessage("Vous mettez votre roi en danger !");
-                piece.move(piece.getLastPosition());
-                return false;
-            }
-
+        if(gameBoard.isEchec(tourJoueur)){
+            view.displayMessage("Vous mettez votre roi en danger !");
+            piece.move(piece.getLastPosition());
+            return false;
         }
 
         if (other != null) {

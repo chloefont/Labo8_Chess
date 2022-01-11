@@ -5,7 +5,6 @@ import engine.pieces.King;
 import engine.pieces.Piece;
 import engine.pieces.Rook;
 import engine.rules.Movements.Movement;
-import game.Chess;
 import game.GameBoard;
 import game.Vector;
 
@@ -52,13 +51,12 @@ public abstract class Roque extends Movement {
         if(!checkNoPieceBetween(board, king, positionRook)) return false;
 
         //si le roi ne peut pas être mis en echec sur le chemin
-        Chess chess = new Chess(board);
         Vector initPos = piece.getPosition();
         Vector initLastPos = piece.getLastPosition();
 
         for(int i = 0; i < 2; i++){
             piece.move(piece.getPosition().add(DIRECTION));
-            if(chess.isEchec(piece.getColor())){
+            if(board.isEchec(piece.getColor())){
                 piece.setLastPosition(initLastPos);
                 piece.setPosition(initPos);
                 return false;

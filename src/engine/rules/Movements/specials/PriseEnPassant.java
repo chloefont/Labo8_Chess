@@ -20,10 +20,11 @@ public class PriseEnPassant extends SpecialMovement {
         int[] sides = {-1, 1};
         for (int side : sides) {
             Movement movement = new MoveLinear(new Vector(side, deltaY), true, false);
-            Piece other = board.getPiece(to.add(new Vector(0, deltaY)));
+            Piece other = board.getPiece(to.add(new Vector(0, -deltaY)));
 
             //TODO + vérifier dernier movement = doubleforwards
-            if (movement.check(board, piece, to) && other != null && other.getColor() != piece.getColor()) {
+            if (movement.check(board, piece, to) && other != null && other.getColor() != piece.getColor()
+                    &&board.getLastPieceToMove() == other && new Vector(0, 2 * deltaY * -1).equals(other.getPosition().sub(other.getLastPosition()))) {
                 board.onDeath(other);
                 return true;
             }

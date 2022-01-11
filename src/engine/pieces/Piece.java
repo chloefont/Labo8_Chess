@@ -10,7 +10,6 @@ public class Piece {
     private Vector position;
     private Vector lastPosition;
     private Rule[] rules;
-    private SpecialMovement[] specialMovementsRules;
 
     protected Piece(GameBoard gameBoard, PlayerColor color, Vector position) {
         this.gameBoard = gameBoard;
@@ -56,6 +55,7 @@ public class Piece {
     public void move(Vector to) {
         lastPosition = position;
         position = to;
+        gameBoard.setLastPieceToMove(this);
     }
 
     public Piece copy(){

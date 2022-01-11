@@ -13,6 +13,7 @@ public class GameBoard {
     private boolean gameFinished = false;
     private Piece[] pieces = new Piece[width * 4];
     Controller controller;
+    Piece lastPieceToMove;
 
     //TODO peut-être faire ton truc de callback à la place pour la fonction onDeath
     public GameBoard(Controller controller) {
@@ -31,6 +32,14 @@ public class GameBoard {
                 return piece;
         }
         return null;
+    }
+
+    public void setLastPieceToMove(Piece lastPieceToMove) {
+        this.lastPieceToMove = lastPieceToMove;
+    }
+
+    public Piece getLastPieceToMove() {
+        return lastPieceToMove;
     }
 
     public Piece[] getPiecesWithColor(PlayerColor color){

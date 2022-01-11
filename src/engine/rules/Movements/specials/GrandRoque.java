@@ -1,26 +1,15 @@
 package engine.rules.Movements.specials;
 
-import chess.PieceType;
-import engine.pieces.Piece;
-import engine.rules.Movements.Movement;
-import game.GameBoard;
 import game.Vector;
 
-public class GrandRoque extends Movement {
-    @Override
-    public boolean check(GameBoard board, Piece piece, Vector to) {
-        // Si le roi et la tour n'as pas bougé
+public class GrandRoque extends Roque {
 
-        // Si aucune pièce se trouve entre le roi et la tour
-
-        // modifier la place de la tour
-
-        return false;
-
-    }
-
-    @Override
-    public void apply() {
-
+    public GrandRoque(){
+        super(new Vector(1,7),
+                new Vector(1,0),
+                new Vector(0,0),
+                new Vector(0,7),
+                new Vector(2,0),
+                new Vector(2,7));
     }
 }

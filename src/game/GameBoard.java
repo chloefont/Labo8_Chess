@@ -67,13 +67,6 @@ public class GameBoard {
         return null;
     }
 
-    //TODO faudra peut-être la changer de place
-    static public PlayerColor getOppositeColor(PlayerColor color) {
-        if (color == PlayerColor.WHITE)
-            return PlayerColor.BLACK;
-        return PlayerColor.WHITE;
-    }
-
     void init() {
         PlayerColor color = PlayerColor.WHITE;
         int i = 0;
@@ -111,7 +104,7 @@ public class GameBoard {
             // King
             pieces[i++] = new King(this, color, new Vector(4, height));
 
-            color = getOppositeColor(color);
+            color = PlayerColor.getOpposite(color);
         }
 
     }
@@ -139,7 +132,7 @@ public class GameBoard {
 
     public boolean isEchec(PlayerColor color){
 
-        PlayerColor oppositeColor = GameBoard.getOppositeColor(color);
+        PlayerColor oppositeColor = PlayerColor.getOpposite(color);
 
         Piece[] oppositePieces = getPiecesWithColor(oppositeColor);
 

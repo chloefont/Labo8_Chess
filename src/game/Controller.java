@@ -61,7 +61,7 @@ public class Controller implements ChessController {
 
         updateView();
 
-        tourJoueur = GameBoard.getOppositeColor(tourJoueur);
+        tourJoueur = PlayerColor.getOpposite(tourJoueur);
 
         return true;
     }

@@ -1,5 +1,6 @@
 package engine.rules.Movements.specials;
 
+import chess.PieceType;
 import chess.PlayerColor;
 import engine.pieces.King;
 import engine.pieces.Piece;
@@ -32,6 +33,10 @@ public abstract class Roque extends Movement {
         DIRECTION = direction;
     }
 
+//    Roque(GameBoard board, Piece piece, Vector direction, Vector rookPosition){
+//        Super(board, piece);
+//    }
+
     @Override
     public boolean check(GameBoard board, Piece piece, Vector to) {
         if(done) return false;
@@ -39,12 +44,10 @@ public abstract class Roque extends Movement {
 
         // Si le roi et la tour n'as pas bougé
         King king = (King) piece;
-        if(king.hasMoved()) return false;
-
         Vector positionRook = piece.getColor() == PlayerColor.WHITE ? POSITION_ROCK_WHITE : POSITION_ROCK_BLACK;
         Piece rook = board.getPiece(positionRook);
-
-        if(rook == null || !(rook instanceof Rook)) return false;
+        if(king.hasMoved()) return false;
+        if(rook == null || rook.getType() != PieceType.ROOK) return false;
         if(((Rook)rook).hasMoved()) return false;
 
         // Si aucune pièce se trouve entre le roi et la tour

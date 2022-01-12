@@ -11,7 +11,7 @@ public class GrandRoque extends Roque {
                 new Vector(0,7),
                 new Vector(3,0),
                 new Vector(3,7),
-                new Vector(-1,0)
+                Vector.RIGHT
                 );
     }
 }

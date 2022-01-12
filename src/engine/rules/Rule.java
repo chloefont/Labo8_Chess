@@ -5,7 +5,7 @@ import engine.pieces.Piece;
 import game.GameBoard;
 import game.Vector;
 
-public interface Rule {
-    boolean check (GameBoard board, Piece piece, Vector to);
-    void apply();
+public abstract class Rule {
+    public abstract boolean check(GameBoard board, Piece piece, Vector to);
+    public void apply(){};
 }

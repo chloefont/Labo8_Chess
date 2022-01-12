@@ -5,14 +5,9 @@ import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
 
-public class Promotion implements Rule {
+public class Promotion extends Rule {
     @Override
     public boolean check(GameBoard board, Piece piece, Vector to) {
         return false;
-    }
-
-    @Override
-    public void apply() {
-
     }
 }

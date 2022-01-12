@@ -8,8 +8,8 @@ import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
 
-public class DoubleForward implements Rule {
-    @Override
+public class DoubleForward extends Rule {
+
     public boolean check(GameBoard board, Piece piece, Vector to) {
         int deltaY, posY;
         if (piece.getColor() == PlayerColor.WHITE) {
@@ -25,8 +25,4 @@ public class DoubleForward implements Rule {
         return movement.check(board, piece, to) && piece.getPosition().getY() == posY;
     }
 
-    @Override
-    public void apply() {
-
-    }
 }

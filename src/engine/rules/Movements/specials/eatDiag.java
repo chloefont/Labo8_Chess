@@ -8,7 +8,7 @@ import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
 
-public class eatDiag implements Rule {
+public class eatDiag extends Rule {
     @Override
     public boolean check(GameBoard board, Piece piece, Vector to) {
         int deltaY;
@@ -26,10 +26,5 @@ public class eatDiag implements Rule {
             }
         }
         return false;
-    }
-
-    @Override
-    public void apply() {
-
     }
 }

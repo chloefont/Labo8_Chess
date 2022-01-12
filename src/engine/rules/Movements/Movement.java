@@ -7,7 +7,7 @@ import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
 
-abstract public class Movement implements Rule {
+abstract public class Movement extends Rule {
 
     public boolean checkNoPieceBetween(GameBoard board, Piece piece, Vector to) {
         Vector diff = piece.getPosition().sub(to);

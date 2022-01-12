@@ -53,9 +53,4 @@ public class MoveLinear extends Movement {
 
         return canGo(board, piece, to);
     }
-
-    @Override
-    public void apply() {
-
-    }
 }

@@ -8,7 +8,7 @@ import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
 
-public class PriseEnPassant implements Rule {
+public class PriseEnPassant extends Rule {
     @Override
     public boolean check(GameBoard board, Piece piece, Vector to) {
         int deltaY;
@@ -32,10 +32,5 @@ public class PriseEnPassant implements Rule {
         }
 
         return false;
-    }
-
-    @Override
-    public void apply() {
-
     }
 }

@@ -12,9 +12,4 @@ public class MoveL extends Movement {
         return ((diff.getX() == 2 || diff.getX() == -2) && (diff.getY() == 1 || diff.getY() == -1))
                 || ((diff.getY() == 2 || diff.getY() == -2) && (diff.getX() == 1 || diff.getX() == -1));
     }
-
-    @Override
-    public void apply() {
-
-    }
 }

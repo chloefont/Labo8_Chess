@@ -9,23 +9,23 @@ import game.Vector;
 
 public class MoveLinearWithPromotion extends MoveLinear {
 
-    public MoveLinearWithPromotion(Vector direction, boolean shouldBeInDirection, boolean canEat) {
-        super(direction, shouldBeInDirection, canEat);
+    public MoveLinearWithPromotion(Vector direction, boolean shouldBeInDirection, boolean canEat, GameBoard board, Piece piece) {
+        super(direction, shouldBeInDirection, canEat, board, piece);
     }
 
     @Override
-    public boolean check(GameBoard board, Piece piece, Vector to) {
-        if (!super.check(board, piece, to))
+    public boolean check(Vector to) {
+        if (!super.check(to))
             return false;
 
         int pos;
-        if (piece.getColor() == PlayerColor.WHITE)
-            pos = board.getWidth() - 1;
+        if (getPiece().getColor() == PlayerColor.WHITE)
+            pos = getBoard().getWidth() - 1;
         else
             pos = 0;
 
         if (to.getY() == pos) {
-            board.promotion(piece, to);
+            getBoard().promotion(getPiece(), to);
         }
         return true;
     }

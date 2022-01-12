@@ -12,16 +12,17 @@ import game.Vector;
 public class King extends Piece implements LinearMovement, HasMoved {
     int maxMove = 1;
     private boolean hasMoved = false;
-    public King(GameBoard gameBoard, PlayerColor color, Vector position) {
-        super(gameBoard, color, position);
+
+    public King(GameBoard board, PlayerColor color, Vector position) {
+        super(board, color, position);
 
         Movement[] movementRules = {
-                new MoveLinear(new Vector(1,0)),
-                new MoveLinear(new Vector(0,1)),
-                new MoveLinear(new Vector(1,1)),
-                new MoveLinear(new Vector(1,-1)),
-                new PetitRoque(),
-                new GrandRoque()
+                new MoveLinear(new Vector(1,0), board, this),
+                new MoveLinear(new Vector(0,1), board, this),
+                new MoveLinear(new Vector(1,1), board, this),
+                new MoveLinear(new Vector(1,-1), board, this),
+                new PetitRoque(board, this),
+                new GrandRoque(board, this)
         };
         setRules(movementRules);
     }

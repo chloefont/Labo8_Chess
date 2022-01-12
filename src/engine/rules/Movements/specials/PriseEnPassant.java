@@ -9,10 +9,14 @@ import game.GameBoard;
 import game.Vector;
 
 public class PriseEnPassant extends Rule {
+
+    public PriseEnPassant(GameBoard board, Piece piece) {
+        super(board, piece);
+    }
     @Override
-    public boolean check(GameBoard board, Piece piece, Vector to) {
+    public boolean check(Vector to) {
         int deltaY;
-        if (piece.getColor() == PlayerColor.WHITE) {
+        if (getPiece().getColor() == PlayerColor.WHITE) {
             deltaY = 1;
         } else {
             deltaY = -1;
@@ -20,13 +24,14 @@ public class PriseEnPassant extends Rule {
 
         int[] sides = {-1, 1};
         for (int side : sides) {
-            Movement movement = new MoveLinear(new Vector(side, deltaY), true, false);
-            Piece other = board.getPiece(to.add(new Vector(0, -deltaY)));
+            Movement movement = new MoveLinear(new Vector(side, deltaY), true, false, getBoard(), getPiece());
+            Piece other = getBoard().getPiece(to.add(new Vector(0, -deltaY)));
 
-            //TODO + vérifier dernier movement = doubleforwards
-            if (movement.check(board, piece, to) && other != null && other.getColor() != piece.getColor()
-                    &&board.getLastPieceToMove() == other && new Vector(0, 2 * deltaY * -1).equals(other.getPosition().sub(other.getLastPosition()))) {
-                board.onDeath(other);
+            if (movement.check(to) && other != null && other.getColor() != getPiece().getColor()
+                    && getBoard().getLastPieceToMove() == other
+                    && new Vector(0, 2 * deltaY * -1).equals(other.getPosition().sub(other.getLastPosition()))) {
+
+                getBoard().onDeath(other);
                 return true;
             }
         }

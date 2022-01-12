@@ -6,8 +6,12 @@ import game.GameBoard;
 import game.Vector;
 
 public class Promotion extends Rule {
+     public Promotion(GameBoard board, Piece piece) {
+         super(board, piece);
+     }
+
     @Override
-    public boolean check(GameBoard board, Piece piece, Vector to) {
+    public boolean check(Vector to) {
         return false;
     }
 }

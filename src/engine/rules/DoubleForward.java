@@ -1,0 +1,32 @@
+package engine.rules;
+
+import chess.PlayerColor;
+import engine.pieces.Piece;
+import engine.rules.Movements.MoveLinear;
+import engine.rules.Movements.Movement;
+import engine.rules.Rule;
+import game.GameBoard;
+import game.Vector;
+
+public class DoubleForward extends Rule {
+
+    public DoubleForward(GameBoard board, Piece piece) {
+        super(board, piece);
+    }
+
+    public boolean check(Vector to) {
+        int deltaY, posY;
+        if (getPiece().getColor() == PlayerColor.WHITE) {
+            deltaY = 2;
+            posY = 1;
+        } else {
+            deltaY = -2;
+            posY = getBoard().getWidth() - 2;
+        }
+
+        Movement movement = new MoveLinear(new Vector(0, deltaY), true, false, getBoard(), getPiece());
+
+        return movement.check(to) && getPiece().getPosition().getY() == posY;
+    }
+
+}

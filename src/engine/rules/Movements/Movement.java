@@ -8,10 +8,13 @@ import game.GameBoard;
 import game.Vector;
 
 abstract public class Movement extends Rule {
+    protected Movement(GameBoard board, Piece piece) {
+        super(board, piece);
+    }
 
-    public boolean checkNoPieceBetween(GameBoard board, Piece piece, Vector to) {
+    public boolean checkNoPieceBetween(Piece piece, Vector to) {
         Vector diff = piece.getPosition().sub(to);
-        for (Piece other : board.getPieces()) {
+        for (Piece other : getBoard().getPieces()) {
             if (other != null) {
                 Vector diffOther = piece.getPosition().sub(other.getPosition());
                 if (other != piece && !other.getPosition().equals(piece.getPosition()) && (diff.colinear(diffOther) && diff.sameDirection(diffOther)
@@ -23,14 +26,18 @@ abstract public class Movement extends Rule {
         return true;
     }
 
-    public boolean checkPieceAtSamePlace (GameBoard board, Piece piece, Piece other, Vector desiredPosition, boolean canEat) {
-        assert board == null || piece == null;
+    public boolean checkNoPieceBetween(Vector to) {
+        return checkNoPieceBetween(getPiece(), to);
+    }
+
+    public boolean checkPieceAtSamePlace (Piece other, Vector desiredPosition, boolean canEat) {
+        assert getBoard() == null || getPiece() == null;
         if (other == null) {
             return true;
         }
 
         // Les pions ne peuvent pas manger en utilisant leurs mouvements classiques
-        if (other.getPosition().equals(desiredPosition) && (other.getColor() == piece.getColor() || !canEat)) {
+        if (other.getPosition().equals(desiredPosition) && (other.getColor() == getPiece().getColor() || !canEat)) {
             return false;
         }
         return true;

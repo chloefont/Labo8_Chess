@@ -2,10 +2,10 @@ package engine.pieces;
 
 import chess.PieceType;
 import chess.PlayerColor;
-import engine.rules.Movements.specials.DoubleForward;
+import engine.rules.DoubleForward;
 import engine.rules.Movements.specials.MoveLinearWithPromotion;
 import engine.rules.Movements.specials.PriseEnPassant;
-import engine.rules.Movements.specials.eatDiag;
+import engine.rules.EatDiag;
 import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
@@ -13,8 +13,8 @@ import game.Vector;
 public class Pawn extends Piece implements LinearMovement {
     private int maxMove = 1;
 
-    public Pawn(GameBoard gameBoard, PlayerColor color, Vector position) {
-        super(gameBoard, color, position);
+    public Pawn(GameBoard board, PlayerColor color, Vector position) {
+        super(board, color, position);
 
         int dir;
         if (getColor() == PlayerColor.WHITE) {
@@ -24,10 +24,10 @@ public class Pawn extends Piece implements LinearMovement {
         }
 
         Rule[] obligRules = {
-                new MoveLinearWithPromotion(new Vector(0, dir), true, false),
-                new eatDiag(),
-                new DoubleForward(),
-                new PriseEnPassant()
+                new MoveLinearWithPromotion(new Vector(0, dir), true, false, board, this),
+                new EatDiag(board, this),
+                new DoubleForward(board, this),
+                new PriseEnPassant(board, this)
         };
 
         setRules(obligRules);

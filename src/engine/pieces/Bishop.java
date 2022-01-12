@@ -8,14 +8,14 @@ import game.GameBoard;
 import game.Vector;
 
 public class Bishop extends Piece implements LinearMovement {
-    int maxMove = getGameBoard().getWidth();
+    int maxMove = getBoard().getWidth();
 
-    public Bishop(GameBoard gameBoard, PlayerColor color, Vector position) {
-        super(gameBoard, color, position);
+    public Bishop(GameBoard board, PlayerColor color, Vector position) {
+        super(board, color, position);
 
         Movement[] movementRules = {
-                new MoveLinear(new Vector(1, 1)),
-                new MoveLinear(new Vector(-1, 1)),
+                new MoveLinear(new Vector(1, 1),board, this),
+                new MoveLinear(new Vector(-1, 1), board, this),
         };
         setRules(movementRules);
     }

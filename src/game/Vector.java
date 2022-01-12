@@ -39,6 +39,10 @@ public class Vector {
         return new Vector(x + other.getX(), y + other.getY());
     }
 
+    public Vector mult(int by){
+        return new Vector(x * by, y * by);
+    }
+
     public boolean colinear(Vector other) {
         return x * other.getY() == y * other.getX();
     }

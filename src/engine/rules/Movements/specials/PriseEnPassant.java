@@ -25,7 +25,7 @@ public class PriseEnPassant extends Rule {
         int[] sides = {-1, 1};
         for (int side : sides) {
             Movement movement = new MoveLinear(new Vector(side, deltaY), true, false, getBoard(), getPiece());
-            Piece other = getBoard().getPiece(to.add(new Vector(0, -deltaY)));
+            Piece other = getBoard().getPieceAt(to.add(new Vector(0, -deltaY)));
 
             if (movement.check(to) && other != null && other.getColor() != getPiece().getColor()
                     && getBoard().getLastPieceToMove() == other

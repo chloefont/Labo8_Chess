@@ -25,7 +25,7 @@ public class GameBoard {
 //        controller = gameBoard.controller;
 //    }
 
-    public Piece getPiece (Vector vector) {
+    public Piece getPieceAt(Vector vector) {
         for (Piece piece : pieces) {
             if (piece != null && piece.getPosition().equals(vector))
                 return piece;
@@ -60,7 +60,7 @@ public class GameBoard {
      */
     public Piece getKing(PlayerColor color){
         for (Piece piece : pieces) {
-            if(piece != null && piece.getColor() == color && piece instanceof King){
+            if(piece != null && piece.getColor() == color && piece.getType() == PieceType.KING){
                 return piece;
             }
         }

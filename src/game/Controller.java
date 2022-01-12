@@ -24,7 +24,7 @@ public class Controller implements ChessController {
     @Override
     public boolean move(int fromX, int fromY, int toX, int toY) {
 
-        Piece piece = gameBoard.getPiece(new Vector(fromX, fromY));
+        Piece piece = gameBoard.getPieceAt(new Vector(fromX, fromY));
 
         if (piece == null){
             view.displayMessage("Aucune pièce choisi !");
@@ -43,7 +43,7 @@ public class Controller implements ChessController {
 
         Piece other = null;
         if (!piece.isDead())
-            other = gameBoard.getPiece(new Vector(toX, toY));
+            other = gameBoard.getPieceAt(new Vector(toX, toY));
 
         // déplace la pièce si tout est validé
         piece.move(new Vector(toX, toY));

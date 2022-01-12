@@ -4,7 +4,6 @@ import chess.PlayerColor;
 import engine.pieces.Piece;
 import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.Movement;
-import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
 
@@ -26,7 +25,7 @@ public class EatDiag extends Rule {
         int[] sides = {-1, 1};
         for (int side : sides) {
             Movement movement = new MoveLinear(new Vector(side, deltaY), true, true, getBoard(), getPiece());
-            if (movement.check(to) && getBoard().getPiece(to) != null) {
+            if (movement.check(to) && getBoard().getPieceAt(to) != null) {
                 return true;
             }
         }

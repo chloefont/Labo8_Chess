@@ -1,7 +1,6 @@
 package engine.rules.Movements.specials;
 
 import chess.PieceType;
-import chess.PlayerColor;
 import engine.pieces.King;
 import engine.pieces.Piece;
 import engine.pieces.Rook;
@@ -13,46 +12,31 @@ public abstract class Roque extends Movement {
     private boolean canBeApplyed = false;
     private boolean done = false; // Si ce mouvement à déjà été fais
     private Rook rook;
-    private King king;
-
-    private final Vector POSITION_BLACK;
-    private final Vector POSITION_WHITE;
-    private final Vector POSITION_ROCK_WHITE;
-    private final Vector POSITION_ROCK_BLACK;
-    private final Vector NEW_POSITION_ROCK_WHITE;
-    private final Vector NEW_POSITION_ROCK_BLACK;
+    private final Vector DEFAULT_KING_POSITION;
     private final Vector DIRECTION;
+    private final Vector ROOK_POSITION;
 
-    Roque(GameBoard board, Piece piece, Vector positionWhite, Vector positionBlack, Vector positionRockWhite, Vector positionRockBlack, Vector newPositionRockWhite, Vector newPositionRockBlack, Vector direction){
+    Roque(GameBoard board, Piece piece, Vector direction, Vector rookPosition){
         super(board, piece);
-        POSITION_BLACK = positionBlack;
-        POSITION_WHITE = positionWhite;
-        POSITION_ROCK_WHITE = positionRockWhite;
-        POSITION_ROCK_BLACK = positionRockBlack;
-        NEW_POSITION_ROCK_WHITE = newPositionRockWhite;
-        NEW_POSITION_ROCK_BLACK = newPositionRockBlack;
+        DEFAULT_KING_POSITION = piece.getPosition();
         DIRECTION = direction;
+        ROOK_POSITION = rookPosition;
     }
-
-//    Roque(GameBoard board, Piece piece, Vector direction, Vector rookPosition){
-//        Super(board, piece);
-//    }
 
     @Override
     public boolean check(Vector to) {
         if(done) return false;
-        if(!(to.equals(POSITION_WHITE) && getPiece().getColor() == PlayerColor.WHITE) && !(to.equals(POSITION_BLACK) && getPiece().getColor() == PlayerColor.BLACK)) return false;
+        if(!to.equals(DEFAULT_KING_POSITION.add(DIRECTION.mult(2)))) return false;
 
         // Si le roi et la tour n'as pas bougé
-        King king = (King) piece;
-        Vector positionRook = piece.getColor() == PlayerColor.WHITE ? POSITION_ROCK_WHITE : POSITION_ROCK_BLACK;
-        Piece rook = board.getPiece(positionRook);
+        King king = (King) getPiece();
+        Piece rook = getBoard().getPieceAt(ROOK_POSITION);
         if(king.hasMoved()) return false;
         if(rook == null || rook.getType() != PieceType.ROOK) return false;
         if(((Rook)rook).hasMoved()) return false;
 
         // Si aucune pièce se trouve entre le roi et la tour
-        if(!checkNoPieceBetween(king, positionRook)) return false;
+        if(!checkNoPieceBetween(king, ROOK_POSITION)) return false;
 
         //si le roi ne peut pas être mis en echec sur le chemin
         Vector initPos = getPiece().getPosition();
@@ -73,7 +57,6 @@ public abstract class Roque extends Movement {
         // modifier la place de la tour
         canBeApplyed = true;
         this.rook = (Rook)rook;
-        this.king = king;
 
         return true;
     }
@@ -82,7 +65,7 @@ public abstract class Roque extends Movement {
     public void apply() {
         if(!canBeApplyed) return;
 
-        Vector newRookPosition = king.getColor() == PlayerColor.WHITE ? NEW_POSITION_ROCK_WHITE : NEW_POSITION_ROCK_BLACK;
+        Vector newRookPosition = DEFAULT_KING_POSITION.add(DIRECTION);
         this.rook.move(newRookPosition);
 
         done = true;

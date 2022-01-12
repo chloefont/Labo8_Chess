@@ -4,10 +4,11 @@ import chess.PlayerColor;
 import engine.pieces.Piece;
 import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.Movement;
+import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
 
-public class PriseEnPassant extends SpecialMovement {
+public class PriseEnPassant implements Rule {
     @Override
     public boolean check(GameBoard board, Piece piece, Vector to) {
         int deltaY;

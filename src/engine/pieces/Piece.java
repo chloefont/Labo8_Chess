@@ -18,13 +18,6 @@ public class Piece implements ChessView.UserChoice {
         this.lastPosition = position;
     }
 
-    protected Piece(Piece copyFrom){
-        color = copyFrom.color;
-        board = copyFrom.board;
-        position = new Vector(copyFrom.position.getX(), copyFrom.position.getY());
-        rules = copyFrom.rules;
-    }
-
     protected GameBoard getBoard() {
         return board;
     }
@@ -61,6 +54,10 @@ public class Piece implements ChessView.UserChoice {
         this.isDead = isDead;
     }
 
+    /**
+     * Permet de déplacer une pièce.
+     * @param to Vecteur indiquant le nouvel emplacement.
+     */
     public void move(Vector to) {
 
         for (Rule rule : rules) {
@@ -72,10 +69,11 @@ public class Piece implements ChessView.UserChoice {
         board.setLastPieceToMove(this);
     }
 
-    public Piece copy(){
-        return new Piece(this);
-    }
-
+    /**
+     * Permet de vérifier qu'un déplacement est applicable selon les règles définies par le constructeur.
+     * @param to Vecteur indiquant le nouvel emplacement.
+     * @return Vrai s'il est possible de se déplacer à cet emplacement.
+     */
     public boolean checkMove(Vector to){
         if (rules == null)
             return false;
@@ -98,6 +96,10 @@ public class Piece implements ChessView.UserChoice {
         return "Piece";
     }
 
+    /**
+     * Permet de savoir si cette pièce est morte.
+     * @return Vrai si mort.
+     */
     public boolean isDead() {
         return isDead;
     }

@@ -13,7 +13,16 @@ public abstract class Rule {
         this.PIECE = piece;
     }
 
+    /**
+     * Permet de vérifier si cette règle est applicable.
+     * @param to
+     * @return
+     */
     public abstract boolean check(Vector to);
+
+    /**
+     * Permet d'appliquer la règle. Ne fait rien par défaut.
+     */
     public void apply(){/*does nothing by default*/};
 
     public GameBoard getBoard() {

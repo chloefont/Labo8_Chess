@@ -6,24 +6,24 @@ public class Vector {
     public static final Vector UP = new Vector(0, 1);
     public static final Vector DOWN = new Vector(0, -1);
 
-    private int x;
-    private int y;
+    private final int X;
+    private final int Y;
 
     public Vector(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.X = x;
+        this.Y = y;
     }
 
     public Vector(Vector vector){
-        this(vector.x, vector.y);
+        this(vector.X, vector.Y);
     }
 
     public int getX() {
-        return x;
+        return X;
     }
 
     public int getY() {
-        return y;
+        return Y;
     }
 
     // TODO faire la fonction pour le hash aussi non ?
@@ -33,7 +33,7 @@ public class Vector {
      * @return Vrai s'ils sont égaux.
      */
     public boolean equals (Vector other) {
-        return x == other.x && y == other.y;
+        return X == other.X && Y == other.Y;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Vector {
      * @return Un nouveau vecteur.
      */
     public Vector sub(Vector other) {
-        return new Vector(x - other.getX(), y - other.getY());
+        return new Vector(X - other.getX(), Y - other.getY());
     }
 
     /**
@@ -51,7 +51,7 @@ public class Vector {
      * @return Un nouveau vecteur.
      */
     public Vector add(Vector other) {
-        return new Vector(x + other.getX(), y + other.getY());
+        return new Vector(X + other.getX(), Y + other.getY());
     }
 
     /**
@@ -60,7 +60,7 @@ public class Vector {
      * @return Un nouveau vecteur.
      */
     public Vector mult(int by){
-        return new Vector(x * by, y * by);
+        return new Vector(X * by, Y * by);
     }
 
     /**
@@ -69,7 +69,7 @@ public class Vector {
      * @return Vrai si colinéaire.
      */
     public boolean colinear(Vector other) {
-        return x * other.getY() == y * other.getX();
+        return X * other.getY() == Y * other.getX();
     }
 
     /**
@@ -78,8 +78,8 @@ public class Vector {
      * @return Vrai si même direction.
      */
     public boolean sameDirection(Vector other) {
-        return ((x <= 0 && other.getX() <= 0) || (x > 0 && other.getX() > 0))
-                && ((y <= 0 && other.getY() <= 0) || (y > 0 && other.getY() > 0));
+        return ((X <= 0 && other.getX() <= 0) || (X > 0 && other.getX() > 0))
+                && ((Y <= 0 && other.getY() <= 0) || (Y > 0 && other.getY() > 0));
     }
 
     /**
@@ -87,6 +87,6 @@ public class Vector {
      * @return La taille.
      */
     public double norm() {
-        return Math.sqrt(x*x + y*y);
+        return Math.sqrt(X * X + Y * Y);
     }
 }

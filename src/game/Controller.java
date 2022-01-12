@@ -3,8 +3,6 @@ package game;
 import chess.*;
 import engine.pieces.Piece;
 
-import java.beans.PropertyEditorManager;
-
 public class Controller implements ChessController {
     private final GameBoard gameBoard;
     private PlayerColor tourJoueur = PlayerColor.WHITE;
@@ -44,7 +42,7 @@ public class Controller implements ChessController {
         }
 
         Piece other = null;
-        if (piece.isOnBoard())
+        if (!piece.isDead())
             other = gameBoard.getPiece(new Vector(toX, toY));
 
         // déplace la pièce si tout est validé

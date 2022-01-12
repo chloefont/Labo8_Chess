@@ -19,12 +19,6 @@ public class GameBoard {
         this.controller = controller;
     }
 
-//    public GameBoard(GameBoard gameBoard){
-//        gameFinished = gameBoard.gameFinished;
-//        pieces = (Piece[]) Arrays.stream(gameBoard.pieces).map(piece -> piece.copy()).toArray();
-//        controller = gameBoard.controller;
-//    }
-
     public Piece getPieceAt(Vector vector) {
         for (Piece piece : pieces) {
             if (piece != null && piece.getPosition().equals(vector))
@@ -67,6 +61,9 @@ public class GameBoard {
         return null;
     }
 
+    /**
+     * Place les pièces nécessaires pour jouer aux échecs.
+     */
     void init() {
         PlayerColor color = PlayerColor.WHITE;
         int i = 0;
@@ -121,7 +118,12 @@ public class GameBoard {
         this.gameFinished = gameFinished;
     }
 
-    public void onDeath(Piece piece) {
+    /**
+     * Permet de retirer une pièce du jeu. TODO pas sûr de ce que ça fait. Cette fonction s'appelait onDeath.
+     * @param piece
+     */
+    public void killPiece(Piece piece) {
+        // TODO est-il possible de tuer le roi ?
         if (piece.getType() == PieceType.KING)
             gameFinished = true;
 
@@ -130,6 +132,11 @@ public class GameBoard {
         piece.setDead(true);
     }
 
+    /**
+     * Permet de savoir si le roi d'une couleur est en échec.
+     * @param color La couleur du roi.
+     * @return Vrai si en échec.
+     */
     public boolean isEchec(PlayerColor color){
 
         PlayerColor oppositeColor = PlayerColor.getOpposite(color);
@@ -147,6 +154,11 @@ public class GameBoard {
         return false;
     }
 
+    /**
+     * TODO
+     * @param pawn
+     * @param newPos
+     */
     public void promotion(Piece pawn, Vector newPos) {
         Piece[] promotionPieces = {
                 new Queen(this, pawn.getColor(), newPos),
@@ -160,10 +172,15 @@ public class GameBoard {
             newPiece = controller.promotionQuestion(promotionPieces);
         } while (newPiece == null);
 
-        onDeath(pawn);
+        killPiece(pawn);
         changePieceOnBoard(null, newPiece);
     }
 
+    /**
+     * Permet de mettre une nouvelle pièce à la place d'une autre.
+     * @param toChange La pièce à changer.
+     * @param newPiece La pièce de remplacement.
+     */
     private void changePieceOnBoard(Piece toChange, Piece newPiece) {
         for (int i = 0; i < pieces.length; ++i) {
             if (pieces[i] == toChange) {

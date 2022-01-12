@@ -3,11 +3,14 @@ package game;
 import chess.*;
 import engine.pieces.Piece;
 
+/**
+ * Cette class fait le lien entre l'interface et la logique.
+ */
 public class Controller implements ChessController {
     private final GameBoard gameBoard;
     private PlayerColor tourJoueur = PlayerColor.WHITE;
     private ChessView view;
-    private int width = 8;
+    private final int WIDTH = 8;
 
     public Controller() {
         gameBoard = new GameBoard(this);
@@ -56,10 +59,11 @@ public class Controller implements ChessController {
         }
 
         if (other != null) {
-            gameBoard.onDeath(other);
+            gameBoard.killPiece(other);
         }
 
-        updateView();
+        removeAllPiecesFromBoard();
+        showPiecesOnBoard();
 
         tourJoueur = PlayerColor.getOpposite(tourJoueur);
 
@@ -68,20 +72,20 @@ public class Controller implements ChessController {
 
     @Override
     public void newGame() {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < width; j++)
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < WIDTH; j++)
                 view.removePiece(i, j);
         }
-
+        tourJoueur = PlayerColor.WHITE;
         initDisplay();
     }
 
+    /**
+     * Initialise le GameBoard et affiche les pièces sur l'interface.
+     */
     private void initDisplay() {
         gameBoard.init();
-        for (Piece piece : gameBoard.getPieces()) {
-            if (piece != null)
-                view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
-        }
+        showPiecesOnBoard();
     }
 
     protected void deathPiece(Vector at) {
@@ -94,15 +98,24 @@ public class Controller implements ChessController {
         return view.askUser("Promotion", "Your pawn is promoted. Please choose a new piece.", promotionPieces);
     }
 
-    protected void updateView(){
+    /**
+     * Affiche les pièces du GameBoard sur l'interface.
+     */
+    protected void showPiecesOnBoard(){
+        for (Piece p: gameBoard.getPieces()) {
+            if(p == null) continue;
+            view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(), p.getPosition().getY());
+        }
+    }
+
+    /**
+     * Retire toutes les pièces de l'interface
+     */
+    protected void removeAllPiecesFromBoard(){
         for(int i = 0; i < gameBoard.getWidth(); i++){
             for(int j = 0; j < gameBoard.getWidth(); j++){
                 view.removePiece(i,j);
             }
-        }
-        for (Piece p: gameBoard.getPieces()) {
-            if(p == null) continue;
-            view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(), p.getPosition().getY());
         }
     }
 }

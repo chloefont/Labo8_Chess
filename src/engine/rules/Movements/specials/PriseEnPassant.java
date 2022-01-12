@@ -31,7 +31,7 @@ public class PriseEnPassant extends Rule {
                     && getBoard().getLastPieceToMove() == other
                     && new Vector(0, 2 * deltaY * -1).equals(other.getPosition().sub(other.getLastPosition()))) {
 
-                getBoard().onDeath(other);
+                getBoard().killPiece(other);
                 return true;
             }
         }

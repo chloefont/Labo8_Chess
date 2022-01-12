@@ -4,15 +4,15 @@ import engine.rules.Rule;
 import game.*;
 
 public class Piece implements ChessView.UserChoice {
-    private PlayerColor color;
-    private GameBoard gameBoard;
+    final private PlayerColor color;
+    final private GameBoard board;
     private Vector position;
     private Vector lastPosition;
     private Rule[] rules;
     private boolean isDead = false;
 
-    protected Piece(GameBoard gameBoard, PlayerColor color, Vector position) {
-        this.gameBoard = gameBoard;
+    protected Piece(GameBoard board, PlayerColor color, Vector position) {
+        this.board = board;
         this.color = color;
         this.position = position;
         this.lastPosition = position;
@@ -20,13 +20,13 @@ public class Piece implements ChessView.UserChoice {
 
     protected Piece(Piece copyFrom){
         color = copyFrom.color;
-        gameBoard = copyFrom.gameBoard;
+        board = copyFrom.board;
         position = new Vector(copyFrom.position.getX(), copyFrom.position.getY());
         rules = copyFrom.rules;
     }
 
-    protected GameBoard getGameBoard() {
-        return gameBoard;
+    protected GameBoard getBoard() {
+        return board;
     }
 
     public PlayerColor getColor() {
@@ -69,7 +69,7 @@ public class Piece implements ChessView.UserChoice {
 
         lastPosition = position;
         position = to;
-        gameBoard.setLastPieceToMove(this);
+        board.setLastPieceToMove(this);
     }
 
     public Piece copy(){
@@ -81,7 +81,7 @@ public class Piece implements ChessView.UserChoice {
             return false;
 
         for (Rule rule : rules) {
-            if (rule.check(gameBoard, this, to)) {
+            if (rule.check(to)) {
                 return true;
             }
         }

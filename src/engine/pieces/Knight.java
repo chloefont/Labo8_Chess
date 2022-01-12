@@ -8,10 +8,10 @@ import game.GameBoard;
 import game.Vector;
 
 public class Knight extends Piece {
-    public Knight(GameBoard gameBoard, PlayerColor color, Vector position) {
-        super(gameBoard, color, position);
+    public Knight(GameBoard board, PlayerColor color, Vector position) {
+        super(board, color, position);
 
-        Movement[] movementRules = {new MoveL()};
+        Movement[] movementRules = {new MoveL(board, this)};
         setRules(movementRules);
     }
 

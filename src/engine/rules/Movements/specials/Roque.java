@@ -23,7 +23,8 @@ public abstract class Roque extends Movement {
     private final Vector NEW_POSITION_ROCK_BLACK;
     private final Vector DIRECTION;
 
-    Roque(Vector positionWhite, Vector positionBlack, Vector positionRockWhite, Vector positionRockBlack, Vector newPositionRockWhite, Vector newPositionRockBlack, Vector direction){
+    Roque(GameBoard board, Piece piece, Vector positionWhite, Vector positionBlack, Vector positionRockWhite, Vector positionRockBlack, Vector newPositionRockWhite, Vector newPositionRockBlack, Vector direction){
+        super(board, piece);
         POSITION_BLACK = positionBlack;
         POSITION_WHITE = positionWhite;
         POSITION_ROCK_WHITE = positionRockWhite;
@@ -38,9 +39,9 @@ public abstract class Roque extends Movement {
 //    }
 
     @Override
-    public boolean check(GameBoard board, Piece piece, Vector to) {
+    public boolean check(Vector to) {
         if(done) return false;
-        if(!(to.equals(POSITION_WHITE) && piece.getColor() == PlayerColor.WHITE) && !(to.equals(POSITION_BLACK) && piece.getColor() == PlayerColor.BLACK)) return false;
+        if(!(to.equals(POSITION_WHITE) && getPiece().getColor() == PlayerColor.WHITE) && !(to.equals(POSITION_BLACK) && getPiece().getColor() == PlayerColor.BLACK)) return false;
 
         // Si le roi et la tour n'as pas bougé
         King king = (King) piece;
@@ -51,23 +52,23 @@ public abstract class Roque extends Movement {
         if(((Rook)rook).hasMoved()) return false;
 
         // Si aucune pièce se trouve entre le roi et la tour
-        if(!checkNoPieceBetween(board, king, positionRook)) return false;
+        if(!checkNoPieceBetween(king, positionRook)) return false;
 
         //si le roi ne peut pas être mis en echec sur le chemin
-        Vector initPos = piece.getPosition();
-        Vector initLastPos = piece.getLastPosition();
+        Vector initPos = getPiece().getPosition();
+        Vector initLastPos = getPiece().getLastPosition();
 
         for(int i = 0; i < 2; i++){
-            piece.move(piece.getPosition().add(DIRECTION));
-            if(board.isEchec(piece.getColor())){
-                piece.setLastPosition(initLastPos);
-                piece.setPosition(initPos);
+            getPiece().move(getPiece().getPosition().add(DIRECTION));
+            if(getBoard().isEchec(getPiece().getColor())){
+                getPiece().setLastPosition(initLastPos);
+                getPiece().setPosition(initPos);
                 return false;
             }
         }
 
-        piece.setLastPosition(initLastPos);
-        piece.setPosition(initPos);
+        getPiece().setLastPosition(initLastPos);
+        getPiece().setPosition(initPos);
 
         // modifier la place de la tour
         canBeApplyed = true;

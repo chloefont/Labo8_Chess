@@ -42,19 +42,19 @@ public abstract class Roque extends Movement {
         Vector initPos = getPiece().getPosition();
         Vector initLastPos = getPiece().getLastPosition();
 
-        for(int i = 0; i < 2; i++){
-            getPiece().move(getPiece().getPosition().add(DIRECTION));
-            if(getBoard().isEchec(getPiece().getColor())){
-                getPiece().setLastPosition(initLastPos);
-                getPiece().setPosition(initPos);
-                return false;
-            }
+
+        getPiece().move(getPiece().getPosition().add(DIRECTION));
+        if(getBoard().isEchec(getPiece().getColor())){
+            getPiece().setLastPosition(initLastPos);
+            getPiece().setPosition(initPos);
+            return false;
         }
+
 
         getPiece().setLastPosition(initLastPos);
         getPiece().setPosition(initPos);
 
-        // modifier la place de la tour
+        // La règle est donc applicable.
         canBeApplyed = true;
         this.rook = (Rook)rook;
 

@@ -13,7 +13,7 @@ public class Controller implements ChessController {
     private final int WIDTH = 8;
 
     public Controller() {
-        gameBoard = new GameBoard(this);
+        gameBoard = new GameBoard(this::promotionQuestion);
     }
 
     @Override
@@ -86,11 +86,6 @@ public class Controller implements ChessController {
     private void initDisplay() {
         gameBoard.init();
         showPiecesOnBoard();
-    }
-
-    protected void deathPiece(Vector at) {
-        if (at != null)
-            view.removePiece(at.getX(), at.getY());
     }
 
     protected Piece promotionQuestion(Piece[] promotionPieces) {

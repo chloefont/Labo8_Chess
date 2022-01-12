@@ -9,14 +9,12 @@ import java.util.List;
 
 public class GameBoard {
     private final int width = 8;
-    private boolean gameFinished = false;
     private Piece[] pieces = new Piece[width * 4];
-    Controller controller;
     Piece lastPieceToMove;
+    private final PromotionQuestion promotionQuestion;
 
-    //TODO peut-être faire ton truc de callback à la place pour la fonction onDeath
-    public GameBoard(Controller controller) {
-        this.controller = controller;
+    public GameBoard(PromotionQuestion callback) {
+        this.promotionQuestion = callback;
     }
 
     public Piece getPieceAt(Vector vector) {
@@ -76,7 +74,7 @@ public class GameBoard {
 
 
             for (int n = 0; n < width; n++) {
-                //pieces[i++] = new Pawn(this, color, new Vector(n, height));
+                pieces[i++] = new Pawn(this, color, new Vector(n, height));
             }
 
             if (color == PlayerColor.WHITE)
@@ -114,20 +112,12 @@ public class GameBoard {
         return width;
     }
 
-    public void setGameFinished(boolean gameFinished) {
-        this.gameFinished = gameFinished;
-    }
 
     /**
-     * Permet de retirer une pièce du jeu. TODO pas sûr de ce que ça fait. Cette fonction s'appelait onDeath.
+     * Permet de retirer une pièce du jeu.
      * @param piece
      */
     public void killPiece(Piece piece) {
-        // TODO est-il possible de tuer le roi ?
-        if (piece.getType() == PieceType.KING)
-            gameFinished = true;
-
-        controller.deathPiece(piece.getPosition());
         changePieceOnBoard(piece, null);
         piece.setDead(true);
     }
@@ -169,7 +159,7 @@ public class GameBoard {
 
         Piece newPiece;
         do {
-            newPiece = controller.promotionQuestion(promotionPieces);
+            newPiece = promotionQuestion.handler(promotionPieces);
         } while (newPiece == null);
 
         killPiece(pawn);

@@ -5,7 +5,6 @@ import chess.PlayerColor;
 import engine.pieces.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GameBoard {
@@ -87,7 +86,7 @@ public class GameBoard {
 
 
             for (int n = 0; n < width; n++) {
-                //pieces[i++] = new Pawn(this, color, new Vector(n, height));
+                pieces[i++] = new Pawn(this, color, new Vector(n, height));
             }
 
             if (color == PlayerColor.WHITE)
@@ -99,15 +98,15 @@ public class GameBoard {
             pieces[i++] = new Rook(this, color, new Vector(width - 1, height));
 
             // Knights
-            //pieces[i++] = new Knight(this, color, new Vector(1, height));
-            //pieces[i++] = new Knight(this, color, new Vector(width - 2, height));
+            pieces[i++] = new Knight(this, color, new Vector(1, height));
+            pieces[i++] = new Knight(this, color, new Vector(width - 2, height));
 
             // Bishops
-            //pieces[i++] = new Bishop(this, color, new Vector(2, height));
-            //pieces[i++] = new Bishop(this, color, new Vector(width - 3, height));
+            pieces[i++] = new Bishop(this, color, new Vector(2, height));
+            pieces[i++] = new Bishop(this, color, new Vector(width - 3, height));
 
             //Queen
-            //pieces[i++] = new Queen(this, color, new Vector(3, height));
+            pieces[i++] = new Queen(this, color, new Vector(3, height));
 
             // King
             pieces[i++] = new King(this, color, new Vector(4, height));
@@ -134,13 +133,8 @@ public class GameBoard {
             gameFinished = true;
 
         controller.deathPiece(piece.getPosition());
-        for (int i = 0; i < pieces.length; ++i) {
-            //TODO comment on peut supprimer la pièce autrement
-            if (piece == pieces[i]) {
-                pieces[i] = null;
-                piece.setOnBoard(false);
-            }
-        }
+        changePieceOnBoard(piece, null);
+        piece.setDead(true);
     }
 
     public boolean isEchec(PlayerColor color){
@@ -174,9 +168,12 @@ public class GameBoard {
         } while (newPiece == null);
 
         onDeath(pawn);
+        changePieceOnBoard(null, newPiece);
+    }
 
+    private void changePieceOnBoard(Piece toChange, Piece newPiece) {
         for (int i = 0; i < pieces.length; ++i) {
-            if (pieces[i] == null) {
+            if (pieces[i] == toChange) {
                 pieces[i] = newPiece;
                 return;
             }

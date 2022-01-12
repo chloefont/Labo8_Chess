@@ -9,7 +9,7 @@ public class Piece implements ChessView.UserChoice {
     private Vector position;
     private Vector lastPosition;
     private Rule[] rules;
-    private boolean onBoard = true;
+    private boolean isDead = false;
 
     protected Piece(GameBoard gameBoard, PlayerColor color, Vector position) {
         this.gameBoard = gameBoard;
@@ -57,8 +57,8 @@ public class Piece implements ChessView.UserChoice {
         this.rules = rules;
     }
 
-    public void setOnBoard(boolean onBoard) {
-        this.onBoard = onBoard;
+    public void setDead(boolean isDead) {
+        this.isDead = isDead;
     }
 
     public void move(Vector to) {
@@ -98,7 +98,7 @@ public class Piece implements ChessView.UserChoice {
         return "Piece";
     }
 
-    public boolean isOnBoard() {
-        return onBoard;
+    public boolean isDead() {
+        return isDead;
     }
 }

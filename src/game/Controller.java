@@ -40,7 +40,6 @@ public class Controller implements ChessController {
 
         if (!piece.checkMove(new Vector(toX, toY))) {
             view.displayMessage("Vous ne pouvez pas déplacer votre pièce ici");
-            piece.move(piece.getLastPosition());
             return false;
         }
 

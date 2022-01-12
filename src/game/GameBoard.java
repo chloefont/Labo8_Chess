@@ -4,6 +4,7 @@ import chess.PieceType;
 import chess.PlayerColor;
 import engine.pieces.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,6 +143,45 @@ public class GameBoard {
             }
         }
         return false;
+    }
+
+    /**
+     * Permet de vérifier s'il y a echec et mat. TODO : Vérifier que ça fonctionne bien.
+     * @param color La couleur du roi.
+     * @return Vrai si échec et mat.
+     */
+    public boolean isEchecEtMat(PlayerColor color){
+        Piece king = getKing(color);
+        Vector originalPos = king.getPosition();
+
+        if(!isEchec(color)) return false;
+
+        // et que le roi ne peut pas bouger
+        final Vector startPos = king.getPosition().sub(new Vector(-1, 1));
+        Vector posToCheck = startPos;
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                if((i == 1 && j == 1) || !isOnBoard(posToCheck) || getPieceAt(posToCheck) != null) continue;
+                king.setPosition(posToCheck);
+                if(!isEchec(king.getColor())){
+                    king.setPosition(originalPos);
+                    return false;
+                }
+                posToCheck = startPos.add(new Vector(i, j));
+            }
+        }
+        king.setPosition(originalPos);
+        return true;
+    }
+
+    /**
+     * permet de savoir si une case se trouve sur le plateau. TODO vérifier que ça fonctionne bien.
+     * @param vector La case à vérifier.
+     * @return Vrai si la case est sur le plateau.
+     */
+    private boolean isOnBoard(Vector vector) {
+        final Rectangle board = new Rectangle(0, 0, 8, 8);
+        return board.contains(vector.getX(), vector.getY());
     }
 
     /**

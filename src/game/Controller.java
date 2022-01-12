@@ -61,24 +61,8 @@ public class Controller implements ChessController {
             gameBoard.onDeath(other);
         }
 
-        // Update view
-//        for (Piece p: gameBoard.getPieces()) {
-//            if(p == null) continue;
-//            view.removePiece(p.getLastPosition().getX(), p.getLastPosition().getY());
-//
-//        }
-        for(int i = 0; i < gameBoard.getWidth(); i++){
-            for(int j = 0; j < gameBoard.getWidth(); j++){
-                view.removePiece(i,j);
-            }
-        }
-        for (Piece p: gameBoard.getPieces()) {
-            if(p == null) continue;
-            view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(), p.getPosition().getY());
-        }
+        updateView();
 
-        //view.removePiece(oldPosition.getX(), oldPosition.getY());
-        //view.putPiece(piece.getType(), piece.getColor(), piece.getPosition().getX(), piece.getPosition().getY());
         tourJoueur = GameBoard.getOppositeColor(tourJoueur);
 
         return true;
@@ -110,5 +94,17 @@ public class Controller implements ChessController {
     protected Piece promotionQuestion(Piece[] promotionPieces) {
 
         return view.askUser("Promotion", "Your pawn is promoted. Please choose a new piece.", promotionPieces);
+    }
+
+    protected void updateView(){
+        for(int i = 0; i < gameBoard.getWidth(); i++){
+            for(int j = 0; j < gameBoard.getWidth(); j++){
+                view.removePiece(i,j);
+            }
+        }
+        for (Piece p: gameBoard.getPieces()) {
+            if(p == null) continue;
+            view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(), p.getPosition().getY());
+        }
     }
 }

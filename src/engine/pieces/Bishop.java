@@ -8,7 +8,7 @@ import game.GameBoard;
 import game.Vector;
 
 public class Bishop extends Piece implements LinearMovement {
-    int maxMove = getBoard().getWidth();
+    private final int MAX_MOVE = getBoard().getWidth();
 
     public Bishop(GameBoard board, PlayerColor color, Vector position) {
         super(board, color, position);
@@ -27,7 +27,7 @@ public class Bishop extends Piece implements LinearMovement {
 
     @Override
     public int getMaxMove() {
-        return maxMove;
+        return MAX_MOVE;
     }
 
     public String toString() {

@@ -10,7 +10,7 @@ import game.GameBoard;
 import game.Vector;
 
 public class King extends Piece implements LinearMovement, HasMoved {
-    int maxMove = 1;
+    private final int MAX_MOVE = 1;
     private boolean hasMoved = false;
 
     public King(GameBoard board, PlayerColor color, Vector position) {
@@ -40,7 +40,7 @@ public class King extends Piece implements LinearMovement, HasMoved {
 
     @Override
     public int getMaxMove() {
-        return maxMove;
+        return MAX_MOVE;
     }
 
     public String toString() {

@@ -8,8 +8,8 @@ import game.GameBoard;
 import game.Vector;
 
 public class Rook extends Piece implements LinearMovement, HasMoved {
-    int maxMove = getBoard().getWidth();
     private boolean hasMoved = false;
+    private final int MAX_MOVE = getBoard().getWidth();
 
     public Rook(GameBoard board, PlayerColor color, Vector position) {
         super(board, color, position);
@@ -34,7 +34,7 @@ public class Rook extends Piece implements LinearMovement, HasMoved {
 
     @Override
     public int getMaxMove() {
-        return maxMove;
+        return MAX_MOVE;
     }
 
     public String toString() {

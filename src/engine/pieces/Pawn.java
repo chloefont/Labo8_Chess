@@ -11,7 +11,7 @@ import game.GameBoard;
 import game.Vector;
 
 public class Pawn extends Piece implements LinearMovement {
-    private int maxMove = 1;
+    private final int MAX_MOVE = 1;
 
     public Pawn(GameBoard board, PlayerColor color, Vector position) {
         super(board, color, position);
@@ -40,7 +40,7 @@ public class Pawn extends Piece implements LinearMovement {
 
     @Override
     public int getMaxMove() {
-        return maxMove;
+        return MAX_MOVE;
     }
 
     public String toString() {

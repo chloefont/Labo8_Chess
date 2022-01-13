@@ -162,18 +162,27 @@ public class GameBoard {
 
         if(!isEchec(color) && getPiecesWithColor(color).length > 1) return false;
 
-        // et que le roi ne peut pas bouger
-        final Vector startPos = king.getPosition().sub(new Vector(-1, 1));
-        Vector posToCheck = startPos;
+        return canKingMove(color);
+    }
+
+    private boolean canKingMove(PlayerColor color){
+        Piece king = getKing(color);
+        final Vector originalPos = king.getPosition();
+
+        final Vector startPos = king.getPosition().add(new Vector(-1, 1));
+        Vector posToCheck;
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
-                if((i == 1 && j == 1) || !isOnBoard(posToCheck) || getPieceAt(posToCheck) != null) continue;
+                posToCheck = startPos.add(new Vector(j, -i));
+
+                if((i == 1 && j == 1) || !isOnBoard(posToCheck) || getPieceAt(posToCheck) != null){
+                    continue;
+                }
                 king.setPosition(posToCheck);
                 if(!isEchec(king.getColor())){
                     king.setPosition(originalPos);
                     return false;
                 }
-                posToCheck = startPos.add(new Vector(i, j));
             }
         }
         king.setPosition(originalPos);

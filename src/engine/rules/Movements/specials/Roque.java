@@ -10,6 +10,7 @@ import game.Vector;
 
 public abstract class Roque extends Movement {
     private boolean done = false; // Si ce mouvement à déjà été fais
+    private boolean applyRule = false;
     private Rook rook;
     private final Vector DEFAULT_KING_POSITION;
     private final Vector DIRECTION;
@@ -54,7 +55,7 @@ public abstract class Roque extends Movement {
         getPiece().setPosition(initPos);
 
         // La règle est donc applicable.
-        setCanBeApplyed(true);
+        applyRule = getCanBeApplyed();
         this.rook = (Rook)rook;
 
         return true;
@@ -65,7 +66,7 @@ public abstract class Roque extends Movement {
      */
     @Override
     public void apply() {
-        if(!getCanBeApplyed()) return;
+        if(!getCanBeApplyed() || !applyRule) return;
 
         Vector newRookPosition = DEFAULT_KING_POSITION.add(DIRECTION);
         this.rook.move(newRookPosition);

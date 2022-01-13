@@ -7,7 +7,7 @@ import game.Vector;
 public abstract class Rule {
     private final GameBoard BOARD;
     private final Piece PIECE;
-    private boolean canBeApplyed = false;
+    private boolean canBeApplyed = true;
 
 
     protected Rule(GameBoard board, Piece piece) {

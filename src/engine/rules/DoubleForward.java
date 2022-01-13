@@ -8,6 +8,9 @@ import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
 
+/**
+ * Cette class permet le mouvement de 2 cases pour les pions.
+ */
 public class DoubleForward extends Rule {
 
     public DoubleForward(GameBoard board, Piece piece) {

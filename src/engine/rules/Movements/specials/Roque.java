@@ -9,7 +9,6 @@ import game.GameBoard;
 import game.Vector;
 
 public abstract class Roque extends Movement {
-    private boolean canBeApplyed = false;
     private boolean done = false; // Si ce mouvement à déjà été fais
     private Rook rook;
     private final Vector DEFAULT_KING_POSITION;
@@ -36,7 +35,7 @@ public abstract class Roque extends Movement {
         if(((Rook)rook).hasMoved()) return false;
 
         // Si aucune pièce se trouve entre le roi et la tour
-        if(!checkNoPieceBetween(king, ROOK_POSITION)) return false;
+        if(!checkNoPieceBetween(ROOK_POSITION)) return false;
 
         //si le roi ne peut pas être mis en echec sur le chemin
         Vector initPos = getPiece().getPosition();
@@ -55,21 +54,24 @@ public abstract class Roque extends Movement {
         getPiece().setPosition(initPos);
 
         // La règle est donc applicable.
-        canBeApplyed = true;
+        setCanBeApplyed(true);
         this.rook = (Rook)rook;
 
         return true;
     }
 
+    /**
+     * Permet de bouger la tour si le GrandRoque ou PetitRoque a été fait.
+     */
     @Override
     public void apply() {
-        if(!canBeApplyed) return;
+        if(!getCanBeApplyed()) return;
 
         Vector newRookPosition = DEFAULT_KING_POSITION.add(DIRECTION);
         this.rook.move(newRookPosition);
 
         done = true;
-        canBeApplyed = false;
+        setCanBeApplyed(false);
         this.rook = null;
     }
 }

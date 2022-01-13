@@ -7,6 +7,9 @@ import engine.rules.Movements.Movement;
 import game.GameBoard;
 import game.Vector;
 
+/**
+ * Cette classe permet de savoir s'il est possible de manger une pièce en diagonal.
+ */
 public class EatDiag extends Rule {
 
     public EatDiag(GameBoard board, Piece piece) {

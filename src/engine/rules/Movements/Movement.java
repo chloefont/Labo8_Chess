@@ -12,12 +12,17 @@ abstract public class Movement extends Rule {
         super(board, piece);
     }
 
-    public boolean checkNoPieceBetween(Piece piece, Vector to) {
-        Vector diff = piece.getPosition().sub(to);
+    /**
+     * Permet de vérifier qu'aucune pièce se trouve entre la cible et la pièce.
+     * @param to La cible.
+     * @return Vrai si aucune pièce.
+     */
+    public boolean checkNoPieceBetween(Vector to) {
+        Vector diff = getPiece().getPosition().sub(to);
         for (Piece other : getBoard().getPieces()) {
             if (other != null) {
-                Vector diffOther = piece.getPosition().sub(other.getPosition());
-                if (other != piece && !other.getPosition().equals(piece.getPosition()) && (diff.colinear(diffOther) && diff.sameDirection(diffOther)
+                Vector diffOther = getPiece().getPosition().sub(other.getPosition());
+                if (other != getPiece() && !other.getPosition().equals(getPiece().getPosition()) && (diff.colinear(diffOther) && diff.sameDirection(diffOther)
                         && diff.norm() > diffOther.norm()))
                     return false;
             }
@@ -26,10 +31,13 @@ abstract public class Movement extends Rule {
         return true;
     }
 
-    public boolean checkNoPieceBetween(Vector to) {
-        return checkNoPieceBetween(getPiece(), to);
-    }
-
+    /**
+     * TODO
+     * @param other
+     * @param desiredPosition
+     * @param canEat
+     * @return
+     */
     public boolean checkPieceAtSamePlace (Piece other, Vector desiredPosition, boolean canEat) {
         assert getBoard() == null || getPiece() == null;
         if (other == null) {

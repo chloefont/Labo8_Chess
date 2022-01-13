@@ -7,6 +7,8 @@ import game.Vector;
 public abstract class Rule {
     private final GameBoard BOARD;
     private final Piece PIECE;
+    private boolean canBeApplyed = false;
+
 
     protected Rule(GameBoard board, Piece piece) {
         this.BOARD = board;
@@ -31,5 +33,13 @@ public abstract class Rule {
 
     public Piece getPiece() {
         return PIECE;
+    }
+
+    public boolean getCanBeApplyed(){
+        return canBeApplyed;
+    }
+
+    public void setCanBeApplyed(boolean canBeApplyed){
+        this.canBeApplyed = canBeApplyed;
     }
 }

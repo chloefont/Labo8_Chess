@@ -10,7 +10,7 @@ import java.util.List;
 
 public class GameBoard {
     private final int width = 8;
-    private Piece[] pieces = new Piece[width * 4];
+    private final Piece[] pieces = new Piece[width * 4];
     Piece lastPieceToMove;
     private final PromotionQuestion promotionQuestion;
 
@@ -68,40 +68,46 @@ public class GameBoard {
         int i = 0;
         int height = 1;
 
-        for (int j = 0; j < 2; j++) {
+//        for (int j = 0; j < 2; j++) {
+//
+//            if (color == PlayerColor.BLACK)
+//                height = width - 2;
+//
+//
+//            for (int n = 0; n < width; n++) {
+//                //pieces[i++] = new Pawn(this, color, new Vector(n, height));
+//            }
+//
+//            if (color == PlayerColor.WHITE)
+//                height--;
+//            else
+//                height++;
+//            // Rooks
+//            //pieces[i++] = new Rook(this, color, new Vector(0, height));
+//            //pieces[i++] = new Rook(this, color, new Vector(width - 1, height));
+//
+//            // Knights
+//            //pieces[i++] = new Knight(this, color, new Vector(1, height));
+//            //pieces[i++] = new Knight(this, color, new Vector(width - 2, height));
+//
+//            // Bishops
+//            //pieces[i++] = new Bishop(this, color, new Vector(2, height));
+//            //pieces[i++] = new Bishop(this, color, new Vector(width - 3, height));
+//
+//            //Queen
+//            //pieces[i++] = new Queen(this, color, new Vector(3, height));
+//
+//            // King
+//            pieces[i++] = new King(this, color, new Vector(4, height));
+//
+//            color = PlayerColor.getOpposite(color);
+//        }
+        pieces[i++] = new King(this, PlayerColor.BLACK, new Vector(7, 7));
+        pieces[i++] = new King(this, PlayerColor.WHITE, new Vector(4, 0));
+        pieces[i++] = new Rook(this, PlayerColor.WHITE, new Vector(0, 7));
+        pieces[i++] = new Rook(this, PlayerColor.WHITE, new Vector(7, 0));
+        pieces[i++] = new Queen(this, PlayerColor.WHITE, new Vector(6, 0));
 
-            if (color == PlayerColor.BLACK)
-                height = width - 2;
-
-
-            for (int n = 0; n < width; n++) {
-                pieces[i++] = new Pawn(this, color, new Vector(n, height));
-            }
-
-            if (color == PlayerColor.WHITE)
-                height--;
-            else
-                height++;
-            // Rooks
-            pieces[i++] = new Rook(this, color, new Vector(0, height));
-            pieces[i++] = new Rook(this, color, new Vector(width - 1, height));
-
-            // Knights
-            //pieces[i++] = new Knight(this, color, new Vector(1, height));
-            //pieces[i++] = new Knight(this, color, new Vector(width - 2, height));
-
-            // Bishops
-            //pieces[i++] = new Bishop(this, color, new Vector(2, height));
-            //pieces[i++] = new Bishop(this, color, new Vector(width - 3, height));
-
-            //Queen
-            //pieces[i++] = new Queen(this, color, new Vector(3, height));
-
-            // King
-            pieces[i++] = new King(this, color, new Vector(4, height));
-
-            color = PlayerColor.getOpposite(color);
-        }
 
     }
 
@@ -152,9 +158,9 @@ public class GameBoard {
      */
     public boolean isEchecEtMat(PlayerColor color){
         Piece king = getKing(color);
-        Vector originalPos = king.getPosition();
+        final Vector originalPos = king.getPosition();
 
-        if(!isEchec(color)) return false;
+        if(!isEchec(color) && getPiecesWithColor(color).length > 1) return false;
 
         // et que le roi ne peut pas bouger
         final Vector startPos = king.getPosition().sub(new Vector(-1, 1));

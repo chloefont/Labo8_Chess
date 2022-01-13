@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Objects;
+
 public class Vector {
     public static final Vector LEFT = new Vector(-1, 0);
     public static final Vector RIGHT = new Vector(1, 0);
@@ -26,14 +28,20 @@ public class Vector {
         return Y;
     }
 
-    // TODO faire la fonction pour le hash aussi non ?
     /**
      * Permet de vérifier si deux vecteurs sont égaux.
      * @param other L'autre Vecteur.
      * @return Vrai s'ils sont égaux.
      */
-    public boolean equals (Vector other) {
-        return X == other.X && Y == other.Y;
+    @Override
+    public boolean equals(Object other) {
+        return other == this || (other != null &&
+                getClass() == other.getClass() && ((Vector)other).getX() == X && ((Vector)other).getY() == Y);
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(X, Y);
     }
 
     /**

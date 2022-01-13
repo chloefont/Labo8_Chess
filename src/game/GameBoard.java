@@ -35,7 +35,7 @@ public class GameBoard {
     }
 
     public Piece[] getPiecesWithColor(PlayerColor color){
-        List<Piece> piecesSameColor = new ArrayList<Piece>();
+        List<Piece> piecesSameColor = new ArrayList<>();
 
         for (Piece piece : pieces) {
             if(piece != null && piece.getColor() == color){
@@ -48,7 +48,7 @@ public class GameBoard {
 
     /**
      * Récupère le roi d'une couleur.
-     * @param color La couleur souhaité.
+     * @param color La couleur souhaitée.
      * @return  Référence sur le roi.
      */
     public Piece getKing(PlayerColor color){
@@ -122,7 +122,7 @@ public class GameBoard {
 
     /**
      * Permet de retirer une pièce du jeu.
-     * @param piece
+     * @param piece La pièce à tuer.
      */
     public void killPiece(Piece piece) {
         changePieceOnBoard(piece, null);
@@ -141,10 +141,8 @@ public class GameBoard {
         Piece[] oppositePieces = getPiecesWithColor(oppositeColor);
 
         Piece king = getKing(color);
-        for (int i = 0; i < oppositePieces.length; i++ ) {
-            Piece oppositePiece = oppositePieces[i];
-
-            if(oppositePiece.checkMove(king.getPosition())){
+        for (Piece oppositePiece : oppositePieces) {
+            if (oppositePiece.checkMove(king.getPosition())) {
                 return true;
             }
         }
@@ -152,13 +150,11 @@ public class GameBoard {
     }
 
     /**
-     * Permet de vérifier s'il y a echec et mat. TODO : Vérifier que ça fonctionne bien.
+     * Permet de vérifier s'il y a échec et mat.
      * @param color La couleur du roi.
      * @return Vrai si échec et mat.
      */
     public boolean isEchecEtMat(PlayerColor color){
-        Piece king = getKing(color);
-        final Vector originalPos = king.getPosition();
 
         if(!isEchec(color) && getPiecesWithColor(color).length > 1) return false;
 

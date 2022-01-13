@@ -136,7 +136,7 @@ public class GameBoard {
      */
     public boolean isEchec(PlayerColor color){
 
-        PlayerColor oppositeColor = PlayerColor.getOpposite(color);
+        PlayerColor oppositeColor = GameBoard.getOppositeColor(color);
 
         Piece[] oppositePieces = getPiecesWithColor(oppositeColor);
 
@@ -229,5 +229,14 @@ public class GameBoard {
                 return;
             }
         }
+    }
+
+    /**
+     * Retourne la couleur opposée.
+     * @param color une Couleur.
+     * @return Couleur opposée.
+     */
+    public static PlayerColor getOppositeColor(PlayerColor color){
+        return color == PlayerColor.WHITE ? PlayerColor.BLACK : PlayerColor.WHITE;
     }
 }

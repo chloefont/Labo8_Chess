@@ -62,14 +62,14 @@ public class Controller implements ChessController {
             gameBoard.killPiece(other);
         }
 
-        if(gameBoard.isEchecEtMat(PlayerColor.getOpposite(tourJoueur))){
+        if(gameBoard.isEchecEtMat(GameBoard.getOppositeColor(tourJoueur))){
             view.displayMessage("ECHEC ET MAT !!!");
         }
 
         removeAllPiecesFromBoard();
         showPiecesOnBoard();
 
-        tourJoueur = PlayerColor.getOpposite(tourJoueur);
+        tourJoueur = GameBoard.getOppositeColor(tourJoueur);
 
 
         return true;

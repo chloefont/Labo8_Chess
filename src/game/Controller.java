@@ -52,18 +52,24 @@ public class Controller implements ChessController {
         piece.move(new Vector(toX, toY));
 
         // Check si echec
-        if(gameBoard.isEchec(tourJoueur)){
-            view.displayMessage("Vous mettez votre roi en danger !");
-            piece.move(piece.getLastPosition());
-            return false;
+        switch (gameBoard.getGameState(tourJoueur)) {
+            case PAT -> {
+                view.displayMessage("Vous êtes en situation d'égalité.");
+                return false;
+            }
+            case CHECK_MATE -> {
+                view.displayMessage("ECHEC ET MAT !!!");
+                return false;
+            }
+            case ECHEC -> {
+                view.displayMessage("Vous mettez votre roi en danger !");
+                //piece.move(piece.getLastPosition());
+                return false;
+            }
         }
 
         if (other != null) {
             gameBoard.killPiece(other);
-        }
-
-        if(gameBoard.isEchecEtMat(GameBoard.getOppositeColor(tourJoueur))){
-            view.displayMessage("ECHEC ET MAT !!!");
         }
 
         removeAllPiecesFromBoard();
@@ -102,7 +108,7 @@ public class Controller implements ChessController {
      * Affiche les pièces du GameBoard sur l'interface.
      */
     protected void showPiecesOnBoard(){
-        for (Piece p: gameBoard.getPieces()) {
+        for (Piece p: gameBoard.getPIECES()) {
             if(p == null) continue;
             view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(), p.getPosition().getY());
         }
@@ -112,8 +118,8 @@ public class Controller implements ChessController {
      * Retire toutes les pièces de l'interface
      */
     protected void removeAllPiecesFromBoard(){
-        for(int i = 0; i < gameBoard.getWidth(); i++){
-            for(int j = 0; j < gameBoard.getWidth(); j++){
+        for(int i = 0; i < gameBoard.getWIDTH(); i++){
+            for(int j = 0; j < gameBoard.getWIDTH(); j++){
                 view.removePiece(i,j);
             }
         }

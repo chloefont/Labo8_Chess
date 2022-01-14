@@ -7,9 +7,10 @@ import engine.pieces.Rook;
 import engine.rules.Movements.Movement;
 import game.GameBoard;
 import game.Vector;
+import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 
 public abstract class Roque extends Movement {
-    private boolean done = false; // Si ce mouvement à déjà été fais
+    private boolean done = false; // Si ce mouvement à déjà été fait
     private Rook rook;
     private final Vector DEFAULT_KING_POSITION;
     private final Vector DIRECTION;
@@ -73,5 +74,10 @@ public abstract class Roque extends Movement {
         done = true;
         setCanBeApplyed(false);
         this.rook = null;
+    }
+
+    @Override
+    public boolean canMove() {
+        return check(getPiece().getPosition().add(DIRECTION));
     }
 }

@@ -103,4 +103,14 @@ public class Piece implements ChessView.UserChoice {
     public boolean isDead() {
         return isDead;
     }
+
+    public boolean canMove() {
+        for (Rule rule : rules) {
+            if (rule.canMove()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

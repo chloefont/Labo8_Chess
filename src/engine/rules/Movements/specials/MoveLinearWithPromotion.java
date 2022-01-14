@@ -3,7 +3,6 @@ package engine.rules.Movements.specials;
 import chess.PlayerColor;
 import engine.pieces.Piece;
 import engine.rules.Movements.MoveLinear;
-import engine.rules.Movements.Movement;
 import game.GameBoard;
 import game.Vector;
 
@@ -20,7 +19,7 @@ public class MoveLinearWithPromotion extends MoveLinear {
 
         int pos;
         if (getPiece().getColor() == PlayerColor.WHITE)
-            pos = getBoard().getWidth() - 1;
+            pos = getBoard().getWIDTH() - 1;
         else
             pos = 0;
 

@@ -8,7 +8,7 @@ import game.GameBoard;
 import game.Vector;
 
 public class Queen extends Piece implements LinearMovement {
-    private final int MAX_MOVE = getBoard().getWidth();
+    private final int MAX_MOVE = getBoard().getWIDTH();
     public Queen(GameBoard board, PlayerColor color, Vector position) {
         super(board, color, position);
 

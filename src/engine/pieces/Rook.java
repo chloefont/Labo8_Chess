@@ -9,7 +9,7 @@ import game.Vector;
 
 public class Rook extends Piece implements LinearMovement, HasMoved {
     private boolean hasMoved = false;
-    private final int MAX_MOVE = getBoard().getWidth();
+    private final int MAX_MOVE = getBoard().getWIDTH();
 
     public Rook(GameBoard board, PlayerColor color, Vector position) {
         super(board, color, position);

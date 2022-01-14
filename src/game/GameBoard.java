@@ -9,17 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameBoard {
-    private final int width = 8;
-    private final Piece[] pieces = new Piece[width * 4];
+    private final int WIDTH = 8;
+    private final Piece[] PIECES = new Piece[WIDTH * 4];
     Piece lastPieceToMove;
-    private final PromotionQuestion promotionQuestion;
+    private final PromotionQuestion PROMOTION_QUESTION;
+    public enum gameState {
+        NONE,
+        ECHEC,
+        CHECK_MATE,
+        PAT
+    }
 
     public GameBoard(PromotionQuestion callback) {
-        this.promotionQuestion = callback;
+        this.PROMOTION_QUESTION = callback;
     }
 
     public Piece getPieceAt(Vector vector) {
-        for (Piece piece : pieces) {
+        for (Piece piece : PIECES) {
             if (piece != null && piece.getPosition().equals(vector))
                 return piece;
         }
@@ -37,7 +43,7 @@ public class GameBoard {
     public Piece[] getPiecesWithColor(PlayerColor color){
         List<Piece> piecesSameColor = new ArrayList<>();
 
-        for (Piece piece : pieces) {
+        for (Piece piece : PIECES) {
             if(piece != null && piece.getColor() == color){
                 piecesSameColor.add(piece);
             }
@@ -52,7 +58,7 @@ public class GameBoard {
      * @return  Référence sur le roi.
      */
     public Piece getKing(PlayerColor color){
-        for (Piece piece : pieces) {
+        for (Piece piece : PIECES) {
             if(piece != null && piece.getColor() == color && piece.getType() == PieceType.KING){
                 return piece;
             }
@@ -68,14 +74,14 @@ public class GameBoard {
         int i = 0;
         int height = 1;
 
-//        for (int j = 0; j < 2; j++) {
-//
-//            if (color == PlayerColor.BLACK)
-//                height = width - 2;
-//
-//
-//            for (int n = 0; n < width; n++) {
-//                //pieces[i++] = new Pawn(this, color, new Vector(n, height));
+        for (int j = 0; j < 2; j++) {
+
+            if (color == PlayerColor.BLACK)
+                height = WIDTH - 2;
+
+
+//            for (int n = 0; n < WIDTH; n++) {
+//                PIECES[i++] = new Pawn(this, color, new Vector(n, height));
 //            }
 //
 //            if (color == PlayerColor.WHITE)
@@ -83,40 +89,45 @@ public class GameBoard {
 //            else
 //                height++;
 //            // Rooks
-//            //pieces[i++] = new Rook(this, color, new Vector(0, height));
-//            //pieces[i++] = new Rook(this, color, new Vector(width - 1, height));
+//            PIECES[i++] = new Rook(this, color, new Vector(0, height));
+//            PIECES[i++] = new Rook(this, color, new Vector(WIDTH - 1, height));
 //
 //            // Knights
-//            //pieces[i++] = new Knight(this, color, new Vector(1, height));
-//            //pieces[i++] = new Knight(this, color, new Vector(width - 2, height));
+//            PIECES[i++] = new Knight(this, color, new Vector(1, height));
+//            PIECES[i++] = new Knight(this, color, new Vector(WIDTH - 2, height));
 //
 //            // Bishops
-//            //pieces[i++] = new Bishop(this, color, new Vector(2, height));
-//            //pieces[i++] = new Bishop(this, color, new Vector(width - 3, height));
+//            PIECES[i++] = new Bishop(this, color, new Vector(2, height));
+//            PIECES[i++] = new Bishop(this, color, new Vector(WIDTH - 3, height));
 //
 //            //Queen
-//            //pieces[i++] = new Queen(this, color, new Vector(3, height));
+//            PIECES[i++] = new Queen(this, color, new Vector(3, height));
 //
 //            // King
-//            pieces[i++] = new King(this, color, new Vector(4, height));
-//
-//            color = PlayerColor.getOpposite(color);
-//        }
-        pieces[i++] = new King(this, PlayerColor.BLACK, new Vector(7, 7));
-        pieces[i++] = new King(this, PlayerColor.WHITE, new Vector(4, 0));
-        pieces[i++] = new Rook(this, PlayerColor.WHITE, new Vector(0, 7));
-        pieces[i++] = new Rook(this, PlayerColor.WHITE, new Vector(7, 0));
-        pieces[i++] = new Queen(this, PlayerColor.WHITE, new Vector(6, 0));
+//            PIECES[i++] = new King(this, color, new Vector(4, height));
 
+
+
+            color = GameBoard.getOppositeColor(color);
+        }
+        PIECES[i++] = new King(this, PlayerColor.BLACK, new Vector(7, 7));
+        PIECES[i++] = new Pawn(this, PlayerColor.BLACK, new Vector(0, 7));
+
+
+        PIECES[i++] = new Pawn(this, PlayerColor.WHITE, new Vector(0, 5));
+        PIECES[i++] = new King(this, PlayerColor.WHITE, new Vector(4, 0));
+        PIECES[i++] = new Rook(this, PlayerColor.WHITE, new Vector(4, 6));
+        PIECES[i++] = new Rook(this, PlayerColor.WHITE, new Vector(6, 0));
+        //PIECES[i++] = new Queen(this, PlayerColor.WHITE, new Vector(6, 0));
 
     }
 
-    public Piece[] getPieces() {
-        return pieces;
+    public Piece[] getPIECES() {
+        return PIECES;
     }
 
-    public int getWidth() {
-        return width;
+    public int getWIDTH() {
+        return WIDTH;
     }
 
 
@@ -127,6 +138,26 @@ public class GameBoard {
     public void killPiece(Piece piece) {
         changePieceOnBoard(piece, null);
         piece.setDead(true);
+    }
+
+    public gameState getGameState(PlayerColor color) {
+        if (isEchec(color)) {
+            lastPieceToMove.move(lastPieceToMove.getLastPosition());
+            if (isEchec(color) && kingCannotMove(color))
+                return gameState.CHECK_MATE;
+
+            boolean canMove = false;
+            for (Piece piece : getPiecesWithColor(color)) {
+                if (piece.canMove())
+                    canMove = true;
+            }
+            if (!canMove && kingCannotMove(color))
+                return gameState.PAT;
+
+            return gameState.ECHEC;
+        }
+
+        return gameState.NONE;
     }
 
     /**
@@ -158,10 +189,10 @@ public class GameBoard {
 
         if(!isEchec(color) && getPiecesWithColor(color).length > 1) return false;
 
-        return canKingMove(color);
+        return kingCannotMove(color);
     }
 
-    private boolean canKingMove(PlayerColor color){
+    private boolean kingCannotMove(PlayerColor color){
         Piece king = getKing(color);
         final Vector originalPos = king.getPosition();
 
@@ -190,8 +221,8 @@ public class GameBoard {
      * @param vector La case à vérifier.
      * @return Vrai si la case est sur le plateau.
      */
-    private boolean isOnBoard(Vector vector) {
-        final Rectangle board = new Rectangle(0, 0, 8, 8);
+    public boolean isOnBoard(Vector vector) {
+        final Rectangle board = new Rectangle(0, 0, WIDTH, WIDTH);
         return board.contains(vector.getX(), vector.getY());
     }
 
@@ -210,7 +241,7 @@ public class GameBoard {
 
         Piece newPiece;
         do {
-            newPiece = promotionQuestion.handler(promotionPieces);
+            newPiece = PROMOTION_QUESTION.handler(promotionPieces);
         } while (newPiece == null);
 
         killPiece(pawn);
@@ -223,9 +254,9 @@ public class GameBoard {
      * @param newPiece La pièce de remplacement.
      */
     private void changePieceOnBoard(Piece toChange, Piece newPiece) {
-        for (int i = 0; i < pieces.length; ++i) {
-            if (pieces[i] == toChange) {
-                pieces[i] = newPiece;
+        for (int i = 0; i < PIECES.length; ++i) {
+            if (PIECES[i] == toChange) {
+                PIECES[i] = newPiece;
                 return;
             }
         }

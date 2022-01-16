@@ -15,7 +15,6 @@ public class GameBoard {
     private final PromotionQuestion PROMOTION_QUESTION;
     public enum gameState {
         NONE,
-        ECHEC,
         CHECK_MATE,
         PAT
     }
@@ -80,45 +79,36 @@ public class GameBoard {
                 height = WIDTH - 2;
 
 
-//            for (int n = 0; n < WIDTH; n++) {
-//                PIECES[i++] = new Pawn(this, color, new Vector(n, height));
-//            }
-//
-//            if (color == PlayerColor.WHITE)
-//                height--;
-//            else
-//                height++;
-//            // Rooks
-//            PIECES[i++] = new Rook(this, color, new Vector(0, height));
-//            PIECES[i++] = new Rook(this, color, new Vector(WIDTH - 1, height));
-//
-//            // Knights
-//            PIECES[i++] = new Knight(this, color, new Vector(1, height));
-//            PIECES[i++] = new Knight(this, color, new Vector(WIDTH - 2, height));
-//
-//            // Bishops
-//            PIECES[i++] = new Bishop(this, color, new Vector(2, height));
-//            PIECES[i++] = new Bishop(this, color, new Vector(WIDTH - 3, height));
-//
-//            //Queen
-//            PIECES[i++] = new Queen(this, color, new Vector(3, height));
-//
-//            // King
-//            PIECES[i++] = new King(this, color, new Vector(4, height));
+            for (int n = 0; n < WIDTH; n++) {
+                PIECES[i++] = new Pawn(this, color, new Vector(n, height));
+            }
+
+            if (color == PlayerColor.WHITE)
+                height--;
+            else
+                height++;
+            // Rooks
+            PIECES[i++] = new Rook(this, color, new Vector(0, height));
+            PIECES[i++] = new Rook(this, color, new Vector(WIDTH - 1, height));
+
+            // Knights
+            PIECES[i++] = new Knight(this, color, new Vector(1, height));
+            PIECES[i++] = new Knight(this, color, new Vector(WIDTH - 2, height));
+
+            // Bishops
+            PIECES[i++] = new Bishop(this, color, new Vector(2, height));
+            PIECES[i++] = new Bishop(this, color, new Vector(WIDTH - 3, height));
+
+            //Queen
+            PIECES[i++] = new Queen(this, color, new Vector(3, height));
+
+            // King
+            PIECES[i++] = new King(this, color, new Vector(4, height));
 
 
 
             color = GameBoard.getOppositeColor(color);
         }
-        PIECES[i++] = new King(this, PlayerColor.BLACK, new Vector(7, 7));
-        PIECES[i++] = new Pawn(this, PlayerColor.BLACK, new Vector(0, 7));
-
-
-        PIECES[i++] = new Pawn(this, PlayerColor.WHITE, new Vector(0, 5));
-        PIECES[i++] = new King(this, PlayerColor.WHITE, new Vector(4, 0));
-        PIECES[i++] = new Rook(this, PlayerColor.WHITE, new Vector(4, 6));
-        PIECES[i++] = new Rook(this, PlayerColor.WHITE, new Vector(6, 0));
-        //PIECES[i++] = new Queen(this, PlayerColor.WHITE, new Vector(6, 0));
 
     }
 
@@ -141,21 +131,11 @@ public class GameBoard {
     }
 
     public gameState getGameState(PlayerColor color) {
-        if (isEchec(color)) {
-            lastPieceToMove.move(lastPieceToMove.getLastPosition());
-            if (isEchec(color) && kingCannotMove(color))
-                return gameState.CHECK_MATE;
+        if (isEchecEtMat(color))
+            return gameState.CHECK_MATE;
 
-            boolean canMove = false;
-            for (Piece piece : getPiecesWithColor(color)) {
-                if (piece.canMove())
-                    canMove = true;
-            }
-            if (!canMove && kingCannotMove(color))
-                return gameState.PAT;
-
-            return gameState.ECHEC;
-        }
+        if (isPat(color))
+            return gameState.PAT;
 
         return gameState.NONE;
     }
@@ -166,18 +146,27 @@ public class GameBoard {
      * @return Vrai si en échec.
      */
     public boolean isEchec(PlayerColor color){
-
         PlayerColor oppositeColor = GameBoard.getOppositeColor(color);
 
         Piece[] oppositePieces = getPiecesWithColor(oppositeColor);
 
         Piece king = getKing(color);
+
         for (Piece oppositePiece : oppositePieces) {
             if (oppositePiece.checkMove(king.getPosition())) {
-                return true;
+                return !oppositePiece.getPosition().equals(king.getPosition());
             }
         }
         return false;
+    }
+
+    private boolean isPat(PlayerColor color) {
+        boolean canMove = false;
+        for (Piece piece : getPiecesWithColor(color)) {
+            if (piece.getType() != PieceType.KING && piece.canMove())
+                canMove = true;
+        }
+        return  !canMove && kingCannotMove(color) && !isEchec(color);
     }
 
     /**
@@ -185,11 +174,8 @@ public class GameBoard {
      * @param color La couleur du roi.
      * @return Vrai si échec et mat.
      */
-    public boolean isEchecEtMat(PlayerColor color){
-
-        if(!isEchec(color) && getPiecesWithColor(color).length > 1) return false;
-
-        return kingCannotMove(color);
+    private boolean isEchecEtMat(PlayerColor color){
+        return isEchec(color) && kingCannotMove(color);
     }
 
     private boolean kingCannotMove(PlayerColor color){

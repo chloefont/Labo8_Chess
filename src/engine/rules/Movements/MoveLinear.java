@@ -63,6 +63,6 @@ public class MoveLinear extends Movement {
         }
 
         return (getBoard().isOnBoard(vecSameDir) && getBoard().getPieceAt(vecSameDir) == null)
-                || (getBoard().isOnBoard(vecOppDir) && getBoard().getPieceAt(vecOppDir) != null);
+                || (getBoard().isOnBoard(vecOppDir) && getBoard().getPieceAt(vecOppDir) == null);
     }
 }

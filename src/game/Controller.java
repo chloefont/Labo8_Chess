@@ -29,15 +29,27 @@ public class Controller implements ChessController {
 
         Piece piece = gameBoard.getPieceAt(new Vector(fromX, fromY));
 
+        switch (gameBoard.getGameState(tourJoueur)) {
+            case PAT -> {
+                view.displayMessage("Vous êtes en situation d'égalité.");
+                return false;
+            }
+            case CHECK_MATE -> {
+                view.displayMessage("ECHEC ET MAT !!!");
+                return false;
+            }
+        }
+
         if (piece == null){
             view.displayMessage("Aucune pièce choisi !");
             return false;
         }
 
-        if(piece.getColor() != tourJoueur){
+        if (piece.getColor() != tourJoueur){
             view.displayMessage("Ce n'est pas votre tour !");
             return false;
         }
+
 
         if (!piece.checkMove(new Vector(toX, toY))) {
             view.displayMessage("Vous ne pouvez pas déplacer votre pièce ici");
@@ -51,22 +63,13 @@ public class Controller implements ChessController {
         // déplace la pièce si tout est validé
         piece.move(new Vector(toX, toY));
 
-        // Check si echec
-        switch (gameBoard.getGameState(tourJoueur)) {
-            case PAT -> {
-                view.displayMessage("Vous êtes en situation d'égalité.");
-                return false;
-            }
-            case CHECK_MATE -> {
-                view.displayMessage("ECHEC ET MAT !!!");
-                return false;
-            }
-            case ECHEC -> {
-                view.displayMessage("Vous mettez votre roi en danger !");
-                //piece.move(piece.getLastPosition());
-                return false;
-            }
+        if (gameBoard.isEchec(tourJoueur)) {
+            view.displayMessage("Vous mettez votre roi en danger !");
+            piece.move(piece.getLastPosition());
+            return false;
         }
+
+
 
         if (other != null) {
             gameBoard.killPiece(other);

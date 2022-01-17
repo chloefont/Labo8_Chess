@@ -105,8 +105,6 @@ public class GameBoard {
             // King
             PIECES[i++] = new King(this, color, new Vector(4, height));
 
-
-
             color = GameBoard.getOppositeColor(color);
         }
 

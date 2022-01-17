@@ -12,6 +12,7 @@ public class Controller implements ChessController {
     private ChessView view;
     private final int WIDTH = 8;
 
+
     public Controller() {
         gameBoard = new GameBoard(this::promotionQuestion);
     }
@@ -102,9 +103,16 @@ public class Controller implements ChessController {
         showPiecesOnBoard();
     }
 
+    //TODO rendre abstraite ?
+    /**
+     * Questionne l'utilisateur sur la pièce qu'il veut récupérer à la place de
+     * son pion promu.
+     * @param promotionPieces la liste de pièce que t'utilisateur peut choisir
+     * @return la pièce choisie par l'utilisateur
+     */
     protected Piece promotionQuestion(Piece[] promotionPieces) {
-
-        return view.askUser("Promotion", "Your pawn is promoted. Please choose a new piece.", promotionPieces);
+        return view.askUser("Promotion", "Votre pion est promi. " +
+                "Choisissez une nouvelle pièce.", promotionPieces);
     }
 
     /**
@@ -113,7 +121,8 @@ public class Controller implements ChessController {
     protected void showPiecesOnBoard(){
         for (Piece p: gameBoard.getPIECES()) {
             if(p == null) continue;
-            view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(), p.getPosition().getY());
+            view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(),
+                    p.getPosition().getY());
         }
     }
 

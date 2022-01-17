@@ -17,7 +17,7 @@ abstract public class Movement extends Rule {
      */
     public boolean checkNoPieceBetween(Vector to) {
         Vector diff = getPiece().getPosition().sub(to);
-        for (Piece other : getBoard().getPIECES()) {
+        for (Piece other : getBoard().getPieces()) {
             if (other != null) {
                 Vector diffOther = getPiece().getPosition().sub(other.getPosition());
                 // Si la différence des vecteurs est colinéaire au chemin voulant être effectué, dans la même direction

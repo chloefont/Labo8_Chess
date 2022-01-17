@@ -19,7 +19,7 @@ public class MoveLinearWithPromotion extends MoveLinear {
 
         int pos;
         if (getPiece().getColor() == PlayerColor.WHITE)
-            pos = getBoard().getWIDTH() - 1;
+            pos = getBoard().getWidth() - 1;
         else
             pos = 0;
 

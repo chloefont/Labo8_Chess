@@ -7,7 +7,6 @@ import engine.pieces.Rook;
 import engine.rules.Movements.Movement;
 import game.GameBoard;
 import game.Vector;
-import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 
 public abstract class Roque extends Movement {
     private boolean done = false; // Si ce mouvement à déjà été fais
@@ -45,7 +44,7 @@ public abstract class Roque extends Movement {
 
 
         getPiece().move(getPiece().getPosition().add(DIRECTION));
-        if(getBoard().isEchec(getPiece().getColor())){
+        if(getBoard().isCheck(getPiece().getColor())){
             getPiece().setLastPosition(initLastPos);
             getPiece().setPosition(initPos);
             return false;

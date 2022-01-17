@@ -12,6 +12,8 @@ public class Piece implements ChessView.UserChoice {
     private boolean isDead = false;
 
     protected Piece(GameBoard board, PlayerColor color, Vector position) {
+        assert board != null && color != null && position != null;
+
         this.board = board;
         this.color = color;
         this.position = position;
@@ -43,10 +45,12 @@ public class Piece implements ChessView.UserChoice {
     }
 
     public void setPosition(Vector position) {
+        assert position != null;
         this.position = position;
     }
 
     protected void setRules(Rule[] rules) {
+        assert rules != null;
         this.rules = rules;
     }
 
@@ -66,7 +70,7 @@ public class Piece implements ChessView.UserChoice {
 
         lastPosition = position;
         position = to;
-        board.setLastPieceToMove(this);
+        board.setLastPieceMoved(this);
     }
 
     /**

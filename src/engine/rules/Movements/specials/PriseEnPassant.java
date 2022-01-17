@@ -28,7 +28,7 @@ public class PriseEnPassant extends Rule {
             Piece other = getBoard().getPieceAt(to.add(new Vector(0, -deltaY)));
 
             if (movement.check(to) && other != null && other.getColor() != getPiece().getColor()
-                    && getBoard().getLastPieceToMove() == other
+                    && getBoard().getLastPieceMoved() == other
                     && new Vector(0, 2 * deltaY * -1).equals(other.getPosition().sub(other.getLastPosition()))) {
 
                 getBoard().killPiece(other);

@@ -35,7 +35,7 @@ public class Controller implements ChessController {
                 view.displayMessage("Vous êtes en situation d'égalité.");
                 return false;
             }
-            case CHECK_MATE -> {
+            case CHECKMATE -> {
                 view.displayMessage("ECHEC ET MAT !!!");
                 return false;
             }
@@ -64,13 +64,11 @@ public class Controller implements ChessController {
         // déplace la pièce si tout est validé
         piece.move(new Vector(toX, toY));
 
-        if (gameBoard.isEchec(tourJoueur)) {
+        if (gameBoard.isCheck(tourJoueur)) {
             view.displayMessage("Vous mettez votre roi en danger !");
             piece.move(piece.getLastPosition());
             return false;
         }
-
-
 
         if (other != null) {
             gameBoard.killPiece(other);
@@ -119,7 +117,7 @@ public class Controller implements ChessController {
      * Affiche les pièces du GameBoard sur l'interface.
      */
     protected void showPiecesOnBoard(){
-        for (Piece p: gameBoard.getPIECES()) {
+        for (Piece p: gameBoard.getPieces()) {
             if(p == null) continue;
             view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(),
                     p.getPosition().getY());
@@ -130,8 +128,8 @@ public class Controller implements ChessController {
      * Retire toutes les pièces de l'interface
      */
     protected void removeAllPiecesFromBoard(){
-        for(int i = 0; i < gameBoard.getWIDTH(); i++){
-            for(int j = 0; j < gameBoard.getWIDTH(); j++){
+        for(int i = 0; i < gameBoard.getWidth(); i++){
+            for(int j = 0; j < gameBoard.getWidth(); j++){
                 view.removePiece(i,j);
             }
         }

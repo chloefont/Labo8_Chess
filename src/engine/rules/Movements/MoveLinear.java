@@ -12,6 +12,9 @@ public class MoveLinear extends Movement {
 
     public MoveLinear(Vector direction, GameBoard board, Piece piece){
         super(board, piece);
+        assert  (direction.getX() == 0 || direction.getX() == 1) &&
+                (direction.getY() == 0 || direction.getY() == 1);
+
         this.direction = direction;
     }
 
@@ -48,5 +51,18 @@ public class MoveLinear extends Movement {
         }
 
         return canGo(to);
+    }
+
+    @Override
+    public boolean canMove() {
+        Vector vecSameDir = getPiece().getPosition().add(direction);
+        Vector vecOppDir = getPiece().getPosition().sub(direction);
+
+        if (shouldBeInDirection) {
+            return getBoard().isOnBoard(vecSameDir) && getBoard().getPieceAt(vecSameDir) == null;
+        }
+
+        return (getBoard().isOnBoard(vecSameDir) && getBoard().getPieceAt(vecSameDir) == null)
+                || (getBoard().isOnBoard(vecOppDir) && getBoard().getPieceAt(vecOppDir) == null);
     }
 }

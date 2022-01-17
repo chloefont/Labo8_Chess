@@ -27,6 +27,10 @@ public abstract class Rule {
      */
     public void apply(){/*does nothing by default*/};
 
+    public boolean canMove() {
+        return false;
+    }
+
     public GameBoard getBoard() {
         return BOARD;
     }

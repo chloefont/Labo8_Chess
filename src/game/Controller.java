@@ -12,6 +12,7 @@ public class Controller implements ChessController {
     private ChessView view;
     private final int WIDTH = 8;
 
+
     public Controller() {
         gameBoard = new GameBoard(this::promotionQuestion);
     }
@@ -29,15 +30,27 @@ public class Controller implements ChessController {
 
         Piece piece = gameBoard.getPieceAt(new Vector(fromX, fromY));
 
+        switch (gameBoard.getGameState(tourJoueur)) {
+            case PAT -> {
+                view.displayMessage("Vous êtes en situation d'égalité.");
+                return false;
+            }
+            case CHECK_MATE -> {
+                view.displayMessage("ECHEC ET MAT !!!");
+                return false;
+            }
+        }
+
         if (piece == null){
             view.displayMessage("Aucune pièce choisi !");
             return false;
         }
 
-        if(piece.getColor() != tourJoueur){
+        if (piece.getColor() != tourJoueur){
             view.displayMessage("Ce n'est pas votre tour !");
             return false;
         }
+
 
         if (!piece.checkMove(new Vector(toX, toY))) {
             view.displayMessage("Vous ne pouvez pas déplacer votre pièce ici");
@@ -51,19 +64,16 @@ public class Controller implements ChessController {
         // déplace la pièce si tout est validé
         piece.move(new Vector(toX, toY));
 
-        // Check si echec
-        if(gameBoard.isEchec(tourJoueur)){
+        if (gameBoard.isEchec(tourJoueur)) {
             view.displayMessage("Vous mettez votre roi en danger !");
             piece.move(piece.getLastPosition());
             return false;
         }
 
+
+
         if (other != null) {
             gameBoard.killPiece(other);
-        }
-
-        if(gameBoard.isEchecEtMat(GameBoard.getOppositeColor(tourJoueur))){
-            view.displayMessage("ECHEC ET MAT !!!");
         }
 
         removeAllPiecesFromBoard();
@@ -93,18 +103,26 @@ public class Controller implements ChessController {
         showPiecesOnBoard();
     }
 
+    //TODO rendre abstraite ?
+    /**
+     * Questionne l'utilisateur sur la pièce qu'il veut récupérer à la place de
+     * son pion promu.
+     * @param promotionPieces la liste de pièce que t'utilisateur peut choisir
+     * @return la pièce choisie par l'utilisateur
+     */
     protected Piece promotionQuestion(Piece[] promotionPieces) {
-
-        return view.askUser("Promotion", "Your pawn is promoted. Please choose a new piece.", promotionPieces);
+        return view.askUser("Promotion", "Votre pion est promi. " +
+                "Choisissez une nouvelle pièce.", promotionPieces);
     }
 
     /**
      * Affiche les pièces du GameBoard sur l'interface.
      */
     protected void showPiecesOnBoard(){
-        for (Piece p: gameBoard.getPieces()) {
+        for (Piece p: gameBoard.getPIECES()) {
             if(p == null) continue;
-            view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(), p.getPosition().getY());
+            view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(),
+                    p.getPosition().getY());
         }
     }
 
@@ -112,8 +130,8 @@ public class Controller implements ChessController {
      * Retire toutes les pièces de l'interface
      */
     protected void removeAllPiecesFromBoard(){
-        for(int i = 0; i < gameBoard.getWidth(); i++){
-            for(int j = 0; j < gameBoard.getWidth(); j++){
+        for(int i = 0; i < gameBoard.getWIDTH(); i++){
+            for(int j = 0; j < gameBoard.getWIDTH(); j++){
                 view.removePiece(i,j);
             }
         }

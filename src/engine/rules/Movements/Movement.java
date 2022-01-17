@@ -1,7 +1,5 @@
 package engine.rules.Movements;
 
-import chess.PieceType;
-import engine.pieces.LinearMovement;
 import engine.pieces.Piece;
 import engine.rules.Rule;
 import game.GameBoard;
@@ -19,10 +17,14 @@ abstract public class Movement extends Rule {
      */
     public boolean checkNoPieceBetween(Vector to) {
         Vector diff = getPiece().getPosition().sub(to);
-        for (Piece other : getBoard().getPieces()) {
+        for (Piece other : getBoard().getPIECES()) {
             if (other != null) {
                 Vector diffOther = getPiece().getPosition().sub(other.getPosition());
-                if (other != getPiece() && !other.getPosition().equals(getPiece().getPosition()) && (diff.colinear(diffOther) && diff.sameDirection(diffOther)
+                // Si la différence des vecteurs est colinéaire au chemin voulant être effectué, dans la même direction
+                // et que la norme du vecteur diffOther est plus petite que le chemin à effectuer, une pièce est sur le chemin
+                if (other != getPiece() && !other.getPosition().equals(getPiece().getPosition())
+                        && (diff.colinear(diffOther)
+                        && diff.sameDirection(diffOther)
                         && diff.norm() > diffOther.norm()))
                     return false;
             }

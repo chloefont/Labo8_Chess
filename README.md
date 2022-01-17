@@ -1,5 +1,6 @@
 # Labo8_Chess
 ## Choix d'implémentation
+![uml](./uml.png)
 ## Tests
 ### Légende
 

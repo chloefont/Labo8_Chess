@@ -1,4 +1,6 @@
 # Labo8_Chess
+Dans le cadre du cours POO 2021-2022 nous devions implémenter la logique d'un jeu d'échec en JAVA.
+Une interface graphique ainsi qu'une interface console nous étaient fournies.
 ## Choix d'implémentation
 ![uml](./uml.png)
 ## Tests

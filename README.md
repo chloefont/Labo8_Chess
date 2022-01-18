@@ -1,9 +1,72 @@
-# Labo8_Chess
-Dans le cadre du cours POO 2021-2022 nous devions implémenter la logique d'un jeu d'échec en JAVA.
-Une interface graphique ainsi qu'une interface console nous étaient fournies.
-## Choix d'implémentation
-![uml](./uml.png)
+# Laboratoire 8 Echecs - Rapport
+
+Auteurs : Luca Coduri & Chloé Fontaine
+
+Date : 18.01.2022
+
+## Introduction
+
+Dans ce laboratoire, nous avons implémenté un jeu d'échec respectant les règles suivantes :
+
+- Les déplacements  corrects et prises des pièces.
+- Les petit et grand roque
+- La prise en passant
+- La promotion
+- L'échec
+
+Nous avons également ajouté un contrôle sur :
+
+- L'échec et mat
+- L'égalité (pat)
+
+## Diagramme de classes
+
+
+
+## Description des classes
+
+Dans ce chapitre, nous allons nous contenter de donner uniquement des informations sur des classes qui nous semblent pertinentes. Vous pouvez cependant retrouver une documentation plus précise de chaque méthode dans notre code.
+
+### Controller
+
+La classe Controller implémente l'interface ChessController et a pour responsabilité tout affichage sur les vues. A la fin de chaque mouvement, toutes le pièces sont effacées de l'interface puis réaffichées en tenant compte de leur nouvelle position. Il aurait été possible de n'effacer et réafficher uniquement les pièces ayant bougé durant le tour. Cependant, plusieurs pièces peuvent être impliquées en fonction de la règle appliquée et nous avons donc jugé la première solution plus claire et plus sûre.
+
+Cette classe s'occupe également de la gestion globale du jeu. Cela implique notamment les tours de jeu et l'appel aux différentes vérifications permettant de vérifier l'applicabilité du déplacement. Lors de l'appel à la méthode "move", les différentes vérification vont être effectuées dans cet ordre :
+
+1. Echec et mat ou égalité
+2. La pièce sélectionnée est de la bonne couleur.
+3. Vérification général du mouvement (mouvement légal pour la pièce en question).
+4. Echec (si c'est le cas, on annule le déplacement) 
+
+### Gameboard
+
+La classe Gameboard représente le plateau de jeu. Cette classe propose toutes les méthodes concernant l'état du plateau de jeu, telles que l'initialisation des pièces et les vérification d'échec, échec et mat ou égalité (pat).
+
+### Vector
+
+Nous avons choisi de représenter toutes les positions des pièces ainsi que les déplacements par des vecteurs. La classe Vector implémente donc certaines méthodes propres aux vecteurs, telles que l'addition, la soustraction, la colinéarité, la norme, etc.
+
+### Piece
+
+Nous avons créé une classe par catégorie de pièce. Chaque classe hérite de la classe Piece. Cette dernière possède comme attribut un tableau de règles que ses sous-classes remplissent dans leur constructeur avec les règles et mouvements applicables à leur propre type de pièce. Lorsque l'utilisateur veut effectuer le déplacement d'une pièce, la fonction `checkMove` vérifie qu'une de ses règles permet le déplacement de la pièce jusqu'à la position désirée.
+
+### Rule
+
+La classe abstraite Rule oblige toutes ses sous-classe à implémenter la méthode `check`. Cette méthode a pour objectif de tester si la règle en question est applicable pour le déplacement souhaité.
+
+Chaque règle est ensuite représentée par une classe à part entière.
+
+### MoveLinear
+
+La classe MoveLinear implémente tout déplacement linéaire (qu'il soit horizontale, verticale ou diagonale), en prenant compte des pièces se trouvant sur le chemin; la pièce ne saute pas, contrairement au mouvement MoveL utilisée par le cavalier.
+
+Le constructeur de MoveLinear prend en argument une vecteur représentant la "direction" du mouvement. Par exemple, le vecteur(1, 0) représente un mouvement horizontal, alors que le vecteur(1,1) représente un mouvement diagonal.
+
+La vérification de ce mouvement consiste ainsi simplement à vérifier que le vecteur correspondant au chemin à effectuer par la pièce pour aller à la position souhaitée soit colinéaire au vecteur directionnel de la classe. La vérification ne prend compte du sens du vecteur que si l'utilisateur l'a précisé en ajoutant une option supplémentaire lors de la création du mouvement.
+
 ## Tests
+
+
 ### Légende
 
 ✔️ : Mouvement possible

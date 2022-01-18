@@ -20,49 +20,12 @@ public class Piece implements ChessView.UserChoice {
         this.lastPosition = position;
     }
 
-    protected GameBoard getBoard() {
-        return board;
-    }
-
-    public PlayerColor getColor() {
-        return color;
-    }
-
-    public PieceType getType() {
-        return null;
-    }
-
-    public Vector getPosition() {
-        return position;
-    }
-
-    public void setLastPosition(Vector lastPosition) {
-        this.lastPosition = lastPosition;
-    }
-
-    public Vector getLastPosition() {
-        return lastPosition;
-    }
-
-    public void setPosition(Vector position) {
-        assert position != null;
-        this.position = position;
-    }
-
-    protected void setRules(Rule[] rules) {
-        assert rules != null;
-        this.rules = rules;
-    }
-
-    public void setDead(boolean isDead) {
-        this.isDead = isDead;
-    }
-
     /**
      * Permet de déplacer une pièce.
      * @param to Vecteur indiquant le nouvel emplacement.
      */
     public void move(Vector to) {
+        assert to != null;
 
         for (Rule rule : rules) {
             rule.apply();
@@ -108,13 +71,56 @@ public class Piece implements ChessView.UserChoice {
         return isDead;
     }
 
+    /**
+     * Informe de la capacité de la pièce à se déplacer (ne prend pas en compte
+     * l'échec).
+     * @return Vrai si peut se déplacer
+     */
     public boolean canMove() {
         for (Rule rule : rules) {
             if (rule.canMove()) {
                 return true;
             }
         }
-
         return false;
+    }
+
+    // Getters et setters
+    protected GameBoard getBoard() {
+        return board;
+    }
+
+    public PlayerColor getColor() {
+        return color;
+    }
+
+    public PieceType getType() {
+        return null;
+    }
+
+    public Vector getPosition() {
+        return position;
+    }
+
+    public void setLastPosition(Vector lastPosition) {
+        this.lastPosition = lastPosition;
+    }
+
+    public Vector getLastPosition() {
+        return lastPosition;
+    }
+
+    public void setPosition(Vector position) {
+        assert position != null;
+        this.position = position;
+    }
+
+    protected void setRules(Rule[] rules) {
+        assert rules != null;
+        this.rules = rules;
+    }
+
+    public void setDead(boolean isDead) {
+        this.isDead = isDead;
     }
 }

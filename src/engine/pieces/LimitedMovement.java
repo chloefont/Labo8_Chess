@@ -1,8 +1,8 @@
 package engine.pieces;
 
-public interface LinearMovement {
+public interface LimitedMovement {
     /**
-     * Récupère le nombre de mouvements maximal possible.
+     * Informe du nombre maximal de cases d'un déplacement.
      * @return nombre de mouvements.
      */
     int getMaxMove();

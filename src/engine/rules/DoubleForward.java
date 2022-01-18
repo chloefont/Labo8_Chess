@@ -17,6 +17,8 @@ public class DoubleForward extends Rule {
     }
 
     public boolean check(Vector to) {
+        assert to != null;
+
         int deltaY, posY;
         if (getPiece().getColor() == PlayerColor.WHITE) {
             deltaY = 2;

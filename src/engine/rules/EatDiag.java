@@ -18,6 +18,8 @@ public class EatDiag extends Rule {
 
     @Override
     public boolean check(Vector to) {
+        assert to != null;
+
         int deltaY;
         if (getPiece().getColor() == PlayerColor.WHITE) {
             deltaY = 1;

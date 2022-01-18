@@ -232,25 +232,29 @@ public class GameBoard {
 
     /**
      * permet de savoir si une case se trouve sur le plateau. TODO vérifier que ça fonctionne bien.
-     * @param vector La case à vérifier.
+     * @param position La case à vérifier.
      * @return Vrai si la case est sur le plateau.
      */
-    public boolean isOnBoard(Vector vector) {
+    public boolean isOnBoard(Vector position) {
+        assert position != null;
+
         final Rectangle board = new Rectangle(0, 0, WIDTH, WIDTH);
-        return board.contains(vector.getX(), vector.getY());
+        return board.contains(position.getX(), position.getY());
     }
 
     /**
-     * TODO
-     * @param pawn
-     * @param newPos
+     * Applique la promtion
+     * @param pawn Le pion promu
+     * @param position Position sur laquelle la nouvelle pièce devra être placée
      */
-    public void promotion(Piece pawn, Vector newPos) {
+    public void promotion(Piece pawn, Vector position) {
+        assert pawn != null && position != null;
+
         Piece[] promotionPieces = {
-                new Queen(this, pawn.getColor(), newPos),
-                new Bishop(this, pawn.getColor(), newPos),
-                new Knight(this, pawn.getColor(), newPos),
-                new Rook(this, pawn.getColor(), newPos)
+                new Queen(this, pawn.getColor(), position),
+                new Bishop(this, pawn.getColor(), position),
+                new Knight(this, pawn.getColor(), position),
+                new Rook(this, pawn.getColor(), position)
         };
 
         Piece newPiece;
@@ -263,11 +267,15 @@ public class GameBoard {
     }
 
     /**
-     * Permet de mettre une nouvelle pièce à la place d'une autre.
+     * Permet de remplacer une pièce par une autre (seulement dans le tableau
+     * de pièce, les positions ne sont pas modifiées).
      * @param toChange La pièce à changer.
      * @param newPiece La pièce de remplacement.
      */
     private void changePieceOnBoard(Piece toChange, Piece newPiece) {
+        // On ne fait pas de vérification != null sur les paramètres car on veut
+        // pouvoir remplacer une pièce (ou un null) par une référence null
+        // (ou une pièce).
         for (int i = 0; i < PIECES.length; ++i) {
             if (PIECES[i] == toChange) {
                 PIECES[i] = newPiece;
@@ -278,7 +286,7 @@ public class GameBoard {
 
     /**
      * Retourne la couleur opposée.
-     * @param color une Couleur.
+     * @param color Couleur.
      * @return Couleur opposée.
      */
     public static PlayerColor getOppositeColor(PlayerColor color){

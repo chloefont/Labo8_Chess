@@ -16,16 +16,23 @@ abstract public class Movement extends Rule {
      * @return Vrai si aucune pièce.
      */
     public boolean checkNoPieceBetween(Vector to) {
-        Vector diff = getPiece().getPosition().sub(to);
+        assert to != null;
+
+        // Chemin pour aller à la position voulue
+        Vector diffTo = getPiece().getPosition().sub(to);
+
         for (Piece other : getBoard().getPieces()) {
             if (other != null) {
+                // Chemin pour aller à l'autre pièce
                 Vector diffOther = getPiece().getPosition().sub(other.getPosition());
-                // Si la différence des vecteurs est colinéaire au chemin voulant être effectué, dans la même direction
-                // et que la norme du vecteur diffOther est plus petite que le chemin à effectuer, une pièce est sur le chemin
+
+                // Si les 2 chemins sont colinéaires, de même sens et que la distance
+                // séparant les 2 pièces est plus petite que celle séparant la pièce
+                // et la destination souhaitée
                 if (other != getPiece() && !other.getPosition().equals(getPiece().getPosition())
-                        && (diff.colinear(diffOther)
-                        && diff.sameDirection(diffOther)
-                        && diff.norm() > diffOther.norm()))
+                        && (diffTo.colinear(diffOther)
+                        && diffTo.sameDirection(diffOther)
+                        && diffTo.norm() > diffOther.norm()))
                     return false;
             }
         }
@@ -34,20 +41,22 @@ abstract public class Movement extends Rule {
     }
 
     /**
-     * TODO
-     * @param other
-     * @param desiredPosition
-     * @param canEat
+     * Permet de vérifier si une certaine pièce se trouve sur la case où l'on
+     * souhaite déplacer notre pièce.
+     * @param other Pièce qui pourrait être sur la case en question
+     * @param desiredPosition Position où l'on souhaite déplacer notre pièce.
+     * @param canKill Capacité de notre pièce à "tuer" une autre pièce
      * @return
      */
-    public boolean checkPieceAtSamePlace (Piece other, Vector desiredPosition, boolean canEat) {
+    public boolean checkPieceAtSamePlace (Piece other, Vector desiredPosition, boolean canKill) {
         assert getBoard() == null || getPiece() == null;
+
         if (other == null) {
             return true;
         }
 
         // Les pions ne peuvent pas manger en utilisant leurs mouvements classiques
-        if (other.getPosition().equals(desiredPosition) && (other.getColor() == getPiece().getColor() || !canEat)) {
+        if (other.getPosition().equals(desiredPosition) && (other.getColor() == getPiece().getColor() || !canKill)) {
             return false;
         }
         return true;

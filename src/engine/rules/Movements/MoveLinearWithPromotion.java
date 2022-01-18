@@ -1,4 +1,4 @@
-package engine.rules.Movements.specials;
+package engine.rules.Movements;
 
 import chess.PlayerColor;
 import engine.pieces.Piece;
@@ -14,6 +14,8 @@ public class MoveLinearWithPromotion extends MoveLinear {
 
     @Override
     public boolean check(Vector to) {
+        assert to != null;
+
         if (!super.check(to))
             return false;
 

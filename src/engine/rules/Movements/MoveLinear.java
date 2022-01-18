@@ -1,45 +1,62 @@
 package engine.rules.Movements;
 
-import engine.pieces.LinearMovement;
+import engine.pieces.LimitedMovement;
 import engine.pieces.Piece;
 import game.GameBoard;
 import game.Vector;
 
 public class MoveLinear extends Movement {
-    private final Vector direction;
+    private final Vector VECTOR;
     private boolean shouldBeInDirection;
-    private boolean canEat = true;
+    private boolean canKill = true;
 
-    public MoveLinear(Vector direction, GameBoard board, Piece piece){
+    /**
+     * Constructeur
+     * @param vector Vecteur directionnel (avec x et y égaux à 0 ou 1)
+     * @param board Plateau de jeu
+     * @param piece Pièce
+     */
+    public MoveLinear(Vector vector, GameBoard board, Piece piece){
         super(board, piece);
-        assert  (direction.getX() == 0 || direction.getX() == 1) &&
-                (direction.getY() == 0 || direction.getY() == 1);
+        assert  (vector.getX() == 0 || vector.getX() == 1) &&
+                (vector.getY() == 0 || vector.getY() == 1);
 
-        this.direction = direction;
+        this.VECTOR = vector;
     }
 
-    public MoveLinear(Vector direction, boolean shouldBeInDirection, boolean canEat, GameBoard board, Piece piece) {
-        this(direction, board, piece);
+    /**
+     *
+     * @param vector Vecteur directionnel (avec x et y égaux à 0 ou 1)
+     * @param shouldBeInDirection Vrai si le déplacement doit respecter le sens
+     *                            du vecteur
+     * @param canKill Vrai si la pièce peut tuer en utilisant ce déplacement
+     * @param board Plateau de jeu
+     * @param piece Pièce
+     */
+    public MoveLinear(Vector vector, boolean shouldBeInDirection, boolean canKill, GameBoard board, Piece piece) {
+        this(vector, board, piece);
         this.shouldBeInDirection = shouldBeInDirection;
-        this.canEat = canEat;
+        this.canKill = canKill;
     }
 
-    public Vector getDirection() {
-        return direction;
-    }
-
-    private boolean canGo(Vector to) {
-        if (getPiece() instanceof LinearMovement) {
+    /**
+     * Permet de vérifier si le déplacement jusqu'à la case to est accepté dans
+     * les 2 sens du vecteur directeur.
+     * @param to Case finale
+     * @return Vrai si accepté
+     */
+    private boolean bothDirectionOk(Vector to) {
+        if (getPiece() instanceof LimitedMovement) {
             Vector diff = to.sub(getPiece().getPosition());
             // Le déplacement est refusé si la pièce se déplace de plus que son
             // déplacement maximal
-            if (diff.norm() / direction.norm() > ((LinearMovement) getPiece()).getMaxMove())
+            if (diff.norm() / VECTOR.norm() > ((LimitedMovement) getPiece()).getMaxMove())
                 return false;
         }
-        // On check que le destination se trouve bien dans la bonne direction et
+        // On check que la destination se trouve bien dans la bonne direction et
         // qu'aucun pion ne se trouve entre la piece et la destination.
-        return direction.colinear(to.sub(getPiece().getPosition())) &&
-                checkPieceAtSamePlace(getBoard().getPieceAt(to), to, canEat) &&
+        return VECTOR.colinear(to.sub(getPiece().getPosition())) &&
+                checkPieceAtSamePlace(getBoard().getPieceAt(to), to, canKill) &&
                 checkNoPieceBetween(to);
     }
 
@@ -47,16 +64,16 @@ public class MoveLinear extends Movement {
     public boolean check(Vector to) {
         if (shouldBeInDirection) {
             Vector diff = to.sub(getPiece().getPosition());
-            return canGo(to) && diff.sameDirection(direction);
+            return bothDirectionOk(to) && diff.sameDirection(VECTOR);
         }
 
-        return canGo(to);
+        return bothDirectionOk(to);
     }
 
     @Override
     public boolean canMove() {
-        Vector vecSameDir = getPiece().getPosition().add(direction);
-        Vector vecOppDir = getPiece().getPosition().sub(direction);
+        Vector vecSameDir = getPiece().getPosition().add(VECTOR);
+        Vector vecOppDir = getPiece().getPosition().sub(VECTOR);
 
         if (shouldBeInDirection) {
             return getBoard().isOnBoard(vecSameDir) && getBoard().getPieceAt(vecSameDir) == null;

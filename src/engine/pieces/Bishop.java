@@ -3,21 +3,21 @@ package engine.pieces;
 import chess.PieceType;
 import chess.PlayerColor;
 import engine.rules.Movements.MoveLinear;
-import engine.rules.Movements.Movement;
+import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
 
-public class Bishop extends Piece implements LinearMovement {
+public class Bishop extends Piece implements LimitedMovement {
     private final int MAX_MOVE = getBoard().getWidth();
 
     public Bishop(GameBoard board, PlayerColor color, Vector position) {
         super(board, color, position);
 
-        Movement[] movementRules = {
+        Rule[] rules = {
                 new MoveLinear(new Vector(1, 1),board, this),
                 new MoveLinear(new Vector(-1, 1), board, this),
         };
-        setRules(movementRules);
+        setRules(rules);
     }
 
     @Override

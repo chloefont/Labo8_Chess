@@ -1,10 +1,9 @@
-package engine.rules.Movements.specials;
+package engine.rules;
 
 import chess.PlayerColor;
 import engine.pieces.Piece;
 import engine.rules.Movements.MoveLinear;
 import engine.rules.Movements.Movement;
-import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
 
@@ -13,8 +12,11 @@ public class PriseEnPassant extends Rule {
     public PriseEnPassant(GameBoard board, Piece piece) {
         super(board, piece);
     }
+
     @Override
     public boolean check(Vector to) {
+        assert to != null;
+
         int deltaY;
         if (getPiece().getColor() == PlayerColor.WHITE) {
             deltaY = 1;

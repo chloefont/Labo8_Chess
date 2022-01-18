@@ -1,4 +1,4 @@
-package engine.rules.Movements.specials;
+package engine.rules.Movements;
 
 import chess.PieceType;
 import engine.pieces.King;
@@ -9,7 +9,7 @@ import game.GameBoard;
 import game.Vector;
 
 public abstract class Roque extends Movement {
-    private boolean done = false; // Si ce mouvement à déjà été fais
+    private boolean done = false; // Si ce mouvement à déjà été fait
     private boolean applyRule = false;
     private Rook rook;
     private final Vector DEFAULT_KING_POSITION;
@@ -18,6 +18,8 @@ public abstract class Roque extends Movement {
 
     Roque(GameBoard board, Piece piece, Vector direction, Vector rookPosition){
         super(board, piece);
+        assert direction != null && rookPosition != null;
+
         DEFAULT_KING_POSITION = piece.getPosition();
         DIRECTION = direction;
         ROOK_POSITION = rookPosition;

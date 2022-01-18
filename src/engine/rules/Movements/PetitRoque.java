@@ -1,4 +1,4 @@
-package engine.rules.Movements.specials;
+package engine.rules.Movements;
 
 import engine.pieces.Piece;
 import game.GameBoard;

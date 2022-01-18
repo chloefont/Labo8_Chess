@@ -11,14 +11,15 @@ public abstract class Rule {
 
 
     protected Rule(GameBoard board, Piece piece) {
+        assert board != null && piece != null;
         this.BOARD = board;
         this.PIECE = piece;
     }
 
     /**
      * Permet de vérifier si cette règle est applicable.
-     * @param to
-     * @return
+     * @param to Position finale
+     * @return Vrai si accepté
      */
     public abstract boolean check(Vector to);
 
@@ -27,10 +28,15 @@ public abstract class Rule {
      */
     public void apply(){/*does nothing by default*/};
 
+    /**
+     * Informe sur la capacité d'une pièce de se déplacer en employant cette règle
+     * @return Vrai si peut se déplacer
+     */
     public boolean canMove() {
         return false;
     }
 
+    // Getters et setters
     public GameBoard getBoard() {
         return BOARD;
     }

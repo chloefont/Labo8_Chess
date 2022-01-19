@@ -16,7 +16,6 @@ public class Vector {
         this.Y = y;
     }
 
-    //TODO peut pas vérifier si vector != null
     public Vector(Vector vector){
         this(vector.X, vector.Y);
     }

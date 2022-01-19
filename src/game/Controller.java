@@ -101,7 +101,6 @@ public class Controller implements ChessController {
         showPiecesOnBoard();
     }
 
-    //TODO rendre abstraite ?
     /**
      * Questionne l'utilisateur sur la pièce qu'il veut récupérer à la place de
      * son pion promu.

@@ -231,7 +231,7 @@ public class GameBoard {
     }
 
     /**
-     * permet de savoir si une case se trouve sur le plateau. TODO vérifier que ça fonctionne bien.
+     * permet de savoir si une case se trouve sur le plateau.
      * @param position La case à vérifier.
      * @return Vrai si la case est sur le plateau.
      */

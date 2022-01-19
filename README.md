@@ -66,6 +66,25 @@ La vérification de ce mouvement consiste ainsi simplement à vérifier que le v
 
 ## Tests
 
+### Règles générales
+| Test | Résultat |
+|:-|:-:|
+| En appuyant sur "New game", une nouvelle partie commence et tout message est effacé. | ok |
+| Le joueur blanc commence la partie. | ok |
+| Les couleurs des joueurs alternent. | ok |
+| Si le mouvement d'un joueur est refusé, ce même joueur doit à nouveau jouer. | ok |
+| Un pièce ne peut pas se déplacer sur une case si une autre pièce de la même couleur s'y trouve déjà. | ok |
+| Si une pièce se déplace sur une case où se trouve une pièce de la couleur opposée, elle la tue et prend sa place. | ok |
+
+### Pion
+| Test | Résultat |
+|:-|:-:|
+| Se déplace uniquement en avant (en haut pour les blancs et en bas pour les noirs) si aucune pièce ne se trouve sur sa destination. | ok |
+| Ne peut se déplacer que d'une case maximale (exception ci-dessous). | ok |
+| Peut se déplacer de deux case dans le cas ou elle ne s'était pas encore séplacer (double forwards) | ok |
+| Ne peut pas tuer une autre pièce avec un mouvement vertical (classique ou double forwards). | ok |
+| Tue uniquement des pièces avec un mouvement diagonale d'une case. | ok |
+
 
 ### Légende
 
@@ -76,11 +95,12 @@ La vérification de ce mouvement consiste ainsi simplement à vérifier que le v
 
 ### Tests généraux
 
+
 |Description|Résultat attendu|Résultat obtenu|
 |:-|:-:|:-:|
-|Le joueur blanc commence la partie|oui|oui|
-|Le tour de jeu alterne entre les blancs et les noirs|oui|oui|
-|Le bouton nouvelle partie fonctionne|oui|oui|
+|Le joueur blanc commence la partie|oui|ok|
+|Le tour de jeu alterne entre les blancs et les noirs|oui|ok|
+|Le bouton nouvelle partie fonctionne|oui|ok|
 |Le message "Check!" s'affiche lorsque le roi est en échec|oui|oui|
 |Le message "Check!" disparaît en cas de mouvement invalide|non|non|
 |Le message "Check!" s'affiche lors d'une promotion si la nouvelle pièce met le roi en échec|oui|oui|

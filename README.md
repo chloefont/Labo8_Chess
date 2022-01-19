@@ -140,26 +140,15 @@ Note : Pour cette pièce, le terme "mouvement" désigne un déplacement sur une 
 
 ### Roi
 
-Note : Pour cette pièce, le terme "mouvement" désigne un déplacement sur une case adjacente dans n'importe quelle direction, sauf exceptions mentionnées.
-
-|Description|Résultat attendu|Résultat obtenu|
-|:-|:-:|:-:|
-|Mouvement vers une case libre|✔️|✔️|
-|Mouvement vers une case occupée par un allié|❌|❌|
-|Mouvement vers une case occupée par un adversaire|✔️|✔️|
-|Mouvement de plusieurs cases (qui n'est pas un roque) dans n'importe quelle direction|❌|❌|
-|Roque dans les règles (petit et grand) ¹|✔️|✔️|
-|Roque avec une ou plusieurs pièces entre le roi et la tour²|❌|❌|
-|Roque avec le roi en échec²|❌|❌|
-|Roque avec une case attaquée sur le chemin²|❌|❌|
-|Roque à un déplacement du roi autre que le premier²|❌|❌|
-|Roque à un déplacement de la tour autre que le premier²|❌|❌|
-|Roque avec la tour attaquée|✔️|✔️|
-|Grand roque avec la case adjacente à la tour en échec|✔️|✔️|
-
-¹Premier mouvement du roi et de la tour associée, case de destination correcte, le roi n'est pas en échec, aucune case entre le roi et la tour n'est occupée, aucune case sur le chemin du roi (destination incluse) n'est attaquée.
-
-²Toutes les règles du roque sont supposées respectées sauf celle explicitement mentionnée.
+|Description|Résultat|
+|:-|:-:|
+|Ne peut se déplacer que d'une seule case autour de lui|ok|
+|Ne peut pas se déplacer vers une case occupée par un allié|ok|
+|Peut tuer un adversaire se trouvant à une case autour de lui|ok|
+|Peut effectuer un roque dans les règles|ok|
+|Ne peut effectuer un roque en se mettant en échec|ok|
+|Ne peut effectuer un roque avec une case attaquée sur le chemin|ok|
+|Peut effectuer un roque uniquement si c'est premier mouvement du roi et de la tour en question|ok|
 
 
 ### Reine

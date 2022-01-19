@@ -77,6 +77,10 @@ La vérification de ce mouvement consiste ainsi simplement à vérifier que le v
 | Si le mouvement d'un joueur est refusé, ce même joueur doit à nouveau jouer. | ok |
 | Un pièce ne peut pas se déplacer sur une case si une autre pièce de la même couleur s'y trouve déjà. | ok |
 | Si une pièce se déplace sur une case où se trouve une pièce de la couleur opposée, elle la tue et prend sa place. | ok |
+| Il n'est pas possible de mettre son roi en danger. | ok |
+| Un message "Vous mettez votre roi en danger" est affiché si vous exposez votre roi. | ok |
+| Un message "Echec et mat" est affiché si le roi est en danger sur sa case ainsi que toutes ses cases adjacentes. | ok |
+| Le message "Echec et mat" n'est pas affiché le roi ou une de ses pièces alliées peut éliminer la menace. | pas ok |
 
 ### Pion
 | Test | Résultat |
@@ -96,7 +100,7 @@ La vérification de ce mouvement consiste ainsi simplement à vérifier que le v
 ### Tour
 | Test | Résultat |
 |:-|:-:|
-| Se déplace par mouvements horizontaux. | ok |
+| Se déplace par mouvements horizontaux et verticaux. | ok |
 | N'a pas de limite de déplacement maximal. | ok |
 | Ne peut pas pas faire un déplacement si une pièce se trouve entre elle et sa destination. | ok |
 
@@ -113,118 +117,8 @@ La vérification de ce mouvement consiste ainsi simplement à vérifier que le v
 | Se déplace en L. | ok |
 | Ne tient pas compte des pièces entre sa position et sa destination. | ok |
 
-### Légende
-
-✔️ : Mouvement possible
-
-❌ : Mouvement impossible
-
-
-### Tests généraux
-
-
-|Description|Résultat attendu|Résultat obtenu|
-|:-|:-:|:-:|
-|Le joueur blanc commence la partie|oui|ok|
-|Le tour de jeu alterne entre les blancs et les noirs|oui|ok|
-|Le bouton nouvelle partie fonctionne|oui|ok|
-|Le message "Check!" s'affiche lorsque le roi est en échec|oui|oui|
-|Le message "Check!" disparaît en cas de mouvement invalide|non|non|
-|Le message "Check!" s'affiche lors d'une promotion si la nouvelle pièce met le roi en échec|oui|oui|
-|Il est possible de découvrir son roi en bougeant une pièce|non|non|
-|Il est possible de bouger une pièce qui couvre son roi lorsque celui-ci est en échec|oui|oui|
-|Il est possible prendre une pièce qui met son roi en échec, si cela résout la menace et n'en crée pas de nouvelle|oui|oui|
-|Il est possible de bouger une pièce lorsque son roi est en échec sans pour autant résoudre la menace|non|non|
-|Il est possible de ne pas promouvoir une pièce|non|non|
-
-
-### Pion
-
-Note : Pour cette pièce, le terme "mouvement" désigne un déplacement sur une case adjacente, sauf exceptions mentionnées.
-
-|Description|Résultat attendu|Résultat obtenu|
-|:-|:-:|:-:|
-|Mouvement en avant sur une case libre|✔️|✔️|
-|Mouvement en avant sur une case occupée|❌|❌|
-|Mouvement en arrrière (diagonales comprises)/à gauche/à droite sur une case vide ou occupée|❌|❌|
-|Mouvement de deux cases vers l'avant lors du premier déplacement si les deux cases frontales sont vides|✔️|✔️|
-|Mouvement de deux cases vers l'avant lors du premier déplacement si au moins une des deux cases frontales est occupée|❌|❌|
-|Mouvement de deux cases vers l'avant lors d'un déplacement ultérieur au premier si les deux cases frontales sont vides|❌|❌|
-|Mouvement de plusieurs cases autre que les cas précédents dans n'importe quelle direction|❌|❌|
-|Mouvement en diagonal-avant vers une case vide sans prise en passant|❌|❌|
-|Mouvement en diagonal-avant vers une case occupée par un allié|❌|❌|
-|Mouvement en diagonal-avant vers une case occupée par un adversaire|✔️|✔️|
-|Prise en passant sur un pion ayant effectué un double mouvement au tour précédent|✔️|✔️|
-|Prise en passsant sur un pion ayant effectué un mouvement simple au tour précédent|✔️|✔️|
-|Prise en passant sur un pion n'ayant pas encore effectué de déplacement|❌|❌|
-|Prise en passant sur un pion ayant effectué un double déplacement il y a deux tours au moins|❌|❌|
-|Prise en passant sur n'importe quelle autre pièce qu'un pion ayant effectuée au tour précédent un déplacement de deux cases dans la direction inverse de celle d'avancée du pion|❌|❌|
-|La promotion est possible par un mouvement vers l'avant¹|✔️|✔️|
-|La promotion est possible par une prise diagonale¹|✔️|✔️|
-
-¹La promotion n'est techniquement possible que pour ces deux déplacements, la prise en passant et le double mouvement n'étant pas supposé amener la pièce dans une zone de promotion, ils ne l'implémentent tout simplement pas.
-
-
-### Roi
-
-|Description|Résultat|
+## Reine
+| Test | Résultat |
 |:-|:-:|
-|Ne peut se déplacer que d'une seule case autour de lui|ok|
-|Ne peut pas se déplacer vers une case occupée par un allié|ok|
-|Peut tuer un adversaire se trouvant à une case autour de lui|ok|
-|Peut effectuer un roque dans les règles|ok|
-|Ne peut effectuer un roque en se mettant en échec|ok|
-|Ne peut effectuer un roque avec une case attaquée sur le chemin|ok|
-|Peut effectuer un roque uniquement si c'est premier mouvement du roi et de la tour en question|ok|
-
-
-### Reine
-
-Note : Pour cette pièce, le terme "mouvement" désigne un déplacement rectiligne d'une ou plusieurs cases dans n'importe quelle direction, sauf exceptions mentionnées.
-
-|Description|Résultat attendu|Résultat obtenu|
-|:-|:-:|:-:|
-|Mouvement vers une case libre sans pièce sur le chemin|✔️|✔️|
-|Mouvement vers une case libre ou occupée avec une ou plusieurs pièces sur le chemin|❌|❌|
-|Mouvement vers une case occupée par un allié sans pièce sur le chemin|❌|❌|
-|Mouvement vers une case occupée par un adversaire sans pièce sur le chemin|✔️|✔️|
-|Mouvement non rectiligne|❌|❌|
-
-
-### Fou
-
-Note : Pour cette pièce, le terme "mouvement" désigne un déplacement rectiligne d'une ou plusieurs cases en diagonal, sauf exceptions mentionnées.
-
-|Description|Résultat attendu|Résultat obtenu|
-|:-|:-:|:-:|
-|Mouvement vers une case libre sans pièce sur le chemin|✔️|✔️|
-|Mouvement vers une case libre ou occupée avec une ou plusieurs pièces sur le chemin|❌|❌|
-|Mouvement vers une case occupée par un allié sans pièce sur le chemin|❌|❌|
-|Mouvement vers une case occupée par un adversaire sans pièce sur le chemin|✔️|✔️|
-|Mouvement non rectiligne|❌|❌|
-|Mouvement suivant les axes|❌|❌|
-
-
-### Tour
-
-Note : Pour cette pièce, le terme "mouvement" désigne un déplacement rectiligne suivant les axes d'une ou plusieurs cases, sauf exceptions mentionnées.
-
-|Description|Résultat attendu|Résultat obtenu|
-|:-|:-:|:-:|
-|Mouvement vers une case libre sans pièce sur le chemin|✔️|✔️|
-|Mouvement vers une case libre ou occupée avec une ou plusieurs pièces sur le chemin|❌|❌|
-|Mouvement vers une case occupée par un allié sans pièce sur le chemin|❌|❌|
-|Mouvement vers une case occupée par un adversaire sans pièce sur le chemin|✔️|✔️|
-|Mouvement non rectiligne|❌|❌|
-|Mouvement en diagonal|❌|❌|
-
-### Cavalier
-
-Note : Pour cette pièce, le terme "mouvement" désigne un "saut en L", sauf exceptions mentionnées.
-
-|Description|Résultat attendu|Résultat obtenu|
-|:-|:-:|:-:|
-|Mouvement vers une case libre avec ou sans sans pièce sur le chemin|✔️|✔️|
-|Mouvement vers une case occupée par un allié avec ou sans pièce sur le chemin|❌|❌|
-|Mouvement vers une case occupée par un adversaire avec ou sans pièce sur le chemin|✔️|✔️|
-|Mouvement non conventionnel|❌|❌|
+| Se déplace par mouvements horizontaux et verticaux. | ok |
+| Se déplace par mouvements diagonaux. | ok |

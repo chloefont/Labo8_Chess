@@ -19,6 +19,8 @@ Nous avons également ajouté un contrôle sur :
 - L'échec et mat
 - L'égalité (pat)
 
+Ces deux fonctionnalité ne sont malheuresement pas totalement fonctionnelles.
+
 ## Diagramme de classes
 
 
@@ -84,7 +86,32 @@ La vérification de ce mouvement consiste ainsi simplement à vérifier que le v
 | Peut se déplacer de deux case dans le cas ou elle ne s'était pas encore séplacer (double forwards) | ok |
 | Ne peut pas tuer une autre pièce avec un mouvement vertical (classique ou double forwards). | ok |
 | Tue uniquement des pièces avec un mouvement diagonale d'une case. | ok |
+| Une fois le pion arrivé au bout du plateau, une fenêtre est présentée à l'utilisateur pour qu'il choisisse une pièce pour remplacer son pion promu parmi les pièces : tour,, reine, fou et cavalier. | ok|
+| Le joueur ne peut pas décider de ne pas appliquer la promotion à un pion. | ok |
+| Un pion peut accéder à la promotion par un movement vertical ou diagonal. | ok |
+| La prise en passant ne peut s'appliquer que sur des pions ayant effectué un double forwards au tour précédent. | ok |
+| Un pion ne pas utiliser la prise en passant pour tuer une autre pièce qu'un pion. | ok |
+| Un pion ne pas utiliser la prise en passant pour tuer un pion qui n'a pas joué au tour précédent. | ok |
 
+### Tour
+| Test | Résultat |
+|:-|:-:|
+| Se déplace par mouvements horizontaux. | ok |
+| N'a pas de limite de déplacement maximal. | ok |
+| Ne peut pas pas faire un déplacement si une pièce se trouve entre elle et sa destination. | ok |
+
+### Fou
+| Test | Résultat |
+|:-|:-:|
+| Se déplace par mouvements diagonaux. | ok |
+| N'a pas de limite de déplacement maximal. | ok |
+| Ne peut pas pas faire un déplacement si une pièce se trouve entre elle et sa destination. | ok |
+
+### Cavalier
+| Test | Résultat |
+|:-|:-:|
+| Se déplace en L. | ok |
+| Ne tient pas compte des pièces entre sa position et sa destination. | ok |
 
 ### Légende
 

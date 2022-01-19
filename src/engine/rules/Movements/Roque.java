@@ -4,7 +4,6 @@ import chess.PieceType;
 import engine.pieces.King;
 import engine.pieces.Piece;
 import engine.pieces.Rook;
-import engine.rules.Movements.Movement;
 import game.GameBoard;
 import game.Vector;
 
@@ -57,7 +56,7 @@ public abstract class Roque extends Movement {
         getPiece().setPosition(initPos);
 
         // La règle est donc applicable.
-        applyRule = getCanBeApplyed();
+        applyRule = getCanBeApplied();
         this.rook = (Rook)rook;
 
         return true;
@@ -68,13 +67,13 @@ public abstract class Roque extends Movement {
      */
     @Override
     public void apply() {
-        if(!getCanBeApplyed() || !applyRule) return;
+        if(!getCanBeApplied() || !applyRule) return;
 
         Vector newRookPosition = DEFAULT_KING_POSITION.add(DIRECTION);
         this.rook.move(newRookPosition);
 
         done = true;
-        setCanBeApplyed(false);
+        setCanBeApplied(false);
         this.rook = null;
     }
 

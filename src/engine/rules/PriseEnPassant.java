@@ -1,5 +1,6 @@
 package engine.rules;
 
+import chess.PieceType;
 import chess.PlayerColor;
 import engine.pieces.Piece;
 import engine.rules.Movements.MoveLinear;
@@ -29,7 +30,7 @@ public class PriseEnPassant extends Rule {
             Movement movement = new MoveLinear(new Vector(side, deltaY), true, false, getBoard(), getPiece());
             Piece other = getBoard().getPieceAt(to.add(new Vector(0, -deltaY)));
 
-            if (movement.check(to) && other != null && other.getColor() != getPiece().getColor()
+            if (movement.check(to) && other != null && other.getType() == PieceType.PAWN && other.getColor() != getPiece().getColor()
                     && getBoard().getLastPieceMoved() == other
                     && new Vector(0, 2 * deltaY * -1).equals(other.getPosition().sub(other.getLastPosition()))) {
 

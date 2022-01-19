@@ -7,7 +7,7 @@ import game.Vector;
 public abstract class Rule {
     private final GameBoard BOARD;
     private final Piece PIECE;
-    private boolean canBeApplyed = true;
+    private boolean canBeApplied = true;
 
 
     protected Rule(GameBoard board, Piece piece) {
@@ -45,11 +45,11 @@ public abstract class Rule {
         return PIECE;
     }
 
-    public boolean getCanBeApplyed(){
-        return canBeApplyed;
+    public boolean getCanBeApplied(){
+        return canBeApplied;
     }
 
-    public void setCanBeApplyed(boolean canBeApplyed){
-        this.canBeApplyed = canBeApplyed;
+    public void setCanBeApplied(boolean canBeApplied){
+        this.canBeApplied = canBeApplied;
     }
 }

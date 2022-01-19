@@ -103,6 +103,7 @@ La vérification de ce mouvement consiste ainsi simplement à vérifier que le v
 | Se déplace par mouvements horizontaux et verticaux. | ok |
 | N'a pas de limite de déplacement maximal. | ok |
 | Ne peut pas pas faire un déplacement si une pièce se trouve entre elle et sa destination. | ok |
+| Peut tuer un adversaire sur une case accessible par un de ses déplacements. |ok|
 
 ### Fou
 | Test | Résultat |
@@ -110,27 +111,31 @@ La vérification de ce mouvement consiste ainsi simplement à vérifier que le v
 | Se déplace par mouvements diagonaux. | ok |
 | N'a pas de limite de déplacement maximal. | ok |
 | Ne peut pas pas faire un déplacement si une pièce se trouve entre elle et sa destination. | ok |
+| Peut tuer un adversaire sur une case accessible par un de ses déplacements. | ok |
 
 ### Cavalier
 | Test | Résultat |
 |:-|:-:|
 | Se déplace en L. | ok |
 | Ne tient pas compte des pièces entre sa position et sa destination. | ok |
+| Peut tuer un adversaire sur une case accessible par un de ses déplacements. | ok |
 
 ### Reine
 | Test | Résultat |
 |:-|:-:|
 | Se déplace par mouvements horizontaux et verticaux. | ok |
 | Se déplace par mouvements diagonaux. | ok |
+| Ne peut pas pas faire un déplacement si une pièce se trouve entre elle et sa destination. | ok |
+| Peut tuer un adversaire sur une case accessible par un de ses déplacements. | ok |
 
 ### Roi
 
 |Description|Résultat|
 |:-|:-:|
-|Ne peut se déplacer que d'une seule case autour de lui|ok|
-|Ne peut pas se déplacer vers une case occupée par un allié|ok|
-|Peut tuer un adversaire se trouvant à une case autour de lui|ok|
-|Peut effectuer un roque dans les règles|ok|
-|Ne peut effectuer un roque en se mettant en échec|ok|
-|Ne peut effectuer un roque avec une case attaquée sur le chemin|ok|
-|Peut effectuer un roque uniquement si c'est premier mouvement du roi et de la tour en question|ok|
+| Ne peut se déplacer que d'une seule case autour de lui. | ok |
+| Ne peut pas se déplacer vers une case occupée par un allié. | ok |
+| Peut tuer un adversaire se trouvant à une case autour de lui. | ok |
+| Peut effectuer un roque dans les règles. | ok |
+| Ne peut effectuer un roque en se mettant en échec. | ok |
+| Ne peut effectuer un roque avec une case attaquée sur le chemin. |ok |
+| Peut effectuer un roque uniquement si c'est premier mouvement du roi et de la tour en question. | ok |

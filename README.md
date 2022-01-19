@@ -31,18 +31,18 @@ Dans ce chapitre, nous allons nous contenter de donner uniquement des informatio
 
 ### Controller
 
-La classe Controller implémente l'interface ChessController et a pour responsabilité tout affichage sur les vues. A la fin de chaque mouvement, toutes le pièces sont effacées de l'interface puis réaffichées en tenant compte de leur nouvelle position. Il aurait été possible de n'effacer et réafficher uniquement les pièces ayant bougé durant le tour. Cependant, plusieurs pièces peuvent être impliquées en fonction de la règle appliquée et nous avons donc jugé la première solution plus claire et plus sûre.
+La classe Controller implémente l'interface ChessController et a pour responsabilité tout affichage sur les vues. A la fin de chaque mouvement, toutes les pièces sont effacées de l'interface puis réaffichées en tenant compte de leur nouvelle position. Il aurait été possible de n'effacer et réafficher uniquement les pièces ayant bougé durant le tour. Cependant, plusieurs pièces peuvent être impliquées en fonction de la règle appliquée et nous avons donc jugé la première solution plus claire et plus sûre.
 
-Cette classe s'occupe également de la gestion globale du jeu. Cela implique notamment les tours de jeu et l'appel aux différentes vérifications permettant de vérifier l'applicabilité du déplacement. Lors de l'appel à la méthode "move", les différentes vérification vont être effectuées dans cet ordre :
+Cette classe s'occupe également de la gestion globale du jeu. Cela implique notamment les tours de jeu et l'appel aux différentes vérifications permettant de vérifier l'applicabilité du déplacement. Lors de l'appel à la méthode "move", les différentes vérifications vont être effectuées dans cet ordre :
 
 1. Echec et mat ou égalité
 2. La pièce sélectionnée est de la bonne couleur.
-3. Vérification général du mouvement (mouvement légal pour la pièce en question).
+3. Vérification générale du mouvement (mouvement légal pour la pièce en question).
 4. Echec (si c'est le cas, on annule le déplacement) 
 
 ### Gameboard
 
-La classe Gameboard représente le plateau de jeu. Cette classe propose toutes les méthodes concernant l'état du plateau de jeu, telles que l'initialisation des pièces et les vérification d'échec, échec et mat ou égalité (pat).
+La classe Gameboard représente le plateau de jeu. Cette classe propose toutes les méthodes concernant l'état du plateau de jeu, telles que l'initialisation des pièces et les vérifications d'échec, échec et mat ou égalité (pat).
 
 ### Vector
 
@@ -54,7 +54,7 @@ Nous avons créé une classe par catégorie de pièce. Chaque classe hérite de 
 
 ### Rule
 
-La classe abstraite Rule oblige toutes ses sous-classe à implémenter la méthode `check`. Cette méthode a pour objectif de tester si la règle en question est applicable pour le déplacement souhaité.
+La classe abstraite Rule oblige toutes ses sous-classes à implémenter la méthode `check`. Cette méthode a pour objectif de tester si la règle en question est applicable pour le déplacement souhaité.
 
 Chaque règle est ensuite représentée par une classe à part entière.
 
@@ -73,7 +73,7 @@ La vérification de ce mouvement consiste ainsi simplement à vérifier que le v
 |:-|:-:|
 | En appuyant sur "New game", une nouvelle partie commence et tout message est effacé. | ok |
 | Le joueur blanc commence la partie. | ok |
-| Les couleurs des joueurs alternent. | ok |
+| Le tour des joueurs alternent. | ok |
 | Si le mouvement d'un joueur est refusé, ce même joueur doit à nouveau jouer. | ok |
 | Un pièce ne peut pas se déplacer sur une case si une autre pièce de la même couleur s'y trouve déjà. | ok |
 | Si une pièce se déplace sur une case où se trouve une pièce de la couleur opposée, elle la tue et prend sa place. | ok |

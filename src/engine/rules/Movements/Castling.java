@@ -15,7 +15,7 @@ public abstract class Castling extends Movement {
     private final Vector DIRECTION;
     private final Vector ROOK_POSITION;
 
-    Castling(GameBoard board, Piece piece, Vector direction, Vector rookPosition) {
+    protected Castling(GameBoard board, Piece piece, Vector direction, Vector rookPosition) {
         super(board, piece);
         assert direction != null && rookPosition != null;
 

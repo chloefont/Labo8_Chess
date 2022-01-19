@@ -16,28 +16,31 @@ public class Vector {
         this.Y = y;
     }
 
-    public Vector(Vector vector){
+    public Vector(Vector vector) {
         this(vector.X, vector.Y);
     }
 
     /**
      * Permet de vérifier si deux vecteurs sont égaux.
+     *
      * @param other L'autre Vecteur.
      * @return Vrai s'ils sont égaux.
      */
     @Override
     public boolean equals(Object other) {
         return other == this || (other != null &&
-                getClass() == other.getClass() && ((Vector)other).getX() == X && ((Vector)other).getY() == Y);
+                getClass() == other.getClass() && ((Vector) other).getX() == X
+                && ((Vector) other).getY() == Y);
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(X, Y);
     }
 
     /**
      * Permet de soustraire un vecteur à un autre.
+     *
      * @param other L'autre Vecteur.
      * @return Un nouveau vecteur.
      */
@@ -48,6 +51,7 @@ public class Vector {
 
     /**
      * Permet d'additionner un vecteur à un autre.
+     *
      * @param other L'autre Vecteur.
      * @return Un nouveau vecteur.
      */
@@ -58,15 +62,17 @@ public class Vector {
 
     /**
      * Permet de multiplier un vecteur par un scalaire.
+     *
      * @param number un scalaire.
      * @return Un nouveau vecteur.
      */
-    public Vector mult(int number){
+    public Vector mult(int number) {
         return new Vector(X * number, Y * number);
     }
 
     /**
      * Permet de savoir si un vecteur est colinéaire à celui-ci.
+     *
      * @param other L'autre vecteur
      * @return Vrai si colinéaire.
      */
@@ -76,6 +82,7 @@ public class Vector {
 
     /**
      * Permet de savoir si 2 vecteurs vont dans la même direction.
+     *
      * @param other L'autre vecteur.
      * @return Vrai si même direction.
      */
@@ -86,6 +93,7 @@ public class Vector {
 
     /**
      * Permet de récupérer la taille d'un vecteur.
+     *
      * @return La taille.
      */
     public double norm() {

@@ -29,7 +29,8 @@ public class EatDiag extends Rule {
 
         int[] sides = {-1, 1};
         for (int side : sides) {
-            Movement movement = new MoveLinear(new Vector(side, deltaY), true, true, getBoard(), getPiece());
+            Movement movement = new MoveLinear(new Vector(side, deltaY),
+                    true, true, getBoard(), getPiece());
             if (movement.check(to) && getBoard().getPieceAt(to) != null) {
                 return true;
             }

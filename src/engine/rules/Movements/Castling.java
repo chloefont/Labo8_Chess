@@ -7,7 +7,7 @@ import engine.pieces.Rook;
 import game.GameBoard;
 import game.Vector;
 
-public abstract class Roque extends Movement {
+public abstract class Castling extends Movement {
     private boolean done = false; // Si ce mouvement à déjà été fait
     private boolean applyRule = false;
     private Rook rook;
@@ -15,7 +15,7 @@ public abstract class Roque extends Movement {
     private final Vector DIRECTION;
     private final Vector ROOK_POSITION;
 
-    Roque(GameBoard board, Piece piece, Vector direction, Vector rookPosition){
+    Castling(GameBoard board, Piece piece, Vector direction, Vector rookPosition) {
         super(board, piece);
         assert direction != null && rookPosition != null;
 
@@ -26,38 +26,37 @@ public abstract class Roque extends Movement {
 
     @Override
     public boolean check(Vector to) {
-        if(done) return false;
-        if(!to.equals(DEFAULT_KING_POSITION.add(DIRECTION.mult(2)))) return false;
+        if (done) return false;
+        if (!to.equals(DEFAULT_KING_POSITION.add(DIRECTION.mult(2))))
+            return false;
 
         // Si le roi et la tour n'as pas bougé
         King king = (King) getPiece();
         Piece rook = getBoard().getPieceAt(ROOK_POSITION);
-        if(king.hasMoved()) return false;
-        if(rook == null || rook.getType() != PieceType.ROOK) return false;
-        if(((Rook)rook).hasMoved()) return false;
+        if (king.hasMoved()) return false;
+        if (rook == null || rook.getType() != PieceType.ROOK) return false;
+        if (((Rook) rook).hasMoved()) return false;
 
         // Si aucune pièce se trouve entre le roi et la tour
-        if(!checkNoPieceBetween(ROOK_POSITION)) return false;
+        if (!checkNoPieceBetween(ROOK_POSITION)) return false;
 
-        //si le roi ne peut pas être mis en echec sur le chemin
+        //si le roi ne peut pas être mis en échec sur le chemin
         Vector initPos = getPiece().getPosition();
         Vector initLastPos = getPiece().getLastPosition();
 
-
         getPiece().move(getPiece().getPosition().add(DIRECTION));
-        if(getBoard().isCheck(getPiece().getColor())){
+        if (getBoard().isCheck(getPiece().getColor())) {
             getPiece().setLastPosition(initLastPos);
             getPiece().setPosition(initPos);
             return false;
         }
 
-
         getPiece().setLastPosition(initLastPos);
         getPiece().setPosition(initPos);
 
-        // La règle est donc applicable.
+        // La règle est donc appliquable.
         applyRule = getCanBeApplied();
-        this.rook = (Rook)rook;
+        this.rook = (Rook) rook;
 
         return true;
     }
@@ -67,7 +66,7 @@ public abstract class Roque extends Movement {
      */
     @Override
     public void apply() {
-        if(!getCanBeApplied() || !applyRule) return;
+        if (!getCanBeApplied() || !applyRule) return;
 
         Vector newRookPosition = DEFAULT_KING_POSITION.add(DIRECTION);
         this.rook.move(newRookPosition);
@@ -79,6 +78,9 @@ public abstract class Roque extends Movement {
 
     @Override
     public boolean canMove() {
-        return check(getPiece().getPosition().add(DIRECTION));
+        boolean applied = applyRule;
+        boolean check = check(getPiece().getPosition().add(DIRECTION));
+        applyRule = applied;
+        return check;
     }
 }

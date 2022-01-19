@@ -4,7 +4,7 @@ import chess.PieceType;
 import chess.PlayerColor;
 import engine.rules.DoubleForward;
 import engine.rules.Movements.MoveLinearWithPromotion;
-import engine.rules.PriseEnPassant;
+import engine.rules.EnPassant;
 import engine.rules.EatDiag;
 import engine.rules.Rule;
 import game.GameBoard;
@@ -27,7 +27,7 @@ public class Pawn extends Piece implements LimitedMovement {
                 new MoveLinearWithPromotion(new Vector(0, dir), true, false, board, this),
                 new EatDiag(board, this),
                 new DoubleForward(board, this),
-                new PriseEnPassant(board, this)
+                new EnPassant(board, this)
         };
 
         setRules(rules);

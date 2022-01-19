@@ -41,12 +41,12 @@ public class Controller implements ChessController {
             }
         }
 
-        if (piece == null){
+        if (piece == null) {
             view.displayMessage("Aucune pièce choisi !");
             return false;
         }
 
-        if (piece.getColor() != tourJoueur){
+        if (piece.getColor() != tourJoueur) {
             view.displayMessage("Ce n'est pas votre tour !");
             return false;
         }
@@ -104,6 +104,7 @@ public class Controller implements ChessController {
     /**
      * Questionne l'utilisateur sur la pièce qu'il veut récupérer à la place de
      * son pion promu.
+     *
      * @param promotionPieces la liste de pièce que t'utilisateur peut choisir
      * @return la pièce choisie par l'utilisateur
      */
@@ -115,9 +116,9 @@ public class Controller implements ChessController {
     /**
      * Affiche les pièces du GameBoard sur l'interface.
      */
-    protected void showPiecesOnBoard(){
-        for (Piece p: gameBoard.getPieces()) {
-            if(p == null) continue;
+    protected void showPiecesOnBoard() {
+        for (Piece p : gameBoard.getPieces()) {
+            if (p == null) continue;
             view.putPiece(p.getType(), p.getColor(), p.getPosition().getX(),
                     p.getPosition().getY());
         }
@@ -126,10 +127,10 @@ public class Controller implements ChessController {
     /**
      * Retire toutes les pièces de l'interface
      */
-    protected void removeAllPiecesFromBoard(){
-        for(int i = 0; i < gameBoard.getWidth(); i++){
-            for(int j = 0; j < gameBoard.getWidth(); j++){
-                view.removePiece(i,j);
+    protected void removeAllPiecesFromBoard() {
+        for (int i = 0; i < gameBoard.getWidth(); i++) {
+            for (int j = 0; j < gameBoard.getWidth(); j++) {
+                view.removePiece(i, j);
             }
         }
     }

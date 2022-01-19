@@ -28,7 +28,8 @@ public class DoubleForward extends Rule {
             posY = getBoard().getWidth() - 2;
         }
 
-        Movement movement = new MoveLinear(new Vector(0, deltaY), true, false, getBoard(), getPiece());
+        Movement movement = new MoveLinear(new Vector(0, deltaY),
+                true, false, getBoard(), getPiece());
 
         return movement.check(to) && getPiece().getPosition().getY() == posY;
     }

@@ -3,8 +3,8 @@ package engine.pieces;
 import chess.PieceType;
 import chess.PlayerColor;
 import engine.rules.Movements.MoveLinear;
-import engine.rules.Movements.GrandRoque;
-import engine.rules.Movements.PetitRoque;
+import engine.rules.Movements.LongCastling;
+import engine.rules.Movements.ShortCastling;
 import engine.rules.Rule;
 import game.GameBoard;
 import game.Vector;
@@ -17,18 +17,18 @@ public class King extends Piece implements LimitedMovement, HasMoved {
         super(board, color, position);
 
         Rule[] rules = {
-                new MoveLinear(new Vector(1,0), board, this),
-                new MoveLinear(new Vector(0,1), board, this),
-                new MoveLinear(new Vector(1,1), board, this),
-                new MoveLinear(new Vector(1,-1), board, this),
-                new PetitRoque(board, this),
-                new GrandRoque(board, this)
+                new MoveLinear(new Vector(1, 0), board, this),
+                new MoveLinear(new Vector(0, 1), board, this),
+                new MoveLinear(new Vector(1, 1), board, this),
+                new MoveLinear(new Vector(1, -1), board, this),
+                new ShortCastling(board, this),
+                new LongCastling(board, this)
         };
         setRules(rules);
     }
 
     @Override
-    public void move(Vector to){
+    public void move(Vector to) {
         super.move(to);
         hasMoved = true;
     }

@@ -14,8 +14,10 @@ public class MoveL extends Movement {
     public boolean check(Vector to) {
         Vector diff = getPiece().getPosition().sub(to);
 
-        return ((diff.getX() == 2 || diff.getX() == -2) && (diff.getY() == 1 || diff.getY() == -1))
-                || ((diff.getY() == 2 || diff.getY() == -2) && (diff.getX() == 1 || diff.getX() == -1));
+        return ((diff.getX() == 2 || diff.getX() == -2)
+                && (diff.getY() == 1 || diff.getY() == -1))
+                || ((diff.getY() == 2 || diff.getY() == -2)
+                && (diff.getX() == 1 || diff.getX() == -1));
     }
 
     @Override

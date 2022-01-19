@@ -4,9 +4,9 @@ import engine.pieces.Piece;
 import game.GameBoard;
 import game.Vector;
 
-public class PetitRoque extends Roque {
+public class ShortCastling extends Castling {
 
-    public PetitRoque(GameBoard board, Piece piece){
+    public ShortCastling(GameBoard board, Piece piece){
         super(  board,
                 piece,
                 Vector.LEFT,

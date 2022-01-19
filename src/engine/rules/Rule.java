@@ -18,6 +18,7 @@ public abstract class Rule {
 
     /**
      * Permet de vérifier si cette règle est applicable.
+     *
      * @param to Position finale
      * @return Vrai si accepté
      */
@@ -26,10 +27,13 @@ public abstract class Rule {
     /**
      * Permet d'appliquer la règle. Ne fait rien par défaut.
      */
-    public void apply(){/*does nothing by default*/};
+    public void apply() {/*does nothing by default*/}
+
+    ;
 
     /**
      * Informe sur la capacité d'une pièce de se déplacer en employant cette règle
+     *
      * @return Vrai si peut se déplacer
      */
     public boolean canMove() {
@@ -45,11 +49,11 @@ public abstract class Rule {
         return PIECE;
     }
 
-    public boolean getCanBeApplied(){
+    public boolean getCanBeApplied() {
         return canBeApplied;
     }
 
-    public void setCanBeApplied(boolean canBeApplied){
+    public void setCanBeApplied(boolean canBeApplied) {
         this.canBeApplied = canBeApplied;
     }
 }

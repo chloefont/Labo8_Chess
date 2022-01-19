@@ -11,8 +11,9 @@ import java.util.List;
 public class GameBoard {
     private final int WIDTH = 8;
     private final Piece[] PIECES = new Piece[WIDTH * 4];
-    Piece lastPieceMoved;
+    private Piece lastPieceMoved;
     private final PromotionQuestion PROMOTION_QUESTION;
+
     public enum GameState {
         NONE,
         CHECKMATE,
@@ -69,6 +70,7 @@ public class GameBoard {
 
     /**
      * Retourne la pièce se trouver à une position du plateau de jeu
+     *
      * @param vector position
      * @return la pièce ou null s'il n'y a pas de pièce à cette position
      */
@@ -85,16 +87,17 @@ public class GameBoard {
     /**
      * Retourne un tableau contenant toutes les pièces en jeu de la couleur
      * souhaitée.
+     *
      * @param color couleur des pièces à retourner
      * @return tableau de pièces
      */
-    public Piece[] getPiecesWithColor(PlayerColor color){
+    public Piece[] getPiecesWithColor(PlayerColor color) {
         assert color != null;
 
         List<Piece> piecesSameColor = new ArrayList<>();
 
         for (Piece piece : PIECES) {
-            if(piece != null && piece.getColor() == color){
+            if (piece != null && piece.getColor() == color) {
                 piecesSameColor.add(piece);
             }
         }
@@ -104,14 +107,16 @@ public class GameBoard {
 
     /**
      * Récupère le roi de la couleur précisée.
+     *
      * @param color La couleur souhaitée.
-     * @return  Référence sur le roi.
+     * @return Référence sur le roi.
      */
-    public Piece getKing(PlayerColor color){
+    public Piece getKing(PlayerColor color) {
         assert color != null;
 
         for (Piece piece : PIECES) {
-            if(piece != null && piece.getColor() == color && piece.getType() == PieceType.KING){
+            if (piece != null && piece.getColor() == color
+                    && piece.getType() == PieceType.KING) {
                 return piece;
             }
         }
@@ -120,6 +125,7 @@ public class GameBoard {
 
     /**
      * Permet de retirer une pièce du jeu.
+     *
      * @param piece La pièce à tuer.
      */
     public void killPiece(Piece piece) {
@@ -131,6 +137,7 @@ public class GameBoard {
 
     /**
      * Permet de récupérer l'état actuel du jeu concernant une certaine couleur.
+     *
      * @param color la couleur du joueur
      * @return l'état du jeu (échec et mat, pat ou rien)
      */
@@ -148,10 +155,11 @@ public class GameBoard {
 
     /**
      * Permet de savoir si le roi d'une couleur est en échec.
+     *
      * @param color La couleur du roi.
      * @return Vrai si en échec.
      */
-    public boolean isCheck(PlayerColor color){
+    public boolean isCheck(PlayerColor color) {
         assert color != null;
 
         PlayerColor oppositeColor = GameBoard.getOppositeColor(color);
@@ -171,6 +179,7 @@ public class GameBoard {
     /**
      * Permet de savoir si le joueur d'une certaine couleur induit une situation
      * d'égalité (pat).
+     *
      * @param color la couleur du joueur en question
      * @return vrai s'il y pat, faux autrement
      */
@@ -182,15 +191,16 @@ public class GameBoard {
             if (piece != null && piece.getType() != PieceType.KING && piece.canMove())
                 canMove = true;
         }
-        return  !canMove && kingCannotMove(color) && !isCheck(color);
+        return !canMove && kingCannotMove(color) && !isCheck(color);
     }
 
     /**
      * Permet de vérifier s'il y a échec et mat.
+     *
      * @param color La couleur du roi.
      * @return Vrai si échec et mat.
      */
-    private boolean isCheckmate(PlayerColor color){
+    private boolean isCheckmate(PlayerColor color) {
         assert color != null;
 
         return isCheck(color) && kingCannotMove(color);
@@ -199,10 +209,11 @@ public class GameBoard {
     /**
      * Informe sur la possibilité du roi d'une certaine couleur de bouger
      * (également par rapport aux positions qui le mettraient échec).
+     *
      * @param color La couleur du roi
      * @return Vrai s'il ne peut pas bouger.
      */
-    private boolean kingCannotMove(PlayerColor color){
+    private boolean kingCannotMove(PlayerColor color) {
         assert color != null;
 
         Piece king = getKing(color);
@@ -212,15 +223,16 @@ public class GameBoard {
         final Vector startPos = king.getPosition().add(new Vector(-1, 1));
         Vector posToCheck;
 
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 posToCheck = startPos.add(new Vector(j, -i));
 
-                if((i == 1 && j == 1) || !isOnBoard(posToCheck) || getPieceAt(posToCheck) != null){
+                if ((i == 1 && j == 1) || !isOnBoard(posToCheck)
+                        || getPieceAt(posToCheck) != null) {
                     continue;
                 }
                 king.setPosition(posToCheck);
-                if(!isCheck(king.getColor())){
+                if (!isCheck(king.getColor())) {
                     king.setPosition(originalPos);
                     return false;
                 }
@@ -232,6 +244,7 @@ public class GameBoard {
 
     /**
      * permet de savoir si une case se trouve sur le plateau.
+     *
      * @param position La case à vérifier.
      * @return Vrai si la case est sur le plateau.
      */
@@ -244,7 +257,8 @@ public class GameBoard {
 
     /**
      * Applique la promtion
-     * @param pawn Le pion promu
+     *
+     * @param pawn     Le pion promu
      * @param position Position sur laquelle la nouvelle pièce devra être placée
      */
     public void promotion(Piece pawn, Vector position) {
@@ -269,6 +283,7 @@ public class GameBoard {
     /**
      * Permet de remplacer une pièce par une autre (seulement dans le tableau
      * de pièce, les positions ne sont pas modifiées).
+     *
      * @param toChange La pièce à changer.
      * @param newPiece La pièce de remplacement.
      */
@@ -286,10 +301,11 @@ public class GameBoard {
 
     /**
      * Retourne la couleur opposée.
+     *
      * @param color Couleur.
      * @return Couleur opposée.
      */
-    public static PlayerColor getOppositeColor(PlayerColor color){
+    public static PlayerColor getOppositeColor(PlayerColor color) {
         return color == PlayerColor.WHITE ? PlayerColor.BLACK : PlayerColor.WHITE;
     }
 

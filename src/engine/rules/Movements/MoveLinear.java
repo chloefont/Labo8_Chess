@@ -12,28 +12,29 @@ public class MoveLinear extends Movement {
 
     /**
      * Constructeur
+     *
      * @param vector Vecteur directionnel (avec x et y égaux à 0 ou 1)
-     * @param board Plateau de jeu
-     * @param piece Pièce
+     * @param board  Plateau de jeu
+     * @param piece  Pièce
      */
-    public MoveLinear(Vector vector, GameBoard board, Piece piece){
+    public MoveLinear(Vector vector, GameBoard board, Piece piece) {
         super(board, piece);
-        assert  (vector.getX() == 0 || vector.getX() == 1) &&
+        assert (vector.getX() == 0 || vector.getX() == 1) &&
                 (vector.getY() == 0 || vector.getY() == 1);
 
         this.VECTOR = vector;
     }
 
     /**
-     *
-     * @param vector Vecteur directionnel (avec x et y égaux à 0 ou 1)
+     * @param vector              Vecteur directionnel (avec x et y égaux à 0 ou 1)
      * @param shouldBeInDirection Vrai si le déplacement doit respecter le sens
      *                            du vecteur
-     * @param canKill Vrai si la pièce peut tuer en utilisant ce déplacement
-     * @param board Plateau de jeu
-     * @param piece Pièce
+     * @param canKill             Vrai si la pièce peut tuer en utilisant ce déplacement
+     * @param board               Plateau de jeu
+     * @param piece               Pièce
      */
-    public MoveLinear(Vector vector, boolean shouldBeInDirection, boolean canKill, GameBoard board, Piece piece) {
+    public MoveLinear(Vector vector, boolean shouldBeInDirection, boolean canKill,
+                      GameBoard board, Piece piece) {
         this(vector, board, piece);
         this.shouldBeInDirection = shouldBeInDirection;
         this.canKill = canKill;
@@ -42,6 +43,7 @@ public class MoveLinear extends Movement {
     /**
      * Permet de vérifier si le déplacement jusqu'à la case to est accepté dans
      * les 2 sens du vecteur directeur.
+     *
      * @param to Case finale
      * @return Vrai si accepté
      */

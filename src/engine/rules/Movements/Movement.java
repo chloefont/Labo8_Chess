@@ -12,6 +12,7 @@ abstract public class Movement extends Rule {
 
     /**
      * Permet de vérifier qu'aucune pièce se trouve entre la cible et la pièce.
+     *
      * @param to La cible.
      * @return Vrai si aucune pièce.
      */
@@ -29,7 +30,8 @@ abstract public class Movement extends Rule {
                 // Si les 2 chemins sont colinéaires, de même sens et que la distance
                 // séparant les 2 pièces est plus petite que celle séparant la pièce
                 // et la destination souhaitée
-                if (other != getPiece() && !other.getPosition().equals(getPiece().getPosition())
+                if (other != getPiece()
+                        && !other.getPosition().equals(getPiece().getPosition())
                         && (diffTo.colinear(diffOther)
                         && diffTo.sameDirection(diffOther)
                         && diffTo.norm() > diffOther.norm()))
@@ -43,12 +45,14 @@ abstract public class Movement extends Rule {
     /**
      * Permet de vérifier si une certaine pièce se trouve sur la case où l'on
      * souhaite déplacer notre pièce.
-     * @param other Pièce qui pourrait être sur la case en question
+     *
+     * @param other           Pièce qui pourrait être sur la case en question
      * @param desiredPosition Position où l'on souhaite déplacer notre pièce.
-     * @param canKill Capacité de notre pièce à "tuer" une autre pièce
+     * @param canKill         Capacité de notre pièce à "tuer" une autre pièce
      * @return
      */
-    public boolean checkPieceAtSamePlace (Piece other, Vector desiredPosition, boolean canKill) {
+    public boolean checkPieceAtSamePlace(Piece other, Vector desiredPosition,
+                                         boolean canKill) {
         assert getBoard() == null || getPiece() == null;
 
         if (other == null) {
@@ -56,7 +60,8 @@ abstract public class Movement extends Rule {
         }
 
         // Les pions ne peuvent pas manger en utilisant leurs mouvements classiques
-        if (other.getPosition().equals(desiredPosition) && (other.getColor() == getPiece().getColor() || !canKill)) {
+        if (other.getPosition().equals(desiredPosition)
+                && (other.getColor() == getPiece().getColor() || !canKill)) {
             return false;
         }
         return true;

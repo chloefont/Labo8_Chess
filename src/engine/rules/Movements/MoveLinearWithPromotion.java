@@ -8,7 +8,8 @@ import game.Vector;
 
 public class MoveLinearWithPromotion extends MoveLinear {
 
-    public MoveLinearWithPromotion(Vector direction, boolean shouldBeInDirection, boolean canEat, GameBoard board, Piece piece) {
+    public MoveLinearWithPromotion(Vector direction, boolean shouldBeInDirection,
+                                   boolean canEat, GameBoard board, Piece piece) {
         super(direction, shouldBeInDirection, canEat, board, piece);
     }
 

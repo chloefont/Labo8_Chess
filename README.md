@@ -101,6 +101,17 @@ La vérification de ce mouvement consiste ainsi simplement à vérifier que le v
 | Ne peut pas pas faire un déplacement si une pièce se trouve entre elle et sa destination. | ok |
 
 ### Fou
+| Test | Résultat |
+|:-|:-:|
+| Se déplace par mouvements diagonaux. | ok |
+| N'a pas de limite de déplacement maximal. | ok |
+| Ne peut pas pas faire un déplacement si une pièce se trouve entre elle et sa destination. | ok |
+
+### Cavalier
+| Test | Résultat |
+|:-|:-:|
+| Se déplace en L. | ok |
+| Ne tient pas compte des pièces entre sa position et sa destination. | ok |
 
 ### Légende
 
